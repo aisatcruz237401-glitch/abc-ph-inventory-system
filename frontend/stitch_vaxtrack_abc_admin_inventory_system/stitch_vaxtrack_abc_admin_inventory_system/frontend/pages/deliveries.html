@@ -1,0 +1,825 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Deliveries Management - ABC Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet">
+<link href="../../css/dashboard-theme.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-error-container": "#93000a",
+                      "on-primary": "#ffffff",
+                      "on-primary-container": "#bcceff",
+                      "surface-variant": "#d8e3fb",
+                      "outline": "#737784",
+                      "surface-container-low": "#f0f3ff",
+                      "inverse-surface": "#263143",
+                      "primary-container": "#0f52ba",
+                      "on-error": "#ffffff",
+                      "surface-container": "#e7eeff",
+                      "error": "#ba1a1a",
+                      "on-primary-fixed-variant": "#00419c",
+                      "secondary-fixed": "#d3e4fe",
+                      "surface-container-high": "#dee8ff",
+                      "surface": "#f9f9ff",
+                      "on-secondary": "#ffffff",
+                      "primary": "#003c90",
+                      "error-container": "#ffdad6",
+                      "surface-tint": "#1d59c1",
+                      "primary-fixed-dim": "#b0c6ff",
+                      "tertiary": "#3d4143",
+                      "background": "#f9f9ff",
+                      "inverse-on-surface": "#ecf1ff",
+                      "on-background": "#111c2d",
+                      "tertiary-fixed": "#e0e3e5",
+                      "on-secondary-fixed": "#0b1c30",
+                      "on-tertiary-container": "#ccced0",
+                      "on-surface": "#111c2d",
+                      "tertiary-fixed-dim": "#c4c7c9",
+                      "on-tertiary-fixed": "#191c1e",
+                      "primary-fixed": "#d9e2ff",
+                      "surface-bright": "#f9f9ff",
+                      "secondary-fixed-dim": "#b7c8e1",
+                      "secondary": "#505f76",
+                      "tertiary-container": "#55585a",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-container-highest": "#d8e3fb",
+                      "on-secondary-container": "#54647a",
+                      "on-tertiary-fixed-variant": "#444749",
+                      "on-surface-variant": "#434653",
+                      "inverse-primary": "#b0c6ff",
+                      "outline-variant": "#c3c6d5",
+                      "secondary-container": "#d0e1fb",
+                      "on-tertiary": "#ffffff",
+                      "surface-dim": "#cfdaf2",
+                      "on-primary-fixed": "#001945",
+                      "on-secondary-fixed-variant": "#38485d"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "sidebar-width": "260px",
+                      "sidebar-collapsed": "72px",
+                      "container-margin": "24px",
+                      "gutter": "16px",
+                      "unit": "4px"
+              },
+              "fontFamily": {
+                      "data-mono": [
+                              "Inter"
+                      ],
+                      "headline-sm": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "label-md": [
+                              "Inter"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "data-mono": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-sm": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-md": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-sm": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                             "display-lg": [
+                                     "36px",
+                                     {
+                                             "lineHeight": "44px",
+                                             "letterSpacing": "-0.02em",
+                                             "fontWeight": "700"
+                                     }
+                             ]
+                      }
+                  },
+              }
+          }
+            </script>
+            <script src="../js/pageAuthGuard.js"></script>
+            <style>
+                body { font-family: 'Inter', sans-serif; }
+            </style>
+            </head>
+    
+<body class="dashboard-theme bg-background text-on-background font-body-md flex h-screen overflow-hidden">
+<!-- SideNavBar (Shared Component) -->
+<nav class="app-sidebar hidden md:flex flex-col h-full py-4 overflow-y-auto bg-surface-container-low border-r border-outline-variant fixed left-0 top-0 w-sidebar-width z-50 transition-all duration-300" id="sidebar">
+<div class="px-container-margin mb-8 flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-headline-sm">
+                A
+</div>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-black text-primary">ABC Admin</h1>
+<p class="font-label-md text-label-md text-secondary">Clinical Inventory</p>
+</div>
+</div>
+<ul class="flex-1 space-y-1 mt-4">
+<li class=""><a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200" href="dashboard.html"><span class="material-symbols-outlined">dashboard</span> <span class="font-label-md text-label-md">Dashboard</span></a></li>
+<li class=""><a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200" href="inventory.html"><span class="material-symbols-outlined">inventory_2</span> <span class="font-label-md text-label-md">Current Stock</span></a></li>
+<!-- Active Tab: Deliveries -->
+<li class=""><a class="flex items-center gap-3 px-4 py-3 cursor-pointer group bg-secondary-container text-primary border-l-4 border-primary transition-all duration-200" href="deliveries.html"><span class="material-symbols-outlined">local_shipping</span> <span class="font-label-md text-label-md">Deliveries</span></a></li>
+<li class=""><a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200" href="/pages/transfers.html"><span class="material-symbols-outlined">move_down</span> <span class="font-label-md text-label-md">Transfers</span></a></li>
+<li class=""><a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200" href="consumption.html"><span class="material-symbols-outlined">vaccines</span> <span class="font-label-md text-label-md">Consumption</span></a></li>
+<li class=""><a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200" href="product.html"><span class="material-symbols-outlined">medication</span> <span class="font-label-md text-label-md">Products</span></a></li>
+<li id="branches-nav-item">
+    <a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200" href="branches.html">
+        <span class="material-symbols-outlined">domain</span>
+        <span class="font-label-md text-label-md">Branches</span>
+    </a>
+</li>
+<li class=""><a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200" href="barcode.html"><span class="material-symbols-outlined">barcode_scanner</span> <span class="font-label-md text-label-md">Barcode</span></a></li>
+<li class=""><a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200" href="/pages/scanner.html"><span class="material-symbols-outlined">qr_code_scanner</span> <span class="font-label-md text-label-md">Scanner</span></a></li>
+<li class=""><a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200" href="reports.html"><span class="material-symbols-outlined">analytics</span> <span class="font-label-md text-label-md">Reports</span></a></li>
+
+
+<li class=""><a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200" href="users.html"><span class="material-symbols-outlined">group</span> <span class="font-label-md text-label-md">Users</span></a></li></ul>
+<div class="mt-auto px-4 border-t border-outline-variant pt-4">
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200" href="#" onclick="event.preventDefault(); if (typeof signOutFromApp === 'function') { signOutFromApp(); } else { localStorage.removeItem('token'); localStorage.removeItem('user'); window.location.href = '/login.html'; }"><span class="material-symbols-outlined">logout</span> <span class="font-label-md text-label-md">Logout</span></a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col md:ml-[260px] h-screen overflow-hidden">
+<!-- TopNavBar (Shared Component - Mobile Only for this layout to match typical admin patterns, though defined as universal in prompt) -->
+<header class="app-header flex justify-between items-center h-16 px-container-margin w-full bg-surface border-b border-outline-variant docked full-width top-0 sticky z-40 md:hidden">
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant"><span class="material-symbols-outlined">menu</span></button>
+<h2 class="font-headline-md text-headline-md font-bold text-primary">ABC Admin</h2>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:bg-surface-container transition-colors rounded-full p-2"><span class="material-symbols-outlined">search</span></button>
+<button class="text-on-surface-variant hover:bg-surface-container transition-colors rounded-full p-2"><span class="material-symbols-outlined">notifications</span></button>
+<button class="text-on-surface-variant hover:bg-surface-container transition-colors rounded-full p-2"><span class="material-symbols-outlined">apps</span></button>
+<img alt="User profile" class="w-8 h-8 rounded-full border border-outline-variant object-cover" data-alt="A professional headshot of a female hospital administrator in her 40s, wearing a crisp white shirt. Bright, clinical lighting, soft gray background. High detail, trustworthy expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlZ0-_-uaFPfsNZVaQHyb33iawuMXg--7V84EkRqV675_a_KpxNC9kHeSWnp9UPVyLTCCfu_jcfPgHncbm_Tmo8j9ls79uoR4gqyfMd1jDCThHO1kQRiAlssnOx7HJmLlMqGyimOkAdphaB1ekS4O8tWHksAYn0bhDe9HTtRZg_6MgxkZ1RwwrkyfyX8F0ZcAjtg4XQ4te_xjzClpv0WL6SHHHGBHgimDCI7y_0AU8faumRP7-KvP8">
+</div>
+</header>
+<!-- Page Header & Actions -->
+<main class="app-content flex-1 overflow-y-auto p-container-margin bg-surface-bright">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
+<div>
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface mb-1">Deliveries Management</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Manage inbound and outbound inventory shipments.</p>
+</div>
+<div class="flex items-center gap-3">
+<button id="create-assigned-delivery-btn" class="hidden app-button app-button-primary flex items-center gap-2 px-4 py-2 border border-primary rounded bg-primary hover:bg-primary/90 transition-colors font-label-md text-label-md text-white">
+<span class="material-symbols-outlined text-[18px]">add</span> + Create Assigned Delivery
+</button>
+<button class="app-button app-button-outline flex items-center gap-2 px-4 py-2 border border-outline-variant rounded bg-surface hover:bg-surface-container transition-colors font-label-md text-label-md text-on-surface">
+<span class="material-symbols-outlined text-[18px]">download</span> Export
+                    </button>
+</div>
+</div>
+
+<div id="create-assigned-delivery-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/40 p-4">
+    <div class="my-auto max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-xl border border-outline-variant bg-surface p-6 shadow-xl">
+    <div class="flex items-center justify-between mb-5">
+      <div>
+        <h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Create Assigned Delivery</h3>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">Assign a delivery route for the Main Source branch.</p>
+      </div>
+      <button id="close-assigned-delivery-modal" class="text-on-surface-variant hover:text-on-surface" type="button" aria-label="Close">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <div>
+        <label class="block font-label-md text-label-md text-on-surface-variant mb-1">Source Branch</label>
+        <select id="assigned-source-branch" class="w-full rounded border border-outline-variant bg-surface px-3 py-2 text-sm text-on-surface" disabled></select>
+      </div>
+      <div>
+        <label class="block font-label-md text-label-md text-on-surface-variant mb-1">Destination Branch</label>
+        <select id="assigned-destination-branch" class="w-full rounded border border-outline-variant bg-surface px-3 py-2 text-sm text-on-surface">
+          <option value="">Select destination branch</option>
+        </select>
+      </div>
+      <div class="md:col-span-2">
+        <label class="block font-label-md text-label-md text-on-surface-variant mb-1">Delivery Personnel</label>
+        <select id="assigned-delivery-personnel" class="w-full rounded border border-outline-variant bg-surface px-3 py-2 text-sm text-on-surface">
+          <option value="">Select delivery personnel</option>
+        </select>
+      </div>
+      <div class="md:col-span-2">
+        <label class="block font-label-md text-label-md text-on-surface-variant mb-1">Serialized Unit Barcode</label>
+        <div class="flex gap-2">
+          <input id="assigned-item-barcode" type="text" class="flex-1 rounded border border-outline-variant bg-surface px-3 py-2 text-sm text-on-surface" placeholder="Scan or type serialized barcode" />
+          <button id="add-assigned-item-btn" type="button" class="rounded bg-primary px-4 py-2 text-sm font-medium text-white">Add Item</button>
+        </div>
+                <div class="mt-3 rounded border border-outline-variant bg-surface-container-low p-3">
+                    <div class="flex items-center justify-between gap-3">
+                        <span class="font-label-md text-label-md text-on-surface-variant">Camera Scanner</span>
+                        <button id="start-assigned-camera" type="button" class="rounded bg-secondary px-3 py-2 text-xs font-semibold text-on-secondary">Scan Serialized Item</button>
+                    </div>
+                    <div id="assigned-camera-panel" class="mt-3 hidden">
+                        <div class="relative aspect-video max-h-[300px] w-full overflow-hidden rounded bg-slate-900">
+                            <video id="assigned-camera-video" class="absolute inset-0 h-full w-full object-cover" autoplay muted playsinline></video>
+                        </div>
+                        <div id="assigned-camera-status" class="mt-2 rounded bg-slate-100 px-3 py-2 text-xs text-slate-700">Scanner stopped.</div>
+                        <button id="stop-assigned-camera" type="button" class="mt-2 rounded border border-outline-variant bg-surface px-3 py-2 text-xs font-semibold text-on-surface">Stop Scanner</button>
+                    </div>
+                </div>
+      </div>
+    </div>
+
+    <div class="mb-5">
+      <div class="flex items-center justify-between mb-2">
+        <h4 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wide">Selected Items</h4>
+        <span id="assigned-item-count" class="font-body-sm text-body-sm text-secondary">0 items</span>
+      </div>
+      <div id="assigned-items-list" class="max-h-60 overflow-y-auto rounded border border-outline-variant bg-surface-container-low p-3 text-sm text-on-surface-variant">
+        No serialized items added yet.
+      </div>
+    </div>
+
+    <div class="flex justify-end gap-3">
+      <button id="cancel-assigned-delivery" type="button" class="rounded border border-outline-variant bg-surface px-4 py-2 text-sm font-medium text-on-surface">Cancel</button>
+      <button id="submit-assigned-delivery" type="button" class="rounded bg-primary px-4 py-2 text-sm font-medium text-white disabled:opacity-60">Create Delivery Assignment</button>
+    </div>
+  </div>
+</div>
+<!-- Filters -->
+<div class="app-card bg-surface border border-outline-variant rounded-xl p-4 mb-6 flex flex-wrap gap-4 items-end">
+<div class="flex-1 min-w-[200px]">
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1">Search Deliveries</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-on-surface-variant text-[20px]">search</span>
+<input class="app-input w-full pl-10 pr-4 py-2 border border-outline-variant rounded bg-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-sm text-body-sm text-on-surface" placeholder="Delivery ID, Branch..." type="text">
+</div>
+</div>
+<div class="w-full sm:w-auto">
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1">Status</label>
+<select class="app-select w-full sm:w-40 px-4 py-2 border border-outline-variant rounded bg-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-sm text-body-sm text-on-surface appearance-none">
+<option value="">All Statuses</option>
+<option value="pending">Pending</option>
+<option value="transit">In Transit</option>
+<option value="received">Received</option>
+<option value="cancelled">Cancelled</option>
+</select>
+</div>
+<div class="w-full sm:w-auto">
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1">Date Range</label>
+<input class="app-input w-full sm:w-48 px-4 py-2 border border-outline-variant rounded bg-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-sm text-body-sm text-on-surface" type="date">
+</div>
+<button class="app-button app-button-outline px-4 py-2 border border-outline-variant rounded bg-surface hover:bg-surface-container transition-colors font-label-md text-label-md text-on-surface">
+                    Clear Filters
+                </button>
+</div>
+<!-- Data Table -->
+<div class="app-card bg-surface border border-outline-variant rounded-xl overflow-hidden">
+<div class="overflow-x-auto">
+<table class="app-table w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="p-4 font-label-md text-label-md text-on-surface-variant whitespace-nowrap">Delivery No.</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant whitespace-nowrap">Date</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant whitespace-nowrap">From (Branch)</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant whitespace-nowrap">To (Branch)</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant whitespace-nowrap">Assigned Personnel</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant whitespace-nowrap">Product</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant whitespace-nowrap text-right">Quantity</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant whitespace-nowrap">Status</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant whitespace-nowrap">Created By</th>
+</tr>
+</thead>
+<tbody id="delivery-history-body" class="divide-y divide-outline-variant"></tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="app-pagination border-t border-outline-variant p-4 flex items-center justify-between bg-surface-container-lowest">
+<span id="delivery-history-count" class="font-body-sm text-body-sm text-on-surface-variant">Showing 0 entries</span>
+<div class="flex items-center justify-center gap-4">
+<button id="delivery-history-prev" class="app-button app-button-outline px-3 py-2 rounded border border-outline text-secondary font-label-md text-label-md disabled:opacity-50" disabled>Previous</button>
+<span id="delivery-history-page-status" class="font-label-md text-label-md text-on-surface-variant">Page 1 of 1</span>
+<button id="delivery-history-next" class="app-button app-button-outline px-3 py-2 rounded border border-outline text-secondary font-label-md text-label-md disabled:opacity-50">Next</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+<script src="https://unpkg.com/@ericblade/quagga2/dist/quagga.js"></script>
+<script src="/js/scopedBarcodeScanner.js"></script>
+<script>
+let deliveryHistoryRows = [];
+let deliveryHistoryPage = 1;
+const deliveryHistoryPageSize = 5;
+
+function renderDeliveryHistoryPage() {
+        const tableBody = document.getElementById('delivery-history-body');
+        const count = document.getElementById('delivery-history-count');
+        const pageStatus = document.getElementById('delivery-history-page-status');
+        const previousButton = document.getElementById('delivery-history-prev');
+        const nextButton = document.getElementById('delivery-history-next');
+        const totalPages = Math.max(1, Math.ceil(deliveryHistoryRows.length / deliveryHistoryPageSize));
+        deliveryHistoryPage = Math.min(deliveryHistoryPage, totalPages);
+
+        const start = (deliveryHistoryPage - 1) * deliveryHistoryPageSize;
+        const rows = deliveryHistoryRows.slice(start, start + deliveryHistoryPageSize);
+        if (tableBody) {
+                tableBody.innerHTML = rows.length ? rows.map(delivery => `
+                        <tr class="hover:bg-surface-container-low transition-colors">
+                                <td class="p-4 font-data-mono text-primary font-medium">${delivery.tracking_code}</td>
+                                <td class="p-4 text-on-surface">${delivery.date ? new Date(delivery.date).toLocaleString() : 'N/A'}</td>
+                                <td class="p-4 text-on-surface">${delivery.source_branch || delivery.branch || 'N/A'}</td>
+                                <td class="p-4 text-on-surface">${delivery.destination_branch || 'N/A'}</td>
+                                <td class="p-4 text-on-surface">${delivery.assigned_delivery_personnel_name || delivery.assigned_delivery_personnel_username || 'Unassigned'}</td>
+                                <td class="p-4 text-on-surface text-right">${delivery.productName}</td>
+                                <td class="p-4 text-right">${delivery.quantity ?? 'N/A'}</td>
+                                <td class="p-4"><span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-secondary-container text-primary">${delivery.status}</span></td>
+                                <td class="p-4 text-on-surface-variant">${delivery.delivery_created_by || delivery.user_name || 'N/A'}</td>
+                        </tr>
+                `).join('') : '<tr><td colspan="9" class="app-empty-state p-6 text-center text-secondary">No transfer deliveries found.</td></tr>';
+        }
+
+        if (count) count.textContent = deliveryHistoryRows.length
+                ? `Showing ${start + 1} to ${Math.min(start + deliveryHistoryPageSize, deliveryHistoryRows.length)} of ${deliveryHistoryRows.length} entries`
+                : 'Showing 0 entries';
+        if (pageStatus) pageStatus.textContent = `Page ${deliveryHistoryPage} of ${totalPages}`;
+        if (previousButton) previousButton.disabled = deliveryHistoryPage <= 1;
+        if (nextButton) nextButton.disabled = deliveryHistoryPage >= totalPages;
+}
+
+async function loadDeliveryHistory() {
+    const tableBody = document.getElementById('delivery-history-body');
+    const count = document.getElementById('delivery-history-count');
+    const token = localStorage.getItem('token');
+
+    try {
+        const response = await fetch('/api/transfers/history', {
+            headers: token ? { Authorization: `Bearer ${token}` } : {}
+        });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        const history = await response.json();
+        const deliveries = new Map();
+
+        history.forEach(transaction => {
+            if (!transaction.tracking_code) return;
+            const existing = deliveries.get(transaction.tracking_code);
+            if (!existing || transaction.type === 'TRANSFER_OUT') {
+                deliveries.set(transaction.tracking_code, transaction);
+            }
+        });
+
+        const rows = Array.from(deliveries.values());
+                deliveryHistoryRows = rows.map(delivery => ({
+                        ...delivery,
+                        productName: delivery.products?.product_name || delivery.product_name || delivery.barcode || 'Unknown Product',
+                        status: delivery.status || 'UNKNOWN',
+                        date: delivery.delivery_created_at || delivery.date
+                }));
+                deliveryHistoryPage = 1;
+                renderDeliveryHistoryPage();
+    } catch (error) {
+        console.error('Error loading transfer deliveries:', error);
+                tableBody.innerHTML = '<tr><td colspan="8" class="app-empty-state p-6 text-center text-error">Unable to load transfer history.</td></tr>';
+    }
+}
+
+window.addEventListener('DOMContentLoaded', loadDeliveryHistory);
+
+window.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('delivery-history-prev')?.addEventListener('click', () => {
+                if (deliveryHistoryPage > 1) {
+                        deliveryHistoryPage -= 1;
+                        renderDeliveryHistoryPage();
+                }
+        });
+        document.getElementById('delivery-history-next')?.addEventListener('click', () => {
+                if (deliveryHistoryPage < Math.max(1, Math.ceil(deliveryHistoryRows.length / deliveryHistoryPageSize))) {
+                        deliveryHistoryPage += 1;
+                        renderDeliveryHistoryPage();
+                }
+        });
+});
+</script>
+
+<script>
+const assignedDeliveryState = {
+    mainSourceBranchId: null,
+    scannedItems: [],
+    scanner: null,
+    scannerStarting: false,
+};
+
+function getCurrentUser() {
+    try {
+        return JSON.parse(localStorage.getItem('user') || 'null');
+    } catch (error) {
+        return null;
+    }
+}
+
+async function loadAssignedDeliveryBranches() {
+    const sourceSelect = document.getElementById('assigned-source-branch');
+    const destinationSelect = document.getElementById('assigned-destination-branch');
+    if (!sourceSelect || !destinationSelect) return;
+
+    try {
+        const response = await fetch('/api/branches');
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const branches = await response.json();
+
+        const mainSourceBranch = (branches || []).find(branch =>
+            String(branch.branch_name || '').trim().toLowerCase() === 'pasong buaya main source'
+        );
+
+        if (!mainSourceBranch) {
+            throw new Error('Pasong Buaya Main Source branch not found.');
+        }
+
+        assignedDeliveryState.mainSourceBranchId = mainSourceBranch.id;
+        sourceSelect.innerHTML = `<option value="${mainSourceBranch.id}">${mainSourceBranch.branch_name}</option>`;
+
+        destinationSelect.innerHTML = '<option value="">Select destination branch</option>';
+        (branches || []).forEach(branch => {
+            if (String(branch.id) !== String(mainSourceBranch.id)) {
+                destinationSelect.insertAdjacentHTML('beforeend', `<option value="${branch.id}">${branch.branch_name}</option>`);
+            }
+        });
+    } catch (error) {
+        console.error('Failed to load admin assignment branches:', error);
+        destinationSelect.innerHTML = '<option value="">Failed to load branches</option>';
+        sourceSelect.innerHTML = '<option value="">Failed to load source branch</option>';
+    }
+}
+
+async function loadAssignedDeliveryPersonnel() {
+    const personnelSelect = document.getElementById('assigned-delivery-personnel');
+    if (!personnelSelect) return;
+
+    const token = localStorage.getItem('token');
+    try {
+        const response = await fetch('/api/deliver/delivery-personnel', {
+            headers: token ? { Authorization: `Bearer ${token}` } : {},
+        });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const payload = await response.json();
+        const users = Array.isArray(payload?.users) ? payload.users : [];
+        personnelSelect.innerHTML = '<option value="">Select delivery personnel</option>';
+        users.forEach(user => {
+            const label = user.full_name && user.full_name !== user.username ? `${user.full_name} (${user.username})` : user.username;
+            personnelSelect.insertAdjacentHTML('beforeend', `<option value="${user.id}">${label}</option>`);
+        });
+    } catch (error) {
+        console.error('Failed to load delivery personnel:', error);
+        personnelSelect.innerHTML = '<option value="">Failed to load delivery personnel</option>';
+    }
+}
+
+function renderAssignedItems() {
+    const container = document.getElementById('assigned-items-list');
+    const count = document.getElementById('assigned-item-count');
+    if (!container || !count) return;
+
+    if (assignedDeliveryState.scannedItems.length === 0) {
+        container.textContent = 'No serialized items added yet.';
+        count.textContent = '0 items';
+        return;
+    }
+
+    const groups = new Map();
+    assignedDeliveryState.scannedItems.forEach(item => {
+        if (!groups.has(item.productUuid)) {
+            groups.set(item.productUuid, { productName: item.productName, items: [] });
+        }
+        groups.get(item.productUuid).items.push(item);
+    });
+
+    const html = Array.from(groups.entries()).map(([productUuid, group]) => `
+        <div class="mb-3 rounded border border-outline-variant bg-surface p-3">
+            <div class="flex items-center justify-between gap-3">
+                <div class="font-medium text-on-surface">${group.productName}</div>
+                <span class="text-xs text-secondary">${group.items.length} unit(s)</span>
+            </div>
+            <div class="mt-2 space-y-1 text-xs text-on-surface-variant">
+                ${group.items.map(item => `
+                    <div class="flex items-center justify-between gap-2">
+                        <span class="font-mono">${item.barcode}</span>
+                        <button type="button" class="text-error text-xs" data-unit-id="${item.id}">Remove</button>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `).join('');
+
+    container.innerHTML = html;
+    count.textContent = `${assignedDeliveryState.scannedItems.length} item(s)`;
+
+    container.querySelectorAll('[data-unit-id]').forEach(button => {
+        button.addEventListener('click', () => {
+            const unitId = button.getAttribute('data-unit-id');
+            assignedDeliveryState.scannedItems = assignedDeliveryState.scannedItems.filter(item => item.id !== unitId);
+            renderAssignedItems();
+        });
+    });
+}
+
+async function addAssignedItem(rawBarcode, { fromScanner = false } = {}) {
+    const input = document.getElementById('assigned-item-barcode');
+    const barcode = String(rawBarcode || input?.value || '').trim().toUpperCase();
+    if (!barcode) {
+        const message = 'Please scan or enter a serialized item barcode.';
+        if (!fromScanner) alert(message);
+        return { success: false, message };
+    }
+
+    try {
+        const token = localStorage.getItem('token');
+        const response = await fetch(`/api/deliver/serialized-unit/${encodeURIComponent(barcode)}`, {
+            headers: token ? { Authorization: `Bearer ${token}` } : {},
+        });
+        const payload = await response.json();
+        if (!response.ok || !payload?.success || !payload.unit) {
+            throw new Error(payload?.message || 'Serialized unit was not found.');
+        }
+
+        const unit = payload.unit;
+        const itemStatus = String(unit.status || '').toUpperCase();
+        if (itemStatus !== 'AVAILABLE') {
+            throw new Error(`This serialized unit is currently ${itemStatus.toLowerCase()} and cannot be assigned.`);
+        }
+
+        if (String(unit.branch_id) !== String(assignedDeliveryState.mainSourceBranchId)) {
+            throw new Error(`This serialized unit belongs to ${unit.branch_name || 'another branch'}, not the selected source branch.`);
+        }
+
+        const normalizedUnitBarcode = String(unit.unit_barcode || barcode).trim().toUpperCase();
+        if (assignedDeliveryState.scannedItems.some(item => item.id === unit.id || item.barcode === normalizedUnitBarcode)) {
+            throw new Error('This serialized unit is already in the assignment list.');
+        }
+
+        assignedDeliveryState.scannedItems.push({
+            id: unit.id,
+            productUuid: unit.product_uuid,
+            productName: unit.product_name || 'Unknown product',
+            productBarcode: unit.product_barcode || '',
+            barcode: normalizedUnitBarcode,
+            branchId: unit.branch_id,
+            branchName: unit.branch_name || '',
+            status: unit.status,
+            currentCustodianUserId: unit.current_custodian_user_id,
+        });
+
+        input.value = '';
+        renderAssignedItems();
+        console.log('[Assigned Delivery] Added successfully:', normalizedUnitBarcode);
+        return { success: true, barcode: normalizedUnitBarcode };
+    } catch (error) {
+        const message = error.message || 'Unable to validate serialized unit.';
+        console.warn('[Assigned Delivery] Lookup failed/not found:', barcode, message);
+        if (!fromScanner) alert(message);
+        return { success: false, message };
+    }
+}
+
+function stopAssignedDeliveryScanner() {
+    assignedDeliveryState.scanner?.stop();
+    assignedDeliveryState.scanner = null;
+    document.getElementById('assigned-camera-panel')?.classList.add('hidden');
+}
+
+async function startAssignedDeliveryScanner() {
+    const panel = document.getElementById('assigned-camera-panel');
+    const status = document.getElementById('assigned-camera-status');
+    if (!panel || !status || !window.createScopedBarcodeScanner) return;
+
+    if (!assignedDeliveryState.mainSourceBranchId) {
+        alert('Select or load the source branch before scanning.');
+        return;
+    }
+
+    if (assignedDeliveryState.scannerStarting || assignedDeliveryState.scanner?.isRunning()) {
+        status.textContent = 'Scanner is already running.';
+        return;
+    }
+
+    assignedDeliveryState.scanner?.stop();
+    assignedDeliveryState.scanner = null;
+    panel.classList.remove('hidden');
+    assignedDeliveryState.scanner = window.createScopedBarcodeScanner({
+        videoElement: document.getElementById('assigned-camera-video'),
+        statusElement: status,
+        onDetected: async barcode => {
+            status.textContent = `Barcode detected: ${barcode}`;
+            console.log('[Assigned Delivery] Detected:', barcode);
+            const result = await addAssignedItem(barcode, { fromScanner: true });
+            if (result.success) {
+                status.textContent = `Added successfully: ${barcode}`;
+            } else {
+                status.textContent = `Lookup failed/not found: ${barcode}`;
+            }
+            if (result.success && assignedDeliveryState.scanner?.isRunning()) {
+                status.textContent = 'Ready for the next serialized unit.';
+            }
+            return result;
+        },
+    });
+
+    assignedDeliveryState.scannerStarting = true;
+    try {
+        await assignedDeliveryState.scanner.start();
+    } catch (error) {
+        status.textContent = error.message || 'Unable to start camera scanner.';
+        stopAssignedDeliveryScanner();
+        alert(error.message || 'Unable to start camera scanner.');
+    } finally {
+        assignedDeliveryState.scannerStarting = false;
+    }
+}
+
+async function submitAssignedDelivery() {
+    const destinationBranchId = document.getElementById('assigned-destination-branch')?.value;
+    const personnelId = document.getElementById('assigned-delivery-personnel')?.value;
+    const submitButton = document.getElementById('submit-assigned-delivery');
+
+    if (!destinationBranchId) {
+        alert('Please select a destination branch.');
+        return;
+    }
+
+    if (!personnelId) {
+        alert('Please select a delivery personnel account.');
+        return;
+    }
+
+    if (!assignedDeliveryState.mainSourceBranchId) {
+        alert('The Main Source branch is not available.');
+        return;
+    }
+
+    if (assignedDeliveryState.scannedItems.length === 0) {
+        alert('Please add at least one serialized item to the assignment.');
+        return;
+    }
+
+    const groupedItems = new Map();
+    assignedDeliveryState.scannedItems.forEach(item => {
+        if (!groupedItems.has(item.productUuid)) {
+            groupedItems.set(item.productUuid, {
+                product_uuid: item.productUuid,
+                serialized_unit_ids: [],
+            });
+        }
+        groupedItems.get(item.productUuid).serialized_unit_ids.push(item.id);
+    });
+
+    const payload = {
+        source_branch_id: assignedDeliveryState.mainSourceBranchId,
+        destination_branch_id: destinationBranchId,
+        assigned_delivery_personnel_id: Number(personnelId),
+        items: Array.from(groupedItems.values()),
+    };
+
+    try {
+        submitButton.disabled = true;
+        submitButton.textContent = 'Creating assignment...';
+
+        const token = localStorage.getItem('token');
+        const response = await fetch('/api/deliver/assigned', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                ...(token ? { Authorization: `Bearer ${token}` } : {}),
+            },
+            body: JSON.stringify(payload),
+        });
+
+        const result = await response.json();
+        if (!response.ok || !result?.success) {
+            throw new Error(result?.message || 'Failed to create assigned delivery.');
+        }
+
+        alert(`Assigned delivery created successfully. Tracking code: ${result.transfer?.tracking_code || 'N/A'}`);
+        stopAssignedDeliveryScanner();
+        const modal = document.getElementById('create-assigned-delivery-modal');
+        modal?.classList.add('hidden');
+        assignedDeliveryState.scannedItems = [];
+        renderAssignedItems();
+        document.getElementById('assigned-item-barcode').value = '';
+        loadDeliveryHistory();
+    } catch (error) {
+        console.error('Failed to create assigned delivery:', error);
+        alert(error.message || 'Unable to create assigned delivery.');
+    } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Create Delivery Assignment';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const currentUser = getCurrentUser();
+    const isAdmin = currentUser?.role === 'admin' || currentUser?.role === 'superadmin';
+
+    if (isAdmin) {
+        const button = document.getElementById('create-assigned-delivery-btn');
+        const modal = document.getElementById('create-assigned-delivery-modal');
+        const closeModalButton = document.getElementById('close-assigned-delivery-modal');
+        const cancelButton = document.getElementById('cancel-assigned-delivery');
+        const addItemButton = document.getElementById('add-assigned-item-btn');
+        const barcodeInput = document.getElementById('assigned-item-barcode');
+        const submitButton = document.getElementById('submit-assigned-delivery');
+        const startCameraButton = document.getElementById('start-assigned-camera');
+        const stopCameraButton = document.getElementById('stop-assigned-camera');
+
+        button?.classList.remove('hidden');
+        button?.addEventListener('click', () => {
+            stopAssignedDeliveryScanner();
+            modal?.classList.remove('hidden');
+            loadAssignedDeliveryBranches();
+            loadAssignedDeliveryPersonnel();
+            renderAssignedItems();
+        });
+
+        closeModalButton?.addEventListener('click', () => { stopAssignedDeliveryScanner(); modal?.classList.add('hidden'); });
+        cancelButton?.addEventListener('click', () => { stopAssignedDeliveryScanner(); modal?.classList.add('hidden'); });
+        startCameraButton?.addEventListener('click', startAssignedDeliveryScanner);
+        stopCameraButton?.addEventListener('click', stopAssignedDeliveryScanner);
+        addItemButton?.addEventListener('click', () => addAssignedItem());
+        barcodeInput?.addEventListener('keydown', event => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                addAssignedItem();
+            }
+        });
+        submitButton?.addEventListener('click', submitAssignedDelivery);
+    }
+
+    if (currentUser?.role !== 'admin' && currentUser?.role !== 'superadmin') {
+        document.getElementById('branches-nav-item')?.remove();
+    }
+});
+
+window.addEventListener('pagehide', stopAssignedDeliveryScanner);
+</script>
+
+
+</body></html>

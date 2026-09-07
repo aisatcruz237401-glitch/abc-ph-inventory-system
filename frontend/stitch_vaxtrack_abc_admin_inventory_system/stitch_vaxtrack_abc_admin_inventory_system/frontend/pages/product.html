@@ -1,0 +1,922 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Products - ABC Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="../../css/dashboard-theme.css" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#bcceff",
+                        "surface-variant": "#d8e3fb",
+                        "outline": "#737784",
+                        "surface-container-low": "#f0f3ff",
+                        "inverse-surface": "#263143",
+                        "primary-container": "#0f52ba",
+                        "on-error": "#ffffff",
+                        "surface-container": "#e7eeff",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#00419c",
+                        "secondary-fixed": "#d3e4fe",
+                        "surface-container-high": "#dee8ff",
+                        "surface": "#f9f9ff",
+                        "on-secondary": "#ffffff",
+                        "primary": "#003c90",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#1d59c1",
+                        "primary-fixed-dim": "#b0c6ff",
+                        "tertiary": "#3d4143",
+                        "background": "#f9f9ff",
+                        "inverse-on-surface": "#ecf1ff",
+                        "on-background": "#111c2d",
+                        "tertiary-fixed": "#e0e3e5",
+                        "on-secondary-fixed": "#0b1c30",
+                        "on-tertiary-container": "#ccced0",
+                        "on-surface": "#111c2d",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "on-tertiary-fixed": "#191c1e",
+                        "primary-fixed": "#d9e2ff",
+                        "surface-bright": "#f9f9ff",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "secondary": "#505f76",
+                        "tertiary-container": "#55585a",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-highest": "#d8e3fb",
+                        "on-secondary-container": "#54647a",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "on-surface-variant": "#434653",
+                        "inverse-primary": "#b0c6ff",
+                        "outline-variant": "#c3c6d5",
+                        "secondary-container": "#d0e1fb",
+                        "on-tertiary": "#ffffff",
+                        "surface-dim": "#cfdaf2",
+                        "on-primary-fixed": "#001945",
+                        "on-secondary-fixed-variant": "#38485d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sidebar-width": "260px",
+                        "sidebar-collapsed": "72px",
+                        "container-margin": "24px",
+                        "gutter": "16px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "data-mono": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "data-mono": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "display-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="../js/pageAuthGuard.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+</head>
+<body class="dashboard-theme bg-background text-on-background font-body-md antialiased flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<aside class="app-sidebar hidden md:flex flex-col bg-surface-container-low border-r border-outline-variant fixed left-0 top-0 h-screen w-sidebar-width z-50 py-4">
+<div class="px-container-margin mb-8 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-headline-sm">
+                    A
+                </div>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-black text-primary">ABC Admin</h1>
+<p class="font-label-md text-label-md text-secondary">Clinical Inventory</p>
+</div>
+</div>
+<nav class="flex flex-col h-full py-4 overflow-y-auto gap-1 px-3">
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200 rounded-lg" href="dashboard.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200 rounded-lg" href="inventory.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-label-md text-label-md">Current Stock</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200 rounded-lg" href="deliveries.html">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="font-label-md text-label-md">Deliveries</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200 rounded-lg" href="/pages/transfers.html">
+<span class="material-symbols-outlined">move_down</span>
+<span class="font-label-md text-label-md">Transfers</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200 rounded-lg" href="consumption.html">
+<span class="material-symbols-outlined">vaccines</span>
+<span class="font-label-md text-label-md">Consumption</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group bg-secondary-container text-primary border-l-4 border-primary rounded-r-lg" href="product.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">medication</span>
+<span class="font-label-md text-label-md">Products</span>
+</a>
+<a id="branches-nav-link" class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200 rounded-lg" href="branches.html">
+    <span class="material-symbols-outlined">domain</span>
+    <span class="font-label-md text-label-md">Branches</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200 rounded-lg" href="barcode.html">
+<span class="material-symbols-outlined">barcode_scanner</span>
+<span class="font-label-md text-label-md">Barcode</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200 rounded-lg" href="/pages/scanner.html">
+<span class="material-symbols-outlined">qr_code_scanner</span>
+<span class="font-label-md text-label-md">Scanner</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200 rounded-lg" href="reports.html">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+</nav>
+<div class="mt-auto px-3">
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200 rounded-lg" href="#" onclick="event.preventDefault(); if (typeof signOutFromApp === 'function') { signOutFromApp(); } else { localStorage.removeItem('token'); localStorage.removeItem('user'); window.location.href = '/login.html'; }">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col md:ml-sidebar-width w-full h-full relative">
+<!-- TopNavBar -->
+<header class="app-header flex justify-between items-center h-16 px-container-margin w-full bg-surface border-b border-outline-variant sticky top-0 z-40">
+<div class="flex items-center gap-4">
+<button class="md:hidden p-2 text-on-surface-variant">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="font-headline-md text-headline-md font-bold text-primary">Products</h2>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="pl-9 pr-4 py-2 bg-surface-container rounded-full border-none focus:ring-2 focus:ring-primary text-sm w-64 text-on-surface" placeholder="Global search..." type="text">
+</div>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined">apps</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden ml-2 border border-outline-variant cursor-pointer">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="Professional headshot of a healthcare administrator" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9sat4fjZLa0_Dtim3Zv4B_98Z-s_rcBAwqVD8auAVcEq3DxYN-0d9rw2M4kPpKqqee9xJikrsbFm5fqal33-nW8aVff4EWhtx5I9RraalUufY5MFvC8gsYcKdRjyZDelvhQ2AogojrhAWGaXPIErTEOcBWUwPm_LMIn6YnG_BST8yKuWvzztIEGhX-1iYgEHqnySu3Texb1gDYcBUVGtlS1RdyVWn56ufkidc-E7-u-mFVDrJW-Yv">
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<main class="app-content flex-1 overflow-y-auto p-container-margin bg-background space-y-6">
+<!-- Filters & Actions Header -->
+<div class="app-card flex flex-col xl:flex-row gap-4 justify-between items-start xl:items-center bg-surface p-4 rounded-xl border border-outline-variant shadow-sm">
+<div class="flex flex-wrap gap-3 w-full xl:w-auto">
+<!-- Search -->
+<div class="relative flex-grow min-w-[200px]">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
+<input class="app-input w-full pl-9 pr-3 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors" id="searchInput" placeholder="Search product name, SKU, barcode..." type="text">
+</div>
+<!-- Category Filter -->
+<div class="relative min-w-[180px]">
+<select class="app-select w-full pl-3 pr-8 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md appearance-none focus:border-primary focus:ring-1 focus:ring-primary outline-none text-on-surface cursor-pointer" id="categoryFilter">
+<option value="">All Categories</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+</div>
+</div>
+<div class="flex gap-2 w-full xl:w-auto justify-end">
+<button class="app-button app-button-outline flex items-center gap-2 px-4 py-2 border border-outline-variant rounded-lg text-secondary hover:bg-surface-container transition-colors font-label-md text-label-md bg-surface-container-lowest">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                        Export
+                    </button>
+<button class="app-button app-button-primary flex items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded-lg hover:bg-on-primary-fixed-variant transition-colors font-label-md text-label-md shadow-sm" id="addProductBtn">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                        New Product
+                    </button>
+</div>
+</div>
+<!-- Data Table Card -->
+<div class="app-card bg-surface border border-outline-variant rounded-xl overflow-hidden shadow-sm flex flex-col">
+<div class="overflow-x-auto">
+<table class="app-table w-full text-left border-collapse min-w-[1000px]">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="py-3 px-4 font-label-md text-label-md text-secondary sticky left-0 bg-surface-container-low z-10 w-12">
+<input class="rounded border-outline-variant text-primary focus:ring-primary" type="checkbox">
+</th>
+<th class="py-3 px-4 font-label-md text-label-md text-secondary">SKU / Barcode</th>
+<th class="py-3 px-4 font-label-md text-label-md text-secondary">Product Name</th>
+<th class="py-3 px-4 font-label-md text-label-md text-secondary">Category</th>
+<th class="py-3 px-4 font-label-md text-label-md text-secondary text-right">Total Stock</th>
+<th class="py-3 px-4 font-label-md text-label-md text-secondary">Status</th>
+<th class="py-3 px-4 font-label-md text-label-md text-secondary">Expiry Date</th>
+<th class="py-3 px-4 font-label-md text-label-md text-secondary text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant" id="productTableBody">
+<!-- Products loaded here by JavaScript -->
+<tr class="text-center">
+<td class="app-empty-state py-8 px-4 col-span-8">
+<span class="text-on-surface-variant">Loading products...</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="app-pagination bg-surface-container-lowest px-4 py-3 border-t border-outline-variant flex items-center justify-between sm:px-6">
+<div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+<div>
+<p class="font-body-sm text-body-sm text-secondary">
+                                Showing <span class="font-medium text-on-surface" id="showingStart">0</span> to <span class="font-medium text-on-surface" id="showingEnd">0</span> of <span class="font-medium text-on-surface" id="totalCount">0</span> results
+                            </p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+<script>
+const API_BASE = '/api';
+
+async function fetchProducts() {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await fetch(`${API_BASE}/products`, {
+      headers: token ? { Authorization: `Bearer ${token}` } : {}
+    });
+    if (!response.ok) throw new Error('Failed to fetch products');
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    return [];
+  }
+}
+
+function getStatusBadge(quantity) {
+  if (quantity > 10) {
+    return { label: 'Available', className: 'bg-[#e6f4ea] text-[#137333] border border-[#ceead6]' };
+  } else if (quantity > 0) {
+    return { label: 'Low Stock', className: 'bg-[#fef7e0] text-[#b06000] border border-[#fde293]' };
+  } else {
+    return { label: 'Out of Stock', className: 'bg-[#fce8e6] text-[#c5221f] border border-[#f9dedc]' };
+  }
+}
+
+function buildProductLabelMarkup(product, serializedUnitBarcode) {
+  const productName = String(product?.product_name || 'Unknown Product').toUpperCase();
+  const serialBarcode = String(
+    serializedUnitBarcode || product?.serialized_unit_barcode || product?.unit_barcode || product?.serialized_barcode || product?.vx_barcode || ''
+  ).trim();
+
+  return `
+    <div style="max-width: 420px; margin: 0 auto; border: 2px solid #1f2937; border-radius: 14px; background: #fff; color: #111827; font-family: Arial, sans-serif; padding: 16px; box-sizing: border-box;">
+      <div style="text-align: center; font-size: 22px; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 12px; text-transform: uppercase;">${productName}</div>
+      <div style="border-top: 1px solid #d1d5db; padding-top: 12px; margin-top: 12px;">
+        <div style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #4b5563; margin-bottom: 8px; font-weight: 700; text-align: center;">Physical Item Barcode</div>
+        <svg id="productLabelSerialBarcodeSvg" style="display:block; width: 100%; height: 72px; margin: 8px auto 6px;"></svg>
+        <div style="font-family: 'Courier New', monospace; font-size: 18px; text-align: center; color: #111827; letter-spacing: 0.08em;">${serialBarcode || 'N/A'}</div>
+      </div>
+    </div>
+  `;
+}
+
+function openProductLabelPrint(product, serializedUnitBarcode) {
+  if (!product) {
+    return;
+  }
+
+  const existingModal = document.getElementById('productLabelPrintModal');
+  if (existingModal) existingModal.remove();
+
+  const modalHtml = `
+    <div id="productLabelPrintModal" style="position: fixed; inset: 0; background: rgba(17, 24, 39, 0.55); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 20px;">
+      <div style="background: #fff; border-radius: 16px; max-width: 520px; width: 100%; padding: 20px; position: relative; box-shadow: 0 24px 60px rgba(15, 23, 42, 0.3);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <div style="font-size: 18px; font-weight: 700; color: #111827;">Product Label Preview</div>
+          <button type="button" id="closeProductLabelModal" style="border: none; background: #f3f4f6; color: #111827; border-radius: 8px; width: 34px; height: 34px; cursor: pointer; font-size: 20px;">×</button>
+        </div>
+        <div id="productLabelPreviewContainer">${buildProductLabelMarkup(product, serializedUnitBarcode)}</div>
+        <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 18px;">
+          <button type="button" id="cancelProductLabelPrint" style="border: 1px solid #d1d5db; background: #fff; color: #111827; border-radius: 8px; padding: 10px 16px; cursor: pointer; font-weight: 600;">Close</button>
+          <button type="button" id="confirmProductLabelPrint" style="border: none; background: #0f766e; color: #fff; border-radius: 8px; padding: 10px 16px; cursor: pointer; font-weight: 600;">Print Label</button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+  const closeButton = document.getElementById('closeProductLabelModal');
+  const cancelButton = document.getElementById('cancelProductLabelPrint');
+  const printButton = document.getElementById('confirmProductLabelPrint');
+  const hideModal = () => document.getElementById('productLabelPrintModal')?.remove();
+
+  closeButton?.addEventListener('click', hideModal);
+  cancelButton?.addEventListener('click', hideModal);
+  printButton?.addEventListener('click', () => {
+    hideModal();
+    setTimeout(() => {
+      const printWindow = window.open('', '_blank', 'width=420,height=720');
+      if (!printWindow) {
+        return;
+      }
+
+      printWindow.document.write(`<!DOCTYPE html><html><head><title>Product Label</title><style>body{margin:0;padding:16px;background:#ffffff;color:#111827;font-family:Arial,sans-serif}*{box-sizing:border-box}.label{max-width:420px;margin:0 auto;border:2px solid #111827;border-radius:14px;padding:16px;background:#ffffff}.header{text-align:center;font-size:22px;font-weight:700;letter-spacing:0.05em;margin-bottom:12px;text-transform:uppercase}.section{border-top:1px solid #d1d5db;padding-top:12px;margin-top:12px}.section-label{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#4b5563;margin-bottom:8px;font-weight:700;text-align:center}.barcode-text{font-family:'Courier New', monospace;font-size:18px;text-align:center;letter-spacing:0.08em;margin-top:6px}.barcode{display:block;margin:8px auto 0;width:100%;height:72px}svg{width:100%;height:72px;display:block;}</style></head><body>${buildProductLabelMarkup(product, serializedUnitBarcode)}</body></html>`);
+      printWindow.document.close();
+      printWindow.focus();
+      printWindow.print();
+      printWindow.close();
+    }, 100);
+  });
+
+  if (typeof JsBarcode === 'function') {
+    const serialSvg = document.getElementById('productLabelSerialBarcodeSvg');
+    const serialCode = String(serializedUnitBarcode || product?.serialized_unit_barcode || product?.unit_barcode || product?.serialized_barcode || product?.vx_barcode || '').trim();
+    if (serialSvg && serialCode) {
+      JsBarcode(serialSvg, serialCode, { format: 'CODE128', displayValue: false, margin: 8, height: 52, width: 2.2, background: '#ffffff', lineColor: '#111827' });
+    }
+  }
+}
+
+async function loadProducts() {
+  const products = await fetchProducts();
+  allProducts = products || [];
+  const tbody = document.getElementById('productTableBody');
+  
+  if (!products || products.length === 0) {
+    tbody.innerHTML = '<tr><td class="py-8 px-4 text-center text-on-surface-variant">No products found</td></tr>';
+    document.getElementById('totalCount').textContent = '0';
+    return;
+  }
+
+  // Update pagination
+  document.getElementById('showingStart').textContent = '1';
+  document.getElementById('showingEnd').textContent = Math.min(10, products.length);
+  document.getElementById('totalCount').textContent = products.length;
+
+  // Update category filter
+  const categoryFilter = document.getElementById('categoryFilter');
+  const categories = [...new Set(products.map(p => p.category).filter(Boolean))];
+  categories.forEach(category => {
+    const option = document.createElement('option');
+    option.value = category;
+    option.textContent = category;
+    categoryFilter.appendChild(option);
+  });
+
+  tbody.innerHTML = products.map((product, index) => {
+    const status = getStatusBadge(product.total_quantity || 0);
+    const expiryDate = product.expiration_date ? new Date(product.expiration_date).toLocaleDateString() : '-';
+    
+    return `
+      <tr class="hover:bg-surface-container-low transition-colors group">
+        <td class="py-3 px-4 sticky left-0 bg-surface group-hover:bg-surface-container-low z-10">
+          <input class="rounded border-outline-variant text-primary focus:ring-primary" type="checkbox">
+        </td>
+        <td class="py-3 px-4">
+          <div class="font-data-mono text-data-mono text-on-surface">${product.barcode || '-'}</div>
+          <div class="font-data-mono text-body-sm text-outline text-[11px]">${product.sku || 'N/A'}</div>
+        </td>
+        <td class="py-3 px-4">
+          <div class="font-body-md text-body-md font-medium text-on-surface">${product.product_name || 'Unknown'}</div>
+        </td>
+        <td class="py-3 px-4 font-body-sm text-body-sm text-on-surface-variant">${product.category || '-'}</td>
+        <td class="py-3 px-4 font-data-mono text-data-mono text-right text-on-surface">${product.total_quantity || 0}</td>
+        <td class="py-3 px-4">
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${status.className}">
+            ${status.label}
+          </span>
+        </td>
+        <td class="py-3 px-4 font-data-mono text-data-mono text-on-surface-variant">${expiryDate}</td>
+        <td class="py-3 px-4 text-right">
+          <button class="p-1.5 text-outline hover:text-primary hover:bg-surface-container rounded-md transition-colors" title="Print Product Label" data-action="print-product-label" data-product-id="${product.uuid || product.id || product.barcode || ''}" data-product-code="${product.barcode || ''}">
+            <span class="material-symbols-outlined text-[18px]">print</span>
+          </button>
+          <button class="p-1.5 text-outline hover:text-primary hover:bg-surface-container rounded-md transition-colors" title="View Details">
+            <span class="material-symbols-outlined text-[18px]">visibility</span>
+          </button>
+          <button class="p-1.5 text-outline hover:text-primary hover:bg-surface-container rounded-md transition-colors" title="Edit Product">
+            <span class="material-symbols-outlined text-[18px]">edit</span>
+          </button>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+// Search functionality
+document.getElementById('searchInput').addEventListener('input', async (e) => {
+  const searchTerm = e.target.value.toLowerCase();
+  const products = await fetchProducts();
+  
+  const filtered = products.filter(p => 
+    (p.product_name?.toLowerCase().includes(searchTerm)) ||
+    (p.barcode?.toLowerCase().includes(searchTerm)) ||
+    (p.sku?.toLowerCase().includes(searchTerm))
+  );
+
+  const tbody = document.getElementById('productTableBody');
+  if (filtered.length === 0) {
+    tbody.innerHTML = '<tr><td class="py-8 px-4 text-center text-on-surface-variant">No products match your search</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = filtered.map(product => {
+    const status = getStatusBadge(product.total_quantity || 0);
+    const expiryDate = product.expiration_date ? new Date(product.expiration_date).toLocaleDateString() : '-';
+    
+    return `
+      <tr class="hover:bg-surface-container-low transition-colors group">
+        <td class="py-3 px-4 sticky left-0 bg-surface group-hover:bg-surface-container-low z-10">
+          <input class="rounded border-outline-variant text-primary focus:ring-primary" type="checkbox">
+        </td>
+        <td class="py-3 px-4">
+          <div class="font-data-mono text-data-mono text-on-surface">${product.barcode || '-'}</div>
+          <div class="font-data-mono text-body-sm text-outline text-[11px]">${product.sku || 'N/A'}</div>
+        </td>
+        <td class="py-3 px-4">
+          <div class="font-body-md text-body-md font-medium text-on-surface">${product.product_name || 'Unknown'}</div>
+        </td>
+        <td class="py-3 px-4 font-body-sm text-body-sm text-on-surface-variant">${product.category || '-'}</td>
+        <td class="py-3 px-4 font-data-mono text-data-mono text-right text-on-surface">${product.total_quantity || 0}</td>
+        <td class="py-3 px-4">
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${status.className}">
+            ${status.label}
+          </span>
+        </td>
+        <td class="py-3 px-4 font-data-mono text-data-mono text-on-surface-variant">${expiryDate}</td>
+        <td class="py-3 px-4 text-right">
+          <button class="p-1.5 text-outline hover:text-primary hover:bg-surface-container rounded-md transition-colors" title="Print Product Label" data-action="print-product-label" data-product-id="${product.uuid || product.id || product.barcode || ''}" data-product-code="${product.barcode || ''}">
+            <span class="material-symbols-outlined text-[18px]">print</span>
+          </button>
+          <button class="p-1.5 text-outline hover:text-primary hover:bg-surface-container rounded-md transition-colors" title="View Details">
+            <span class="material-symbols-outlined text-[18px]">visibility</span>
+          </button>
+          <button class="p-1.5 text-outline hover:text-primary hover:bg-surface-container rounded-md transition-colors" title="Edit Product">
+            <span class="material-symbols-outlined text-[18px]">edit</span>
+          </button>
+        </td>
+      </tr>
+    `;
+  }).join('');
+});
+
+document.addEventListener('click', (event) => {
+  const printButton = event.target.closest('[data-action="print-product-label"]');
+  if (!printButton) return;
+
+  const productId = printButton.dataset.productId;
+  const product = allProducts.find((item) => String(item.uuid || item.id || item.barcode || '') === String(productId));
+  if (product) {
+    openProductLabelPrint(product);
+  }
+});
+
+// Category filter
+document.getElementById('categoryFilter').addEventListener('change', async (e) => {
+  const selectedCategory = e.target.value;
+  const products = await fetchProducts();
+  
+  const filtered = selectedCategory ? products.filter(p => p.category === selectedCategory) : products;
+
+  const tbody = document.getElementById('productTableBody');
+  if (filtered.length === 0) {
+    tbody.innerHTML = '<tr><td class="py-8 px-4 text-center text-on-surface-variant">No products in this category</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = filtered.map(product => {
+    const status = getStatusBadge(product.total_quantity || 0);
+    const expiryDate = product.expiration_date ? new Date(product.expiration_date).toLocaleDateString() : '-';
+    
+    return `
+      <tr class="hover:bg-surface-container-low transition-colors group">
+        <td class="py-3 px-4 sticky left-0 bg-surface group-hover:bg-surface-container-low z-10">
+          <input class="rounded border-outline-variant text-primary focus:ring-primary" type="checkbox">
+        </td>
+        <td class="py-3 px-4">
+          <div class="font-data-mono text-data-mono text-on-surface">${product.barcode || '-'}</div>
+          <div class="font-data-mono text-body-sm text-outline text-[11px]">${product.sku || 'N/A'}</div>
+        </td>
+        <td class="py-3 px-4">
+          <div class="font-body-md text-body-md font-medium text-on-surface">${product.product_name || 'Unknown'}</div>
+        </td>
+        <td class="py-3 px-4 font-body-sm text-body-sm text-on-surface-variant">${product.category || '-'}</td>
+        <td class="py-3 px-4 font-data-mono text-data-mono text-right text-on-surface">${product.total_quantity || 0}</td>
+        <td class="py-3 px-4">
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${status.className}">
+            ${status.label}
+          </span>
+        </td>
+        <td class="py-3 px-4 font-data-mono text-data-mono text-on-surface-variant">${expiryDate}</td>
+        <td class="py-3 px-4 text-right">
+          <button class="p-1.5 text-outline hover:text-primary hover:bg-surface-container rounded-md transition-colors" title="View Details">
+            <span class="material-symbols-outlined text-[18px]">visibility</span>
+          </button>
+          <button class="p-1.5 text-outline hover:text-primary hover:bg-surface-container rounded-md transition-colors" title="Edit Product">
+            <span class="material-symbols-outlined text-[18px]">edit</span>
+          </button>
+        </td>
+      </tr>
+    `;
+  }).join('');
+});
+
+// Modal and form handling
+let currentEditingProductId = null;
+let currentEditingProduct = null;
+let allProducts = [];
+
+function createModal() {
+  const modalHTML = `
+    <div id="productModal" class="app-modal fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+      <div class="app-modal-panel bg-surface rounded-xl shadow-lg max-w-md w-full max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center p-6 border-b border-outline-variant">
+          <h3 class="font-headline-sm text-headline-sm font-bold text-on-surface" id="modalTitle">New Product</h3>
+          <button onclick="document.getElementById('productModal').classList.add('hidden')" class="text-on-surface-variant hover:text-on-surface">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+        <form id="productForm" class="p-6 space-y-4">
+          <div>
+            <label class="block font-label-md text-label-md text-secondary mb-2">Product Name *</label>
+            <input type="text" id="productName" class="app-input w-full px-3 py-2 border border-outline-variant rounded-lg focus:border-primary focus:ring-1 focus:ring-primary" required>
+          </div>
+          <div>
+            <label class="block font-label-md text-label-md text-secondary mb-2">Barcode *</label>
+            <input type="text" id="productBarcode" class="app-input w-full px-3 py-2 border border-outline-variant rounded-lg focus:border-primary focus:ring-1 focus:ring-primary" required>
+          </div>
+          <div>
+            <label class="block font-label-md text-label-md text-secondary mb-2">Add-Item Barcode</label>
+            <input type="text" id="productAddItemBarcode" class="app-input w-full px-3 py-2 border border-outline-variant rounded-lg bg-surface-container-low text-on-surface-variant cursor-not-allowed" readonly>
+          </div>
+          <div>
+            <label class="block font-label-md text-label-md text-secondary mb-2">Category</label>
+            <input type="text" id="productCategory" class="app-input w-full px-3 py-2 border border-outline-variant rounded-lg focus:border-primary focus:ring-1 focus:ring-primary">
+          </div>
+          <div>
+            <label class="block font-label-md text-label-md text-secondary mb-2">SKU</label>
+            <input type="text" id="productSku" class="app-input w-full px-3 py-2 border border-outline-variant rounded-lg focus:border-primary focus:ring-1 focus:ring-primary">
+          </div>
+          <div>
+            <label class="block font-label-md text-label-md text-secondary mb-2">Expiration Date</label>
+            <input type="date" id="productExpirationDate" class="app-input w-full px-3 py-2 border border-outline-variant rounded-lg focus:border-primary focus:ring-1 focus:ring-primary">
+          </div>
+          <div>
+            <label class="block font-label-md text-label-md text-secondary mb-2">Description</label>
+            <textarea id="productDescription" class="app-input w-full px-3 py-2 border border-outline-variant rounded-lg focus:border-primary focus:ring-1 focus:ring-primary" rows="3"></textarea>
+          </div>
+          <div id="modalError" class="text-error text-body-sm hidden"></div>
+          <div class="flex gap-3 pt-4">
+            <button type="button" id="printProductLabelFromModal" class="app-button app-button-outline flex-1 px-4 py-2 border border-primary/40 rounded-lg text-primary hover:bg-primary/5 transition-colors font-label-md text-label-md">
+              Print Product Label
+            </button>
+            <button type="button" onclick="document.getElementById('productModal').classList.add('hidden')" class="app-button app-button-outline flex-1 px-4 py-2 border border-outline-variant rounded-lg text-on-surface hover:bg-surface-container transition-colors font-label-md text-label-md">
+              Cancel
+            </button>
+            <button type="submit" class="app-button app-button-primary flex-1 px-4 py-2 bg-primary text-on-primary rounded-lg hover:bg-on-primary-fixed-variant transition-colors font-label-md text-label-md">
+              Save Product
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', modalHTML);
+  document.getElementById('productForm').addEventListener('submit', handleProductFormSubmit);
+  document.getElementById('printProductLabelFromModal')?.addEventListener('click', () => {
+    if (currentEditingProduct) {
+      openProductLabelPrint(currentEditingProduct);
+    }
+  });
+}
+
+async function handleProductFormSubmit(e) {
+  e.preventDefault();
+  const errorDiv = document.getElementById('modalError');
+  errorDiv.classList.add('hidden');
+
+  const productName = document.getElementById('productName').value.trim();
+  const barcode = document.getElementById('productBarcode').value.trim();
+  const category = document.getElementById('productCategory').value.trim() || null;
+  const sku = document.getElementById('productSku').value.trim() || null;
+  const expirationDate = document.getElementById('productExpirationDate').value || null;
+  const description = document.getElementById('productDescription').value.trim() || null;
+
+  if (!productName || !barcode) {
+    errorDiv.textContent = 'Product name and barcode are required';
+    errorDiv.classList.remove('hidden');
+    return;
+  }
+
+  try {
+    const method = currentEditingProductId ? 'PUT' : 'POST';
+    const url = currentEditingProductId 
+      ? `${API_BASE}/products/${currentEditingProductId}`
+      : `${API_BASE}/products`;
+
+    const response = await fetch(url, {
+      method,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        product_name: productName,
+        barcode,
+        category,
+        sku,
+        expiration_date: expirationDate,
+        description
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      errorDiv.textContent = data.message || 'Failed to save product';
+      errorDiv.classList.remove('hidden');
+      return;
+    }
+
+    // Close modal and reload
+    document.getElementById('productModal').classList.add('hidden');
+    document.getElementById('productForm').reset();
+    currentEditingProductId = null;
+    await loadProducts();
+  } catch (error) {
+    errorDiv.textContent = error.message;
+    errorDiv.classList.remove('hidden');
+  }
+}
+
+function openAddProductModal() {
+  currentEditingProductId = null;
+  currentEditingProduct = null;
+  document.getElementById('modalTitle').textContent = 'New Product';
+  document.getElementById('productForm').reset();
+  document.getElementById('modalError').classList.add('hidden');
+  document.getElementById('productModal').classList.remove('hidden');
+}
+
+async function openEditProductModal(product) {
+  currentEditingProductId = product.id || product.uuid;
+  currentEditingProduct = product;
+  document.getElementById('modalTitle').textContent = `Edit: ${product.product_name}`;
+  document.getElementById('productName').value = product.product_name || '';
+  document.getElementById('productBarcode').value = product.barcode || '';
+  document.getElementById('productAddItemBarcode').value = product.add_item_barcode || 'Not assigned';
+  document.getElementById('productCategory').value = product.category || '';
+  document.getElementById('productSku').value = product.sku || '';
+  document.getElementById('productExpirationDate').value = product.expiration_date 
+    ? product.expiration_date.split('T')[0] 
+    : '';
+  document.getElementById('productDescription').value = product.description || '';
+  document.getElementById('modalError').classList.add('hidden');
+  document.getElementById('productModal').classList.remove('hidden');
+}
+
+async function deleteProduct(productId) {
+  if (!confirm('Are you sure you want to deactivate this product? This action cannot be undone.')) {
+    return;
+  }
+
+  try {
+    const response = await fetch(`${API_BASE}/products/${productId}`, {
+      method: 'DELETE'
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      alert(data.message || 'Failed to deactivate product');
+      return;
+    }
+
+    await loadProducts();
+  } catch (error) {
+    alert('Error: ' + error.message);
+  }
+}
+
+async function loadProducts() {
+  const products = await fetchProducts();
+  allProducts = products;
+  const tbody = document.getElementById('productTableBody');
+  
+  if (!products || products.length === 0) {
+    tbody.innerHTML = '<tr><td class="py-8 px-4 text-center text-on-surface-variant">No products found</td></tr>';
+    document.getElementById('totalCount').textContent = '0';
+    return;
+  }
+
+  // Update pagination
+  document.getElementById('showingStart').textContent = '1';
+  document.getElementById('showingEnd').textContent = Math.min(10, products.length);
+  document.getElementById('totalCount').textContent = products.length;
+
+  // Update category filter
+  const categoryFilter = document.getElementById('categoryFilter');
+  const currentOptions = Array.from(categoryFilter.options).map(o => o.value);
+  const categories = [...new Set(products.map(p => p.category).filter(Boolean))];
+  categories.forEach(category => {
+    if (!currentOptions.includes(category)) {
+      const option = document.createElement('option');
+      option.value = category;
+      option.textContent = category;
+      categoryFilter.appendChild(option);
+    }
+  });
+
+  tbody.innerHTML = products.map((product) => {
+    const status = getStatusBadge(product.total_quantity || 0);
+    const expiryDate = product.expiration_date ? new Date(product.expiration_date).toLocaleDateString() : '-';
+    const productId = product.id || product.uuid;
+    
+    return `
+      <tr class="hover:bg-surface-container-low transition-colors group">
+        <td class="py-3 px-4 sticky left-0 bg-surface group-hover:bg-surface-container-low z-10">
+          <input class="rounded border-outline-variant text-primary focus:ring-primary" type="checkbox">
+        </td>
+        <td class="py-3 px-4">
+          <div class="font-data-mono text-data-mono text-on-surface">${product.barcode || '-'}</div>
+          <div class="font-data-mono text-body-sm text-outline text-[11px]">${product.sku || 'N/A'}</div>
+        </td>
+        <td class="py-3 px-4">
+          <div class="font-body-md text-body-md font-medium text-on-surface">${product.product_name || 'Unknown'}</div>
+        </td>
+        <td class="py-3 px-4 font-body-sm text-body-sm text-on-surface-variant">${product.category || '-'}</td>
+        <td class="py-3 px-4 font-data-mono text-data-mono text-right text-on-surface">${product.total_quantity || 0}</td>
+        <td class="py-3 px-4">
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${status.className}">
+            ${status.label}
+          </span>
+        </td>
+        <td class="py-3 px-4 font-data-mono text-data-mono text-on-surface-variant">${expiryDate}</td>
+        <td class="py-3 px-4 text-right flex justify-end gap-1">
+          <button onclick="openProductLabelPrint(${JSON.stringify(product).replace(/"/g, '&quot;')})" class="p-1.5 text-outline hover:text-primary hover:bg-surface-container rounded-md transition-colors" title="Print Product Label">
+            <span class="material-symbols-outlined text-[18px]">print</span>
+          </button>
+          <button onclick="openEditProductModal(${JSON.stringify(product).replace(/"/g, '&quot;')})" class="p-1.5 text-outline hover:text-primary hover:bg-surface-container rounded-md transition-colors" title="Edit Product">
+            <span class="material-symbols-outlined text-[18px]">edit</span>
+          </button>
+          <button onclick="deleteProduct('${productId}')" class="p-1.5 text-outline hover:text-error hover:bg-[#fce8e6] rounded-md transition-colors" title="Deactivate Product">
+            <span class="material-symbols-outlined text-[18px]">delete</span>
+          </button>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+// Search functionality
+document.getElementById('searchInput').addEventListener('input', async (e) => {
+  const searchTerm = e.target.value.toLowerCase();
+  const products = allProducts;
+  
+  const filtered = products.filter(p => 
+    (p.product_name?.toLowerCase().includes(searchTerm)) ||
+    (p.barcode?.toLowerCase().includes(searchTerm)) ||
+    (p.sku?.toLowerCase().includes(searchTerm))
+  );
+
+  const tbody = document.getElementById('productTableBody');
+  if (filtered.length === 0) {
+    tbody.innerHTML = '<tr><td class="py-8 px-4 text-center text-on-surface-variant">No products match your search</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = filtered.map(product => {
+    const status = getStatusBadge(product.total_quantity || 0);
+    const expiryDate = product.expiration_date ? new Date(product.expiration_date).toLocaleDateString() : '-';
+    const productId = product.id || product.uuid;
+    
+    return `
+      <tr class="hover:bg-surface-container-low transition-colors group">
+        <td class="py-3 px-4 sticky left-0 bg-surface group-hover:bg-surface-container-low z-10">
+          <input class="rounded border-outline-variant text-primary focus:ring-primary" type="checkbox">
+        </td>
+        <td class="py-3 px-4">
+          <div class="font-data-mono text-data-mono text-on-surface">${product.barcode || '-'}</div>
+          <div class="font-data-mono text-body-sm text-outline text-[11px]">${product.sku || 'N/A'}</div>
+        </td>
+        <td class="py-3 px-4">
+          <div class="font-body-md text-body-md font-medium text-on-surface">${product.product_name || 'Unknown'}</div>
+        </td>
+        <td class="py-3 px-4 font-body-sm text-body-sm text-on-surface-variant">${product.category || '-'}</td>
+        <td class="py-3 px-4 font-data-mono text-data-mono text-right text-on-surface">${product.total_quantity || 0}</td>
+        <td class="py-3 px-4">
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${status.className}">
+            ${status.label}
+          </span>
+        </td>
+        <td class="py-3 px-4 font-data-mono text-data-mono text-on-surface-variant">${expiryDate}</td>
+        <td class="py-3 px-4 text-right flex justify-end gap-1">
+          <button onclick="openProductLabelPrint(${JSON.stringify(product).replace(/"/g, '&quot;')})" class="p-1.5 text-outline hover:text-primary hover:bg-surface-container rounded-md transition-colors" title="Print Product Label">
+            <span class="material-symbols-outlined text-[18px]">print</span>
+          </button>
+          <button onclick="openEditProductModal(${JSON.stringify(product).replace(/"/g, '&quot;')})" class="p-1.5 text-outline hover:text-primary hover:bg-surface-container rounded-md transition-colors" title="Edit Product">
+            <span class="material-symbols-outlined text-[18px]">edit</span>
+          </button>
+          <button onclick="deleteProduct('${productId}')" class="p-1.5 text-outline hover:text-error hover:bg-[#fce8e6] rounded-md transition-colors" title="Deactivate Product">
+            <span class="material-symbols-outlined text-[18px]">delete</span>
+          </button>
+        </td>
+      </tr>
+    `;
+  }).join('');
+});
+
+// Category filter
+document.getElementById('categoryFilter').addEventListener('change', async (e) => {
+  const selectedCategory = e.target.value;
+  const products = allProducts;
+  
+  const filtered = selectedCategory ? products.filter(p => p.category === selectedCategory) : products;
+
+  const tbody = document.getElementById('productTableBody');
+  if (filtered.length === 0) {
+    tbody.innerHTML = '<tr><td class="py-8 px-4 text-center text-on-surface-variant">No products in this category</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = filtered.map(product => {
+    const status = getStatusBadge(product.total_quantity || 0);
+    const expiryDate = product.expiration_date ? new Date(product.expiration_date).toLocaleDateString() : '-';
+    const productId = product.id || product.uuid;
+    
+    return `
+      <tr class="hover:bg-surface-container-low transition-colors group">
+        <td class="py-3 px-4 sticky left-0 bg-surface group-hover:bg-surface-container-low z-10">
+          <input class="rounded border-outline-variant text-primary focus:ring-primary" type="checkbox">
+        </td>
+        <td class="py-3 px-4">
+          <div class="font-data-mono text-data-mono text-on-surface">${product.barcode || '-'}</div>
+          <div class="font-data-mono text-body-sm text-outline text-[11px]">${product.sku || 'N/A'}</div>
+        </td>
+        <td class="py-3 px-4">
+          <div class="font-body-md text-body-md font-medium text-on-surface">${product.product_name || 'Unknown'}</div>
+        </td>
+        <td class="py-3 px-4 font-body-sm text-body-sm text-on-surface-variant">${product.category || '-'}</td>
+        <td class="py-3 px-4 font-data-mono text-data-mono text-right text-on-surface">${product.total_quantity || 0}</td>
+        <td class="py-3 px-4">
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${status.className}">
+            ${status.label}
+          </span>
+        </td>
+        <td class="py-3 px-4 font-data-mono text-data-mono text-on-surface-variant">${expiryDate}</td>
+        <td class="py-3 px-4 text-right flex justify-end gap-1">
+          <button onclick="openEditProductModal(${JSON.stringify(product).replace(/"/g, '&quot;')})" class="p-1.5 text-outline hover:text-primary hover:bg-surface-container rounded-md transition-colors" title="Edit Product">
+            <span class="material-symbols-outlined text-[18px]">edit</span>
+          </button>
+          <button onclick="deleteProduct('${productId}')" class="p-1.5 text-outline hover:text-error hover:bg-[#fce8e6] rounded-md transition-colors" title="Deactivate Product">
+            <span class="material-symbols-outlined text-[18px]">delete</span>
+          </button>
+        </td>
+      </tr>
+    `;
+  }).join('');
+});
+
+// Add Product button
+document.getElementById('addProductBtn').addEventListener('click', openAddProductModal);
+
+// Load products on page load
+window.addEventListener('DOMContentLoaded', () => {
+  createModal();
+  loadProducts();
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const currentUser = JSON.parse(localStorage.getItem('user') || 'null');
+
+    if (currentUser?.role !== 'admin') {
+        document.getElementById('branches-nav-link')?.remove();
+    }
+});
+</script>
+
+</body></html>

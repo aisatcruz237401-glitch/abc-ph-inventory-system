@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>User Management - ABC Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "error": "#ba1a1a",
+                      "primary-container": "#0f52ba",
+                      "on-tertiary": "#ffffff",
+                      "on-tertiary-fixed": "#191c1e",
+                      "surface-container-high": "#dee8ff",
+                      "primary": "#003c90",
+                      "inverse-surface": "#263143",
+                      "secondary-container": "#d0e1fb",
+                      "on-tertiary-fixed-variant": "#444749",
+                      "surface-variant": "#d8e3fb",
+                      "tertiary": "#3d4143",
+                      "outline-variant": "#c3c6d5",
+                      "on-secondary": "#ffffff",
+                      "tertiary-fixed": "#e0e3e5",
+                      "on-error-container": "#93000a",
+                      "background": "#f9f9ff",
+                      "tertiary-container": "#55585a",
+                      "on-primary": "#ffffff",
+                      "inverse-on-surface": "#ecf1ff",
+                      "on-surface": "#111c2d",
+                      "surface-container-highest": "#d8e3fb",
+                      "surface-dim": "#cfdaf2",
+                      "on-error": "#ffffff",
+                      "surface-container": "#e7eeff",
+                      "secondary-fixed-dim": "#b7c8e1",
+                      "inverse-primary": "#b0c6ff",
+                      "outline": "#737784",
+                      "on-background": "#111c2d",
+                      "tertiary-fixed-dim": "#c4c7c9",
+                      "primary-fixed-dim": "#b0c6ff",
+                      "surface": "#f9f9ff",
+                      "secondary-fixed": "#d3e4fe",
+                      "error-container": "#ffdad6",
+                      "on-primary-fixed": "#001945",
+                      "on-secondary-fixed": "#0b1c30",
+                      "surface-bright": "#f9f9ff",
+                      "on-primary-fixed-variant": "#00419c",
+                      "on-secondary-container": "#54647a",
+                      "primary-fixed": "#d9e2ff",
+                      "surface-tint": "#1d59c1",
+                      "on-tertiary-container": "#ccced0",
+                      "surface-container-low": "#f0f3ff",
+                      "secondary": "#505f76",
+                      "on-secondary-fixed-variant": "#38485d",
+                      "on-surface-variant": "#434653",
+                      "on-primary-container": "#bcceff",
+                      "surface-container-lowest": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "sidebar-width": "260px",
+                      "container-margin": "24px",
+                      "sidebar-collapsed": "72px",
+                      "unit": "4px",
+                      "gutter": "16px"
+              },
+              "fontFamily": {
+                      "data-mono": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "body-md": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "headline-sm": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "label-md": ["Inter"]
+              },
+              "fontSize": {
+                      "data-mono": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+    <script src="../js/pageAuthGuard.js"></script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex font-body-md text-body-md">
+<nav class="fixed left-0 top-0 h-screen w-sidebar-width bg-surface-container-low border-r border-outline-variant flex flex-col h-full py-4 z-40">
+<div class="px-6 mb-8 flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg overflow-hidden bg-surface-container-highest border border-outline-variant flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A minimalist, clinical medical logo featuring abstract geometric shapes forming a subtle cross or shield, rendered in deep primary blue and pristine white. The style is modern, corporate healthcare, emphasizing trust and data integrity. High-key lighting, clean vector aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGr-Ek_EN8Mn8PJ-c99BX3-aS_g3KvbsyVIvmRTT84kE4QnjXQAqp4q8XDh6Yl1lNCqz-Cv7sZNc4yfDM4usRE68x-oY_S3A6gj5CisDM353oYhb4ypQnXu6ADx5H0-wkpZgWNd0_N_3oP8V-zn2PE6w8DaaqxnqZC8oS4RDM9gzZ95yEf26iSH6-D5tqBPGoNWzOIp_i-oNxY4FEQ4EW9QZeMYQEL7X6cf-_x0rdCb5QNVLC23WLa"/>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm font-bold text-primary">ABC Admin</h2>
+<p class="font-label-md text-label-md text-on-surface-variant font-normal">Vaccine Management</p>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto flex flex-col font-label-md text-label-md">
+<a class="text-on-surface-variant py-3 px-4 flex items-center gap-3 hover:bg-surface-container-high transition-all duration-200 ease-in-out border-l-4 border-transparent" href="dashboard.html">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+                Dashboard
+            </a>
+<a class="text-on-surface-variant py-3 px-4 flex items-center gap-3 hover:bg-surface-container-high transition-all duration-200 ease-in-out border-l-4 border-transparent" href="inventory.html">
+<span class="material-symbols-outlined text-[20px]">inventory_2</span>
+                Current Stock
+            </a>
+<a class="text-on-surface-variant py-3 px-4 flex items-center gap-3 hover:bg-surface-container-high transition-all duration-200 ease-in-out border-l-4 border-transparent" href="deliveries.html">
+<span class="material-symbols-outlined text-[20px]">local_shipping</span>
+                Deliveries
+            </a>
+<a class="text-on-surface-variant py-3 px-4 flex items-center gap-3 hover:bg-surface-container-high transition-all duration-200 ease-in-out border-l-4 border-transparent" href="transfers.html">
+<span class="material-symbols-outlined text-[20px]">swap_horiz</span>
+                Transfers
+            </a>
+<a class="text-on-surface-variant py-3 px-4 flex items-center gap-3 hover:bg-surface-container-high transition-all duration-200 ease-in-out border-l-4 border-transparent" href="consumption.html">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
+                Consumption
+            </a>
+<a class="text-on-surface-variant py-3 px-4 flex items-center gap-3 hover:bg-surface-container-high transition-all duration-200 ease-in-out border-l-4 border-transparent" href="product.html">
+<span class="material-symbols-outlined text-[20px]">medication</span>
+                Products
+            </a>
+<a class="text-on-surface-variant py-3 px-4 flex items-center gap-3 hover:bg-surface-container-high transition-all duration-200 ease-in-out border-l-4 border-transparent" href="branches.html">
+<span class="material-symbols-outlined text-[20px]">domain</span>
+                Branches
+            </a>
+<a class="text-on-surface-variant py-3 px-4 flex items-center gap-3 hover:bg-surface-container-high transition-all duration-200 ease-in-out border-l-4 border-transparent" href="barcode.html">
+<span class="material-symbols-outlined text-[20px]">barcode_scanner</span>
+                Barcode
+            </a>
+<a class="text-on-surface-variant py-3 px-4 flex items-center gap-3 hover:bg-surface-container-high transition-all duration-200 ease-in-out border-l-4 border-transparent" href="/pages/scanner.html">
+<span class="material-symbols-outlined text-[20px]">qr_code_scanner</span>
+                Scanner
+            </a>
+<a class="text-on-surface-variant py-3 px-4 flex items-center gap-3 hover:bg-surface-container-high transition-all duration-200 ease-in-out border-l-4 border-transparent" href="reports.html">
+<span class="material-symbols-outlined text-[20px]">assessment</span>
+                Reports
+            </a>
+<a class="border-l-4 border-primary bg-secondary-container text-on-secondary-container font-semibold py-3 px-4 flex items-center gap-3 transition-all duration-200 ease-in-out" href="users.html">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">group</span>
+                Users
+            </a>
+</div>
+<div class="mt-auto flex flex-col font-label-md text-label-md border-t border-outline-variant pt-2">
+<a class="text-on-surface-variant py-3 px-4 flex items-center gap-3 hover:bg-surface-container-high transition-all duration-200 ease-in-out border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+                Settings
+            </a>
+<a class="text-on-surface-variant py-3 px-4 flex items-center gap-3 hover:bg-surface-container-high transition-all duration-200 ease-in-out border-l-4 border-transparent" href="#" onclick="event.preventDefault(); if (typeof signOutFromApp === 'function') { signOutFromApp(); } else { localStorage.removeItem('token'); localStorage.removeItem('user'); window.location.href = '/login.html'; }">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+                Logout
+            </a>
+</div>
+</nav>
+<main class="ml-[260px] flex-1 flex flex-col min-h-screen">
+<header class="w-full h-16 sticky top-0 z-30 bg-surface-container-lowest border-b border-outline-variant flex justify-between items-center px-6 transition-colors duration-200">
+<div class="flex-1 flex items-center max-w-md">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-transparent focus:border-primary focus:bg-surface-container-lowest rounded-lg font-body-md text-body-md text-on-surface focus:outline-none transition-all placeholder:text-on-surface-variant" placeholder="Search users, branches..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-full text-on-surface-variant hover:bg-surface-container-low transition-colors duration-200">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="p-2 rounded-full text-on-surface-variant hover:bg-surface-container-low transition-colors duration-200">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+<button class="p-2 rounded-full text-on-surface-variant hover:bg-surface-container-low transition-colors duration-200">
+<span class="material-symbols-outlined text-[20px]">help</span>
+</button>
+<div class="h-8 w-px bg-outline-variant mx-2"></div>
+<button class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant ml-2">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a healthcare administrator in a clean, brightly lit clinical setting. The person wears a crisp white coat. The background is a slightly blurred modern hospital corridor, conveying a sense of authority and precision in a high-key light mode aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHKpngcC37pOZF2g3hzMmKyEt4g8WS5BwpryDr4YjapxAXX_08ZrE-PZEXw9YP6bE_HX3ZkFIzotwjMHS6ZCt08caAaQ_nTuhknAlT-QMGac0GEi-skrapOd9TWA3apt3nzEcM65aWJ4hcNRWi2YA7VyN7UTPJe6dHUctwgPesDf33X6-cLjsx2CLoJNTsOmKvuOPI_Vgwv18D615SFs_GKXoM8EH9go5gFY4fscdEK3x4SMvFjYNF"/>
+</button>
+</div>
+</header>
+<div class="p-container-margin flex-1 flex flex-col gap-6 max-w-[1400px]">
+<div class="flex justify-between items-end">
+<div>
+<h1 class="font-headline-md text-headline-md text-on-surface mb-1">User Management</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Manage system access and roles</p>
+</div>
+<button class="bg-primary hover:bg-on-primary-fixed-variant text-on-primary px-4 py-2.5 rounded font-label-md text-label-md flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">add</span>
+                    Add New User
+                </button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-5 flex flex-col justify-between">
+<div class="flex justify-between items-start mb-4">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Total Users</p>
+<span class="material-symbols-outlined text-primary text-[20px]">group</span>
+</div>
+<div class="font-display-lg text-display-lg text-on-surface">142</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-5 flex flex-col justify-between">
+<div class="flex justify-between items-start mb-4">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Active Admins</p>
+<span class="material-symbols-outlined text-primary text-[20px]">admin_panel_settings</span>
+</div>
+<div class="font-display-lg text-display-lg text-on-surface">12</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-5 flex flex-col justify-between">
+<div class="flex justify-between items-start mb-4">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Branch Users</p>
+<span class="material-symbols-outlined text-primary text-[20px]">domain</span>
+</div>
+<div class="font-display-lg text-display-lg text-on-surface">125</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-5 flex flex-col justify-between">
+<div class="flex justify-between items-start mb-4">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Inactive</p>
+<span class="material-symbols-outlined text-error text-[20px]">person_off</span>
+</div>
+<div class="font-display-lg text-display-lg text-on-surface">5</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden flex flex-col">
+<div class="px-5 py-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">System Users</h3>
+<div class="flex gap-2">
+<button class="px-3 py-1.5 border border-outline-variant rounded text-on-surface-variant hover:bg-surface-container-low font-label-md text-label-md flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[16px]">filter_list</span>
+                            Filter
+                        </button>
+<button class="px-3 py-1.5 border border-outline-variant rounded text-on-surface-variant hover:bg-surface-container-low font-label-md text-label-md flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[16px]">download</span>
+                            Export
+                        </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse min-w-[800px]">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="py-3 px-5 font-label-md text-label-md text-on-surface-variant uppercase font-semibold">Name</th>
+<th class="py-3 px-5 font-label-md text-label-md text-on-surface-variant uppercase font-semibold">Username</th>
+<th class="py-3 px-5 font-label-md text-label-md text-on-surface-variant uppercase font-semibold">Role</th>
+<th class="py-3 px-5 font-label-md text-label-md text-on-surface-variant uppercase font-semibold">Assigned Branch</th>
+<th class="py-3 px-5 font-label-md text-label-md text-on-surface-variant uppercase font-semibold">Status</th>
+<th class="py-3 px-5 font-label-md text-label-md text-on-surface-variant uppercase font-semibold">Last Login</th>
+<th class="py-3 px-5 font-label-md text-label-md text-on-surface-variant uppercase font-semibold text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-3 px-5 font-body-md text-body-md text-on-surface font-medium">Dr. Sarah Jenkins</td>
+<td class="py-3 px-5 font-data-mono text-data-mono text-on-surface-variant">s.jenkins</td>
+<td class="py-3 px-5">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-md text-[10px] uppercase tracking-wider">Admin</span>
+</td>
+<td class="py-3 px-5 font-body-md text-body-md text-on-surface-variant">All Branches</td>
+<td class="py-3 px-5">
+<span class="inline-flex items-center gap-1 text-primary">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-label-md text-[11px] uppercase">Active</span>
+</span>
+</td>
+<td class="py-3 px-5 font-data-mono text-data-mono text-on-surface-variant">2023-10-27 08:30</td>
+<td class="py-3 px-5 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors p-1" title="Edit User">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-3 px-5 font-body-md text-body-md text-on-surface font-medium">Mark Roberts</td>
+<td class="py-3 px-5 font-data-mono text-data-mono text-on-surface-variant">m.roberts</td>
+<td class="py-3 px-5">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-surface-variant text-on-surface-variant font-label-md text-[10px] uppercase tracking-wider border border-outline-variant">Branch User</span>
+</td>
+<td class="py-3 px-5 font-body-md text-body-md text-on-surface-variant">North City Clinic</td>
+<td class="py-3 px-5">
+<span class="inline-flex items-center gap-1 text-primary">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-label-md text-[11px] uppercase">Active</span>
+</span>
+</td>
+<td class="py-3 px-5 font-data-mono text-data-mono text-on-surface-variant">2023-10-27 09:15</td>
+<td class="py-3 px-5 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors p-1" title="Edit User">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-3 px-5 font-body-md text-body-md text-on-surface font-medium text-on-surface-variant">Emily Chen</td>
+<td class="py-3 px-5 font-data-mono text-data-mono text-on-surface-variant opacity-70">e.chen</td>
+<td class="py-3 px-5">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-surface-variant text-on-surface-variant font-label-md text-[10px] uppercase tracking-wider border border-outline-variant opacity-70">Branch User</span>
+</td>
+<td class="py-3 px-5 font-body-md text-body-md text-on-surface-variant opacity-70">Westside Hub</td>
+<td class="py-3 px-5">
+<span class="inline-flex items-center gap-1 text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span>
+<span class="font-label-md text-[11px] uppercase">Inactive</span>
+</span>
+</td>
+<td class="py-3 px-5 font-data-mono text-data-mono text-on-surface-variant opacity-70">2023-09-15 14:20</td>
+<td class="py-3 px-5 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors p-1" title="Edit User">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-3 px-5 font-body-md text-body-md text-on-surface font-medium">David Lee</td>
+<td class="py-3 px-5 font-data-mono text-data-mono text-on-surface-variant">d.lee</td>
+<td class="py-3 px-5">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-md text-[10px] uppercase tracking-wider">Admin</span>
+</td>
+<td class="py-3 px-5 font-body-md text-body-md text-on-surface-variant">All Branches</td>
+<td class="py-3 px-5">
+<span class="inline-flex items-center gap-1 text-primary">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-label-md text-[11px] uppercase">Active</span>
+</span>
+</td>
+<td class="py-3 px-5 font-data-mono text-data-mono text-on-surface-variant">2023-10-26 16:45</td>
+<td class="py-3 px-5 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors p-1" title="Edit User">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-3 px-5 font-body-md text-body-md text-on-surface font-medium">Dr. Alan Grant</td>
+<td class="py-3 px-5 font-data-mono text-data-mono text-on-surface-variant">a.grant</td>
+<td class="py-3 px-5">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-surface-variant text-on-surface-variant font-label-md text-[10px] uppercase tracking-wider border border-outline-variant">Branch User</span>
+</td>
+<td class="py-3 px-5 font-body-md text-body-md text-on-surface-variant">Southside Clinic</td>
+<td class="py-3 px-5">
+<span class="inline-flex items-center gap-1 text-primary">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-label-md text-[11px] uppercase">Active</span>
+</span>
+</td>
+<td class="py-3 px-5 font-data-mono text-data-mono text-on-surface-variant">2023-10-27 10:05</td>
+<td class="py-3 px-5 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors p-1" title="Edit User">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-5 py-3 border-t border-outline-variant bg-surface-container-lowest flex justify-between items-center text-on-surface-variant font-body-sm text-body-sm">
+<span>Showing 1 to 5 of 142 entries</span>
+<div class="flex gap-1">
+<button class="px-2 py-1 rounded hover:bg-surface-container-low disabled:opacity-50" disabled="">Previous</button>
+<button class="px-2 py-1 rounded bg-secondary-container text-on-secondary-container font-medium">1</button>
+<button class="px-2 py-1 rounded hover:bg-surface-container-low">2</button>
+<button class="px-2 py-1 rounded hover:bg-surface-container-low">3</button>
+<span class="px-2 py-1">...</span>
+<button class="px-2 py-1 rounded hover:bg-surface-container-low">Next</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

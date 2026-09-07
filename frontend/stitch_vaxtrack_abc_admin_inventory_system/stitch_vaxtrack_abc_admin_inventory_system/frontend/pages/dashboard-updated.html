@@ -1,0 +1,440 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>ABC Admin - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#bcceff",
+                        "surface-variant": "#d8e3fb",
+                        "outline": "#737784",
+                        "surface-container-low": "#f0f3ff",
+                        "inverse-surface": "#263143",
+                        "primary-container": "#0f52ba",
+                        "on-error": "#ffffff",
+                        "surface-container": "#e7eeff",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#00419c",
+                        "secondary-fixed": "#d3e4fe",
+                        "surface-container-high": "#dee8ff",
+                        "surface": "#f9f9ff",
+                        "on-secondary": "#ffffff",
+                        "primary": "#003c90",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#1d59c1",
+                        "primary-fixed-dim": "#b0c6ff",
+                        "tertiary": "#3d4143",
+                        "background": "#f9f9ff",
+                        "inverse-on-surface": "#ecf1ff",
+                        "on-background": "#111c2d",
+                        "tertiary-fixed": "#e0e3e5",
+                        "on-secondary-fixed": "#0b1c30",
+                        "on-tertiary-container": "#ccced0",
+                        "on-surface": "#111c2d",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "on-tertiary-fixed": "#191c1e",
+                        "primary-fixed": "#d9e2ff",
+                        "surface-bright": "#f9f9ff",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "secondary": "#505f76",
+                        "tertiary-container": "#55585a",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-highest": "#d8e3fb",
+                        "on-secondary-container": "#54647a",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "on-surface-variant": "#434653",
+                        "inverse-primary": "#b0c6ff",
+                        "outline-variant": "#c3c6d5",
+                        "secondary-container": "#d0e1fb",
+                        "on-tertiary": "#ffffff",
+                        "surface-dim": "#cfdaf2",
+                        "on-primary-fixed": "#001945",
+                        "on-secondary-fixed-variant": "#38485d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sidebar-width": "260px",
+                        "sidebar-collapsed": "72px",
+                        "container-margin": "24px",
+                        "gutter": "16px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "data-mono": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "data-mono": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "display-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+    <script src="../js/pageAuthGuard.js"></script>
+<body class="bg-background text-on-background font-body-md min-h-screen flex">
+<!-- SideNavBar -->
+<nav class="bg-surface-container-low dark:bg-on-background fixed left-0 top-0 h-screen w-sidebar-width flex flex-col py-4 overflow-y-auto border-r border-outline-variant dark:border-outline z-50">
+<div class="px-container-margin mb-8 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-headline-sm">
+                A
+            </div>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-black text-primary dark:text-primary-fixed">ABC Admin</h1>
+<p class="font-label-md text-label-md text-secondary">Clinical Inventory</p>
+</div>
+</div>
+<div class="flex-1 flex flex-col gap-1 px-2">
+<!-- Active Tab: Dashboard -->
+<a class="bg-secondary-container dark:bg-secondary-fixed-variant text-primary dark:text-on-primary-fixed border-l-4 border-primary dark:border-primary-fixed flex items-center gap-3 px-4 py-3 cursor-pointer group rounded-r-lg" href="dashboard.html">
+<span class="material-symbols-outlined text-[20px]" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-tertiary-container transition-all duration-200 flex items-center gap-3 px-4 py-3 cursor-pointer group rounded-r-lg border-l-4 border-transparent" href="inventory.html">
+<span class="material-symbols-outlined text-[20px]" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-md text-label-md">Current Stock</span>
+</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-tertiary-container transition-all duration-200 flex items-center gap-3 px-4 py-3 cursor-pointer group rounded-r-lg border-l-4 border-transparent" href="deliveries.html">
+<span class="material-symbols-outlined text-[20px]" data-icon="local_shipping">local_shipping</span>
+<span class="font-label-md text-label-md">Deliveries</span>
+</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-tertiary-container transition-all duration-200 flex items-center gap-3 px-4 py-3 cursor-pointer group rounded-r-lg border-l-4 border-transparent" href="transfers.html">
+<span class="material-symbols-outlined text-[20px]" data-icon="move_down">move_down</span>
+<span class="font-label-md text-label-md">Transfers</span>
+</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-tertiary-container transition-all duration-200 flex items-center gap-3 px-4 py-3 cursor-pointer group rounded-r-lg border-l-4 border-transparent" href="consumption.html">
+<span class="material-symbols-outlined text-[20px]" data-icon="vaccines">vaccines</span>
+<span class="font-label-md text-label-md">Consumption</span>
+</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-tertiary-container transition-all duration-200 flex items-center gap-3 px-4 py-3 cursor-pointer group rounded-r-lg border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="medication">medication</span>
+<span class="font-label-md text-label-md">Products</span>
+</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-tertiary-container transition-all duration-200 flex items-center gap-3 px-4 py-3 cursor-pointer group rounded-r-lg border-l-4 border-transparent" href="branches.html">
+<span class="material-symbols-outlined text-[20px]" data-icon="domain">domain</span>
+<span class="font-label-md text-label-md">Branches</span>
+</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-tertiary-container transition-all duration-200 flex items-center gap-3 px-4 py-3 cursor-pointer group rounded-r-lg border-l-4 border-transparent" href="barcode.html">
+<span class="material-symbols-outlined text-[20px]" data-icon="barcode_scanner">barcode_scanner</span>
+<span class="font-label-md text-label-md">Barcode</span>
+</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-tertiary-container transition-all duration-200 flex items-center gap-3 px-4 py-3 cursor-pointer group rounded-r-lg border-l-4 border-transparent" href="reports.html">
+<span class="material-symbols-outlined text-[20px]" data-icon="analytics">analytics</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+</div>
+<div class="px-2 mb-1"><a class="text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-tertiary-container transition-all duration-200 flex items-center gap-3 px-4 py-3 cursor-pointer group rounded-r-lg border-l-4 border-transparent" href="users.html"><span class="material-symbols-outlined text-[20px]" data-icon="group">group</span><span class="font-label-md text-label-md">Users</span></a></div><div class="mt-auto px-2">
+<a class="text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-tertiary-container transition-all duration-200 flex items-center gap-3 px-4 py-3 cursor-pointer group rounded-r-lg border-l-4 border-transparent" href="#" onclick="event.preventDefault(); if (typeof signOutFromApp === 'function') { signOutFromApp(); } else { localStorage.removeItem('token'); localStorage.removeItem('user'); window.location.href = '/login.html'; }">
+<span class="material-symbols-outlined text-[20px]" data-icon="logout">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 ml-[260px] flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="docked full-width top-0 sticky z-40 bg-surface dark:bg-on-background border-b border-outline-variant dark:border-outline flex justify-between items-center h-16 px-container-margin w-full">
+<div class="flex items-center gap-8 flex-1">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">Dashboard</span>
+<div class="max-w-md w-full relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-full py-2 pl-10 pr-4 text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors" placeholder="Search inventory, products, or transactions..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 rounded-full hover:bg-surface-container transition-colors flex items-center justify-center text-on-surface-variant cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="w-10 h-10 rounded-full hover:bg-surface-container transition-colors flex items-center justify-center text-on-surface-variant cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined" data-icon="apps">apps</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant cursor-pointer active:opacity-80">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="A professional headshot of a clinical administrator in a bright, modern office setting with a clean, light-mode aesthetic and a subtle blue medical background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUVRSOcOcy1JSnS_eN_zybZRAZ0AIhzl59CjSyfcUC7MY-e1zk_-rlnOb_h89Q5WX812AoyEe8tTIeEqHg4Md-qm5E0rXzf8bTbQJpKcAzMC2pO-tPE3SrWiuBdUyAJKbE9hXiDfOQBm8m6fF-dq_GTDDT1TpY_zgDCVpxE-8InbBq6H3fX0ZdsoDO3v_WKbm3w2WsyJAlBCrSAROuWJCdC4GgHd5FQeQ4XgFHWFjYMuv66CZ4NVf-">
+</div>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="p-container-margin flex-1 flex flex-col gap-8 bg-[#F8FAFC]">
+<!-- Bento Grid Summary Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Total Stock -->
+<div class="bg-white border border-[#E2E8F0] rounded-xl p-4 flex flex-col justify-between hover:bg-[#F1F5F9] transition-colors group">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-md text-label-md text-secondary uppercase tracking-wider">Total Stock</span>
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined text-[18px]">inventory</span>
+</div>
+</div>
+<div class="font-display-lg text-display-lg text-on-surface font-data-mono">
+                        32,450
+                    </div>
+<div class="text-body-sm text-secondary mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-primary">trending_up</span>
+<span class="">+2% from last week</span>
+</div>
+</div>
+<!-- Low Stock -->
+<div class="bg-white border border-error-container rounded-xl p-4 flex flex-col justify-between hover:bg-[#F1F5F9] transition-colors group relative overflow-hidden">
+<div class="absolute top-0 right-0 w-16 h-16 bg-error-container opacity-20 rounded-bl-full"></div>
+<div class="flex justify-between items-start mb-2 relative z-10">
+<span class="font-label-md text-label-md text-error uppercase tracking-wider">Low Stock Alerts</span>
+<div class="w-8 h-8 rounded-full bg-error-container flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-[18px]">warning</span>
+</div>
+</div>
+<div class="font-display-lg text-display-lg text-error font-data-mono relative z-10">
+                        12
+                    </div>
+<div class="text-body-sm text-secondary mt-1 relative z-10">
+                        Requires attention
+                    </div>
+</div>
+<!-- Out of Stock -->
+<div class="bg-white border border-[#E2E8F0] rounded-xl p-4 flex flex-col justify-between hover:bg-[#F1F5F9] transition-colors group">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-md text-label-md text-secondary uppercase tracking-wider">Out of Stock</span>
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">block</span>
+</div>
+</div>
+<div class="font-display-lg text-display-lg text-on-surface font-data-mono">
+                        3
+                    </div>
+<div class="text-body-sm text-secondary mt-1">
+                        Critical items depleted
+                    </div>
+</div>
+<!-- Near Expiry -->
+<div class="bg-white border border-[#E2E8F0] rounded-xl p-4 flex flex-col justify-between hover:bg-[#F1F5F9] transition-colors group">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-md text-label-md text-secondary uppercase tracking-wider">Near Expiry</span>
+<div class="w-8 h-8 rounded-full bg-[#FFFBEB] text-[#B45309] flex items-center justify-center border border-[#FEF3C7]">
+<span class="material-symbols-outlined text-[18px]">event_busy</span>
+</div>
+</div>
+<div class="font-display-lg text-display-lg text-on-surface font-data-mono">
+                        8
+                    </div>
+<div class="text-body-sm text-secondary mt-1">
+                        Expiring within 30 days
+                    </div>
+</div>
+<!-- Total Products -->
+<div class="bg-white border border-[#E2E8F0] rounded-xl p-4 flex flex-col justify-between hover:bg-[#F1F5F9] transition-colors group">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-md text-label-md text-secondary uppercase tracking-wider">Total Products</span>
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">medication</span>
+</div>
+</div>
+<div class="font-headline-md text-headline-md text-on-surface font-data-mono">
+                        45
+                    </div>
+</div>
+<!-- Total Branches -->
+<div class="bg-white border border-[#E2E8F0] rounded-xl p-4 flex flex-col justify-between hover:bg-[#F1F5F9] transition-colors group">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-md text-label-md text-secondary uppercase tracking-wider">Active Branches</span>
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">domain</span>
+</div>
+</div>
+<div class="font-headline-md text-headline-md text-on-surface font-data-mono">
+                        38
+                    </div>
+</div>
+<!-- Pending Deliveries -->
+<div class="bg-white border border-[#E2E8F0] rounded-xl p-4 flex flex-col justify-between hover:bg-[#F1F5F9] transition-colors group">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-md text-label-md text-secondary uppercase tracking-wider">Pending Deliveries</span>
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">local_shipping</span>
+</div>
+</div>
+<div class="font-headline-md text-headline-md text-on-surface font-data-mono">
+                        5
+                    </div>
+</div>
+<!-- Monthly Consumption -->
+<div class="bg-white border border-[#E2E8F0] rounded-xl p-4 flex flex-col justify-between hover:bg-[#F1F5F9] transition-colors group">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-md text-label-md text-secondary uppercase tracking-wider">Monthly Consumption</span>
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">vaccines</span>
+</div>
+</div>
+<div class="font-headline-md text-headline-md text-on-surface font-data-mono">
+                        4,200 <span class="text-body-sm text-secondary font-body-sm">doses</span>
+</div>
+</div>
+</div>
+<!-- Recent Activity Table -->
+<div class="bg-white border border-[#E2E8F0] rounded-xl flex flex-col flex-1 overflow-hidden">
+<div class="px-6 py-4 border-b border-[#E2E8F0] flex justify-between items-center bg-surface-bright">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Recent Activity</h2>
+<button class="text-primary font-label-md text-label-md hover:underline flex items-center gap-1">
+                        View All
+                        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface border-b border-[#E2E8F0]">
+<th class="px-6 py-3 font-label-md text-label-md text-secondary uppercase tracking-wider w-32">Transaction ID</th>
+<th class="px-6 py-3 font-label-md text-label-md text-secondary uppercase tracking-wider w-40">Date</th>
+<th class="px-6 py-3 font-label-md text-label-md text-secondary uppercase tracking-wider">Product</th>
+<th class="px-6 py-3 font-label-md text-label-md text-secondary uppercase tracking-wider">Branch</th>
+<th class="px-6 py-3 font-label-md text-label-md text-secondary uppercase tracking-wider w-32">Type</th>
+<th class="px-6 py-3 font-label-md text-label-md text-secondary uppercase tracking-wider w-32">Status</th>
+</tr>
+</thead>
+<tbody class="text-body-md" id="activity-table-body">
+                    <tr class="bg-white hover:bg-[#F1F5F9] transition-colors border-b border-[#E2E8F0] group">
+                        <td class="px-6 py-4 font-data-mono text-secondary">TXN-8891</td>
+                        <td class="px-6 py-4 font-data-mono text-secondary">Oct 24, 2023 14:30</td>
+                        <td class="px-6 py-4 text-on-surface font-medium">Influenza Vaccine (Quadrivalent)</td>
+                        <td class="px-6 py-4 text-secondary">Northside Clinic</td>
+                        <td class="px-6 py-4 text-secondary">Delivery</td>
+                        <td class="px-6 py-4"><span class="px-2 py-1 bg-[#DCFCE7] text-[#166534] rounded-full text-[11px] font-bold tracking-wide uppercase border border-[#BBF7D0]">Completed</span></td>
+                    </tr>
+                
+                    <tr class="bg-surface hover:bg-[#F1F5F9] transition-colors border-b border-[#E2E8F0] group">
+                        <td class="px-6 py-4 font-data-mono text-secondary">TXN-8890</td>
+                        <td class="px-6 py-4 font-data-mono text-secondary">Oct 24, 2023 11:15</td>
+                        <td class="px-6 py-4 text-on-surface font-medium">Hepatitis B Vaccine</td>
+                        <td class="px-6 py-4 text-secondary">Central Hospital</td>
+                        <td class="px-6 py-4 text-secondary">Transfer</td>
+                        <td class="px-6 py-4"><span class="px-2 py-1 bg-[#FEF9C3] text-[#854D0E] rounded-full text-[11px] font-bold tracking-wide uppercase border border-[#FEF08A]">Pending</span></td>
+                    </tr>
+                
+                    <tr class="bg-white hover:bg-[#F1F5F9] transition-colors border-b border-[#E2E8F0] group">
+                        <td class="px-6 py-4 font-data-mono text-secondary">TXN-8889</td>
+                        <td class="px-6 py-4 font-data-mono text-secondary">Oct 23, 2023 09:00</td>
+                        <td class="px-6 py-4 text-on-surface font-medium">MMR Vaccine</td>
+                        <td class="px-6 py-4 text-secondary">Eastside Pediatrics</td>
+                        <td class="px-6 py-4 text-secondary">Consumption</td>
+                        <td class="px-6 py-4"><span class="px-2 py-1 bg-[#DCFCE7] text-[#166534] rounded-full text-[11px] font-bold tracking-wide uppercase border border-[#BBF7D0]">Completed</span></td>
+                    </tr>
+                
+                    <tr class="bg-surface hover:bg-[#F1F5F9] transition-colors border-b border-[#E2E8F0] group">
+                        <td class="px-6 py-4 font-data-mono text-secondary">TXN-8888</td>
+                        <td class="px-6 py-4 font-data-mono text-secondary">Oct 22, 2023 16:45</td>
+                        <td class="px-6 py-4 text-on-surface font-medium">COVID-19 Booster v3</td>
+                        <td class="px-6 py-4 text-secondary">Main Warehouse</td>
+                        <td class="px-6 py-4 text-secondary">Restock</td>
+                        <td class="px-6 py-4"><span class="px-2 py-1 bg-[#DCFCE7] text-[#166534] rounded-full text-[11px] font-bold tracking-wide uppercase border border-[#BBF7D0]">Completed</span></td>
+                    </tr>
+                
+                    <tr class="bg-white hover:bg-[#F1F5F9] transition-colors border-b border-[#E2E8F0] group">
+                        <td class="px-6 py-4 font-data-mono text-secondary">TXN-8887</td>
+                        <td class="px-6 py-4 font-data-mono text-secondary">Oct 22, 2023 10:20</td>
+                        <td class="px-6 py-4 text-on-surface font-medium">DTaP Vaccine</td>
+                        <td class="px-6 py-4 text-secondary">West Clinic</td>
+                        <td class="px-6 py-4 text-secondary">Delivery</td>
+                        <td class="px-6 py-4"><span class="px-2 py-1 bg-[#FEF9C3] text-[#854D0E] rounded-full text-[11px] font-bold tracking-wide uppercase border border-[#FEF08A]">Pending</span></td>
+                    </tr>
+                </tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Simulated data loading
+        document.addEventListener('DOMContentLoaded', () => {
+            const tbody = document.getElementById('activity-table-body');
+            
+            // Skeleton template
+            const skeletonRow = `
+                <tr class="border-b border-[#E2E8F0] animate-pulse">
+                    <td class="px-6 py-4"><div class="h-4 bg-outline-variant rounded w-20"></div></td>
+                    <td class="px-6 py-4"><div class="h-4 bg-outline-variant rounded w-24"></div></td>
+                    <td class="px-6 py-4"><div class="h-4 bg-outline-variant rounded w-48"></div></td>
+                    <td class="px-6 py-4"><div class="h-4 bg-outline-variant rounded w-32"></div></td>
+                    <td class="px-6 py-4"><div class="h-4 bg-outline-variant rounded w-16"></div></td>
+                    <td class="px-6 py-4"><div class="h-6 bg-outline-variant rounded-full w-20"></div></td>
+                </tr>
+            `;
+
+            // Initial Skeletons
+            tbody.innerHTML = skeletonRow.repeat(5);
+
+            // Mock Data
+            const transactions = [
+                { id: "TXN-8891", date: "Oct 24, 2023 14:30", product: "Influenza Vaccine (Quadrivalent)", branch: "Northside Clinic", type: "Delivery", status: "Completed" },
+                { id: "TXN-8890", date: "Oct 24, 2023 11:15", product: "Hepatitis B Vaccine", branch: "Central Hospital", type: "Transfer", status: "In Transit" },
+                { id: "TXN-8889", date: "Oct 23, 2023 09:00", product: "MMR Vaccine", branch: "Eastside Pediatrics", type: "Consumption", status: "Logged" },
+                { id: "TXN-8888", date: "Oct 22, 2023 16:45", product: "COVID-19 Booster v3", branch: "Main Warehouse", type: "Restock", status: "Completed" },
+                { id: "TXN-8887", date: "Oct 22, 2023 10:20", product: "DTaP Vaccine", branch: "West Clinic", type: "Delivery", status: "Pending" },
+            ];
+
+            // Render function
+            setTimeout(() => {
+                tbody.innerHTML = transactions.map((t, index) => {
+                    let statusBadge = '';
+                    switch(t.status) {
+                        case 'Completed':
+                        case 'Logged':
+                            statusBadge = '<span class="px-2 py-1 bg-[#DCFCE7] text-[#166534] rounded-full text-[11px] font-bold tracking-wide uppercase border border-[#BBF7D0]">Completed</span>';
+                            break;
+                        case 'In Transit':
+                        case 'Pending':
+                            statusBadge = '<span class="px-2 py-1 bg-[#FEF9C3] text-[#854D0E] rounded-full text-[11px] font-bold tracking-wide uppercase border border-[#FEF08A]">Pending</span>';
+                            break;
+                        default:
+                            statusBadge = `<span class="px-2 py-1 bg-surface-variant text-on-surface-variant rounded-full text-[11px] font-bold tracking-wide uppercase">${t.status}</span>`;
+                    }
+                    
+                    const rowClass = index % 2 === 0 ? 'bg-white hover:bg-[#F1F5F9] transition-colors' : 'bg-surface hover:bg-[#F1F5F9] transition-colors';
+
+                    return `
+                    <tr class="${rowClass} border-b border-[#E2E8F0] group">
+                        <td class="px-6 py-4 font-data-mono text-secondary">${t.id}</td>
+                        <td class="px-6 py-4 font-data-mono text-secondary">${t.date}</td>
+                        <td class="px-6 py-4 text-on-surface font-medium">${t.product}</td>
+                        <td class="px-6 py-4 text-secondary">${t.branch}</td>
+                        <td class="px-6 py-4 text-secondary">${t.type}</td>
+                        <td class="px-6 py-4">${statusBadge}</td>
+                    </tr>
+                `}).join('');
+            }, 1200); // simulate network delay
+        });
+    </script>
+
+
+</body></html>

@@ -1,0 +1,16 @@
+.dante-theme .scanner-grid {
+    background-size: 40px 40px;
+    background-image: 
+        linear-gradient(to right, rgba(0, 104, 95, 0.1) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 104, 95, 0.1) 1px, transparent 1px);
+}
+
+.dante-theme .scan-line {
+    animation: dante-scan 2s linear infinite;
+}
+
+@keyframes dante-scan {
+    0% { top: 10%; }
+    50% { top: 90%; }
+    100% { top: 10%; }
+}

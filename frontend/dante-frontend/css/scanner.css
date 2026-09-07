@@ -1,0 +1,115 @@
+.scanner-grid {
+    background-size: 40px 40px;
+    background-image: 
+        linear-gradient(to right, rgba(0, 60, 144, 0.1) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 60, 144, 0.1) 1px, transparent 1px);
+}
+
+.scan-line {
+    animation: scan 2.2s linear infinite;
+}
+
+@keyframes scan {
+    0% { top: 12%; }
+    50% { top: 88%; }
+    100% { top: 12%; }
+}
+
+body {
+    background: #f9f9ff;
+}
+
+#layout-shell {
+    min-height: 0;
+}
+
+main {
+    background: #f9f9ff;
+}
+
+.scanner-card,
+.info-card,
+.result-card {
+    border: 1px solid #c3c6d5;
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgba(17, 28, 45, 0.04);
+    border-radius: 16px;
+}
+
+.text-primary {
+    color: #003c90 !important;
+}
+
+.bg-primary {
+    background-color: #003c90 !important;
+}
+
+.bg-primary-container {
+    background-color: #0f52ba !important;
+}
+
+.hover\:bg-primary-container:hover {
+    background-color: #0f52ba !important;
+}
+
+.text-on-primary-container {
+    color: #bcceff !important;
+}
+
+.bg-primary\/10 {
+    background-color: rgba(0, 60, 144, 0.1);
+}
+
+.text-on-surface-variant {
+    color: #434653 !important;
+}
+
+.border-outline-variant {
+    border-color: #c3c6d5 !important;
+}
+
+.bg-surface-container-low {
+    background: #f0f3ff;
+}
+
+.bg-surface-container-lowest {
+    background: #ffffff;
+}
+
+.bg-surface-container-high {
+    background: #dee8ff;
+}
+
+.text-secondary {
+    color: #505f76 !important;
+}
+
+.bg-secondary-container {
+    background: #d0e1fb !important;
+}
+
+#layout-shell .nav-active {
+    background-color: #d0e1fb !important;
+    color: #003c90 !important;
+    font-weight: 700 !important;
+}
+
+#layout-shell .nav-active .material-symbols-outlined {
+    color: #003c90 !important;
+}
+
+#layout-shell > nav .nav-active {
+    background-color: transparent !important;
+    border-bottom: 2px solid #003c90 !important;
+    padding-bottom: 4px;
+}
+
+.text-on-secondary-container {
+    color: #54647a !important;
+}
+
+button,
+input,
+select {
+    font-family: Inter, sans-serif;
+}

@@ -1,0 +1,13 @@
+/* Minimal scoped theme tokens translated from DANTE Tailwind config. Apply by adding class `dante-theme` to body or root element. */
+.dante-theme {
+  --primary: #00685f;
+  --background: #f7f9fb;
+  --on-surface: #191c1e;
+  --surface: #f7f9fb;
+  --surface-container-low: #f2f4f6;
+  --outline-variant: #bcc9c6;
+}
+
+/* Scope any DANTE-specific overrides here to avoid affecting NAH pages */
+.dante-theme .font-display-lg { font-weight: 700; }
+.dante-theme .font-headline-sm { font-weight: 600; }

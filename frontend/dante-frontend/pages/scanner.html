@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>ABC Admin - Scanner</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="../js/tailwind-config.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/scanner.css">
+<style>
+  #layout-shell > nav:first-child { display: none; }
+  #layout-shell > div { padding-top: 0; }
+  #layout-shell > div > aside { top: 0; height: 100vh; }
+  @media (max-width: 767px) {
+    #layout-shell > div > aside { display: none; }
+  }
+</style>
+</head>
+<body class="bg-[#F8FAFC] text-on-background font-sans min-h-screen">
+<div id="layout-shell"></div>
+
+<main class="min-h-screen md:ml-[260px] bg-[#F8FAFC]">
+  <header class="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-[#E2E8F0] bg-white px-6">
+    <div class="flex items-center gap-4">
+      <span class="material-symbols-outlined text-primary">qr_code_scanner</span>
+      <div>
+        <h1 class="text-xl font-bold text-primary">Scanner</h1>
+        <p class="text-sm text-on-surface-variant">Verify products and receive transfers</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-3 text-sm text-on-surface-variant">
+      <span class="material-symbols-outlined">sensors</span>
+      <span class="hidden sm:inline">Scanner ready</span>
+      <button id="logoutBtn" type="button" class="rounded-lg border border-[#E2E8F0] px-3 py-2 text-sm font-semibold text-on-surface hover:bg-slate-50">Logout</button>
+    </div>
+  </header>
+
+  <div class="p-4 sm:p-6 lg:p-8">
+    <div class="mb-6">
+      <p class="text-xs font-semibold uppercase tracking-wider text-secondary">Operations</p>
+      <h2 class="mt-1 text-2xl font-bold text-on-surface">Scan an item</h2>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)]">
+      <section class="overflow-hidden rounded-xl border border-[#E2E8F0] bg-white shadow-sm">
+        <div class="flex items-center justify-between border-b border-[#E2E8F0] px-5 py-4">
+          <div class="flex items-center gap-3">
+            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 text-primary">
+              <span class="material-symbols-outlined">videocam</span>
+            </div>
+            <div>
+              <h3 class="font-semibold text-on-surface">Camera scanner</h3>
+              <p class="text-xs text-on-surface-variant">Scan a product or transfer code</p>
+            </div>
+          </div>
+          <span id="scannerModeLabel" class="rounded-full bg-blue-50 px-3 py-1 font-mono text-xs font-semibold text-primary">READY TO SCAN</span>
+        </div>
+
+        <div id="cameraViewport" class="relative mx-5 mt-5 flex aspect-video items-center justify-center overflow-hidden rounded-lg bg-[#263143]">
+          <video id="scannerVideo" class="absolute inset-0 h-full w-full object-cover" autoplay muted playsinline style="display:none;"></video>
+          <div id="cameraPlaceholder" class="flex flex-col items-center justify-center px-6 text-center text-white">
+            <span class="material-symbols-outlined mb-3 text-5xl text-blue-300">qr_code_scanner</span>
+            <strong class="text-base">Ready to scan</strong>
+            <span class="mt-1 text-sm text-slate-300">Point the camera at a barcode or enter one manually.</span>
+          </div>
+          <div class="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <div class="relative h-32 w-3/4 max-w-md rounded-lg border-2 border-blue-300">
+              <div class="absolute left-0 right-0 top-1/2 h-px bg-blue-300"></div>
+            </div>
+          </div>
+          <span id="hardwareStatus" class="absolute bottom-3 left-3 rounded bg-black/40 px-2 py-1 font-mono text-[10px] text-slate-200">Hardware Scanner: Waiting</span>
+          <span id="cameraStatus" class="absolute bottom-3 right-3 rounded bg-black/40 px-2 py-1 font-mono text-[10px] text-slate-200">Camera Scanner: Ready</span>
+        </div>
+
+        <div class="flex items-center justify-between gap-3 px-5 py-4">
+          <button id="cameraStopBtn" type="button" hidden class="flex items-center gap-2 rounded-lg border border-[#E2E8F0] px-4 py-2 text-sm font-semibold text-on-surface hover:bg-slate-50">
+            <span class="material-symbols-outlined text-base">stop</span> Stop
+          </button>
+          <button id="cameraToggleBtn" type="button" class="ml-auto flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary-container">
+            <span class="material-symbols-outlined text-base">camera</span> Start camera
+          </button>
+        </div>
+      </section>
+
+      <div class="flex flex-col gap-6">
+        <section class="rounded-xl border border-[#E2E8F0] bg-white p-5 shadow-sm">
+          <div class="mb-4 flex items-center gap-3">
+            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 text-primary"><span class="material-symbols-outlined">search</span></div>
+            <div><h3 class="font-semibold text-on-surface">Manual lookup</h3><p class="text-xs text-on-surface-variant">Use a product barcode or transfer code</p></div>
+          </div>
+          <form id="scannerForm" class="flex gap-2">
+            <input id="barcodeInput" type="text" autocomplete="off" placeholder="Barcode or TRF code" class="min-w-0 flex-1 rounded-lg border border-[#E2E8F0] px-3 py-2 text-sm focus:border-primary focus:ring-primary">
+            <button type="submit" class="flex items-center gap-1 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary-container"><span class="material-symbols-outlined text-base">search</span> Search</button>
+          </form>
+          <div id="scannerStatus" class="mt-4 rounded-lg bg-blue-50 px-3 py-2 text-sm text-primary">Scanner ready.</div>
+        </section>
+
+        <section class="rounded-xl border border-[#E2E8F0] bg-white p-5 shadow-sm">
+          <div class="mb-3 flex items-center gap-2"><span class="material-symbols-outlined text-primary">inventory_2</span><h3 class="font-semibold text-on-surface">Scan details</h3></div>
+          <div id="productDetails" class="min-h-24 rounded-lg border border-dashed border-[#E2E8F0] bg-slate-50 p-4 text-sm text-on-surface-variant">Scan a product barcode or transfer tracking code.</div>
+        </section>
+
+      </div>
+    </div>
+
+    <section class="mt-6 overflow-hidden rounded-xl border border-[#E2E8F0] bg-white shadow-sm">
+      <div class="flex items-center justify-between border-b border-[#E2E8F0] px-5 py-4"><div><h3 class="font-semibold text-on-surface">Live Audit Log</h3><p class="text-xs text-on-surface-variant">Recent scanner verification events</p></div><span class="font-mono text-xs text-secondary">SESSION ACTIVE</span></div>
+      <div class="overflow-x-auto"><table class="w-full min-w-[640px] text-left"><thead class="bg-slate-50"><tr><th class="px-5 py-3 text-xs font-semibold uppercase tracking-wide text-secondary">Timestamp</th><th class="px-5 py-3 text-xs font-semibold uppercase tracking-wide text-secondary">Barcode ID</th><th class="px-5 py-3 text-xs font-semibold uppercase tracking-wide text-secondary">Item Name</th><th class="px-5 py-3 text-xs font-semibold uppercase tracking-wide text-secondary">Verification</th></tr></thead><tbody class="divide-y divide-[#E2E8F0] text-sm"><tr><td class="px-5 py-4 font-mono text-xs text-secondary">Waiting</td><td class="px-5 py-4 font-mono text-xs text-secondary">No scans yet</td><td class="px-5 py-4 text-on-surface-variant">Awaiting scanner input</td><td class="px-5 py-4"><span class="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-secondary"><span class="material-symbols-outlined text-sm">pending</span> READY</span></td></tr></tbody></table></div>
+    </section>
+  </div>
+</main>
+
+<div id="receiptModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 p-4">
+  <div class="w-full max-w-lg rounded-xl border border-[#E2E8F0] bg-white shadow-xl">
+    <div class="flex items-center justify-between border-b border-[#E2E8F0] px-5 py-4"><div><h2 class="text-lg font-bold text-on-surface">Transfer Receipt</h2><p class="text-sm text-on-surface-variant">Review the transfer before confirming.</p></div><button id="cancelReceiptBtn" type="button" class="flex h-9 w-9 items-center justify-center rounded-lg text-secondary hover:bg-slate-100"><span class="material-symbols-outlined">close</span></button></div>
+    <div id="receiptDetails" class="max-h-[60vh] overflow-y-auto p-5 text-sm text-on-surface"></div>
+    <div class="flex justify-end gap-3 border-t border-[#E2E8F0] px-5 py-4"><button id="cancelReceiptBtnFooter" type="button" class="rounded-lg border border-[#E2E8F0] px-4 py-2 text-sm font-semibold text-on-surface hover:bg-slate-50">Cancel</button><button id="confirmReceiptBtn" type="button" class="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary-container">Confirm Receipt</button></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/supabaseClient.js"></script>
+<script src="../js/authGuard.js"></script>
+<script src="../js/authInit.js"></script>
+<script src="../js/shared-layout.js"></script>
+<script src="../js/layout.js"></script>
+<script src="../../js/api.js"></script>
+<script src="https://unpkg.com/@ericblade/quagga2/dist/quagga.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+<script src="../../js/scanner.js"></script>
+</body>
+</html>

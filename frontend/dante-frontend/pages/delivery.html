@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stock Delivery - ABC Admin Inventory</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'primary': '#006CE9',
+            'secondary': '#03DAC6',
+            'error': '#CF6679',
+            'on-primary': '#FFFFFF',
+            'on-secondary': '#000000',
+            'on-error': '#FFFFFF',
+            'surface': '#FAFAFA',
+            'surface-variant': '#F1F1F1',
+            'on-surface': '#1F1F1F',
+            'on-surface-variant': '#49454F',
+            'outline-variant': '#CAC7D0',
+            'outline': '#79747E',
+            'secondary-container': '#E1F5FE',
+            'on-secondary-container': '#004D40',
+            'primary-container': '#D4E3FF',
+            'surface-container': '#F3EDF7',
+            'surface-container-low': '#F7F2FA',
+            'surface-container-lowest': '#FFFBFE',
+            'surface-container-high': '#EEE9F3',
+            'surface-container-highest': '#E8DFF5'
+          },
+          spacing: {
+            'xs': '4px',
+            'sm': '8px',
+            'md': '16px',
+            'lg': '24px',
+            'xl': '32px'
+          },
+          fontSize: {
+            'display-lg': ['57px', '64px'],
+            'display-md': ['45px', '52px'],
+            'display-sm': ['36px', '44px'],
+            'headline-lg': ['32px', '40px'],
+            'headline-md': ['28px', '36px'],
+            'headline-sm': ['24px', '32px'],
+            'title-lg': ['22px', '28px'],
+            'title-md': ['16px', '24px'],
+            'title-sm': ['14px', '20px'],
+            'body-lg': ['16px', '24px'],
+            'body-md': ['14px', '20px'],
+            'body-sm': ['12px', '16px'],
+            'label-lg': ['14px', '20px'],
+            'label-md': ['12px', '16px'],
+            'label-sm': ['11px', '16px'],
+            'label-caps': ['12px', '16px']
+          },
+          fontFamily: {
+            'display-lg': ['Roboto', 'sans-serif'],
+            'display-md': ['Roboto', 'sans-serif'],
+            'display-sm': ['Roboto', 'sans-serif'],
+            'headline-lg': ['Roboto', 'sans-serif'],
+            'headline-md': ['Roboto', 'sans-serif'],
+            'headline-sm': ['Roboto', 'sans-serif'],
+            'title-lg': ['Roboto', 'sans-serif'],
+            'title-md': ['Roboto', 'sans-serif'],
+            'title-sm': ['Roboto', 'sans-serif'],
+            'body-lg': ['Roboto', 'sans-serif'],
+            'body-md': ['Roboto', 'sans-serif'],
+            'body-sm': ['Roboto', 'sans-serif'],
+            'label-lg': ['Roboto', 'sans-serif'],
+            'label-md': ['Roboto', 'sans-serif'],
+            'label-sm': ['Roboto', 'sans-serif'],
+            'label-caps': ['Roboto', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg-surface text-on-surface">
+
+<div id="app" class="flex flex-col min-h-screen">
+  <!-- Navigation will be injected here -->
+</div>
+
+<script src="../js/authGuard.js"></script>
+<script src="../js/shared-layout.js"></script>
+<script src="../js/delivery.js"></script>
+
+</body>
+</html>

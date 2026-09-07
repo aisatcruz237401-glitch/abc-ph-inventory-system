@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MedSupply Pro - Login</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script src="js/tailwind-config.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-background text-on-background min-h-screen flex items-center justify-center font-sans">
+  <script src="js/supabaseClient.js"></script>
+  <script src="js/authGuard.js"></script>
+  <div class="w-full max-w-md p-8 bg-surface rounded-[32px] shadow-[0_24px_80px_rgba(15,23,42,0.12)] border border-outline-variant">
+    <div class="text-center mb-8">
+      <p class="font-label-caps text-label-caps text-primary uppercase tracking-[0.25em] mb-3">MedSupply Pro</p>
+      <h1 class="font-display-lg text-display-lg text-on-surface">Welcome back</h1>
+      <p class="font-body-md text-body-md text-on-surface-variant mt-3">Sign in to continue to your inventory dashboard.</p>
+    </div>
+
+    <form id="loginForm" class="space-y-6">
+      <div class="grid gap-2">
+        <label for="username" class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-[0.08em]">Username or email</label>
+        <input id="username" name="username" type="text" required autocomplete="username" class="w-full rounded-[20px] border border-outline-variant bg-surface-container-low text-on-surface px-4 py-3 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition" placeholder="Enter your username or email">
+      </div>
+
+      <div class="grid gap-2">
+        <div class="flex items-center justify-between">
+          <label for="password" class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-[0.08em]">Password</label>
+          <button type="button" id="togglePassword" class="text-primary text-sm font-semibold hover:text-primary-container transition">Show</button>
+        </div>
+        <input id="password" name="password" type="password" required autocomplete="current-password" class="w-full rounded-[20px] border border-outline-variant bg-surface-container-low text-on-surface px-4 py-3 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition" placeholder="Enter your password">
+      </div>
+
+      <div id="loginMessage" class="min-h-[1.5rem] text-sm font-medium text-error"></div>
+
+      <button id="loginButton" type="submit" class="w-full rounded-[20px] bg-primary text-on-primary px-4 py-3 font-semibold shadow-[0_12px_36px_rgba(37,99,235,0.18)] hover:bg-primary-container transition">Sign in</button>
+    </form>
+
+    <p class="mt-6 text-center font-body-md text-on-surface-variant">Need help? Contact your administrator if you can’t sign in.</p>
+  </div>
+
+  <script>
+    const apiBase = 'http://localhost:3000';
+    const loginForm = document.getElementById('loginForm');
+    const loginMessage = document.getElementById('loginMessage');
+    const loginButton = document.getElementById('loginButton');
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+
+    togglePassword.addEventListener('click', () => {
+      const isPassword = passwordInput.type === 'password';
+      passwordInput.type = isPassword ? 'text' : 'password';
+      togglePassword.textContent = isPassword ? 'Hide' : 'Show';
+    });
+
+    loginForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      loginMessage.textContent = '';
+      loginButton.disabled = true;
+      loginButton.textContent = 'Signing in...';
+
+      try {
+        const response = await fetch(`${apiBase}/api/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username: document.getElementById('username').value.trim(),
+            password: passwordInput.value,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.token) {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('user', JSON.stringify(data.user));
+          if (typeof signInSupabaseWithCredentials === 'function') {
+            await signInSupabaseWithCredentials(document.getElementById('username').value.trim(), passwordInput.value).catch(() => null);
+          }
+          // Canonical active app flow goes to the dante transfer page used by the current UI.
+          window.location.href = '/dashboard-updated.html';
+          return;
+        }
+
+        loginMessage.textContent = data.message || 'Invalid username or password.';
+      } catch (err) {
+        console.error('Login error', err);
+        loginMessage.textContent = 'Unable to connect to server. Please try again.';
+      } finally {
+        loginButton.disabled = false;
+        loginButton.textContent = 'Sign in';
+      }
+    });
+  </script>
+</body>
+</html>

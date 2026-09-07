@@ -1,0 +1,598 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Reports Dashboard - ABC Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-error-container": "#93000a",
+                      "on-primary": "#ffffff",
+                      "on-primary-container": "#bcceff",
+                      "surface-variant": "#d8e3fb",
+                      "outline": "#737784",
+                      "surface-container-low": "#f0f3ff",
+                      "inverse-surface": "#263143",
+                      "primary-container": "#0f52ba",
+                      "on-error": "#ffffff",
+                      "surface-container": "#e7eeff",
+                      "error": "#ba1a1a",
+                      "on-primary-fixed-variant": "#00419c",
+                      "secondary-fixed": "#d3e4fe",
+                      "surface-container-high": "#dee8ff",
+                      "surface": "#f9f9ff",
+                      "on-secondary": "#ffffff",
+                      "primary": "#003c90",
+                      "error-container": "#ffdad6",
+                      "surface-tint": "#1d59c1",
+                      "primary-fixed-dim": "#b0c6ff",
+                      "tertiary": "#3d4143",
+                      "background": "#f9f9ff",
+                      "inverse-on-surface": "#ecf1ff",
+                      "on-background": "#111c2d",
+                      "tertiary-fixed": "#e0e3e5",
+                      "on-secondary-fixed": "#0b1c30",
+                      "on-tertiary-container": "#ccced0",
+                      "on-surface": "#111c2d",
+                      "tertiary-fixed-dim": "#c4c7c9",
+                      "on-tertiary-fixed": "#191c1e",
+                      "primary-fixed": "#d9e2ff",
+                      "surface-bright": "#f9f9ff",
+                      "secondary-fixed-dim": "#b7c8e1",
+                      "secondary": "#505f76",
+                      "tertiary-container": "#55585a",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-container-highest": "#d8e3fb",
+                      "on-secondary-container": "#54647a",
+                      "on-tertiary-fixed-variant": "#444749",
+                      "on-surface-variant": "#434653",
+                      "inverse-primary": "#b0c6ff",
+                      "outline-variant": "#c3c6d5",
+                      "secondary-container": "#d0e1fb",
+                      "on-tertiary": "#ffffff",
+                      "surface-dim": "#cfdaf2",
+                      "on-primary-fixed": "#001945",
+                      "on-secondary-fixed-variant": "#38485d"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "sidebar-width": "260px",
+                      "sidebar-collapsed": "72px",
+                      "container-margin": "24px",
+                      "gutter": "16px",
+                      "unit": "4px"
+              },
+              "fontFamily": {
+                      "data-mono": [
+                              "Inter"
+                      ],
+                      "headline-sm": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "label-md": [
+                              "Inter"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "data-mono": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-sm": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-md": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-sm": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "36px",
+                              {
+                                      "lineHeight": "44px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill-1 {
+             font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        </style>
+        <script src="../js/pageAuthGuard.js"></script>
+</head>
+<body class="bg-surface text-on-surface font-body-md text-body-md flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-screen w-sidebar-width bg-surface-container-low border-r border-outline-variant flex flex-col py-4 overflow-y-auto z-50 transition-all duration-300 md:translate-x-0 -translate-x-full" id="mobile-sidebar">
+<div class="px-container-margin mb-8 flex items-center justify-between">
+<div>
+<h1 class="font-headline-sm text-headline-sm font-black text-primary">ABC Admin</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">Clinical Inventory</p>
+</div>
+<button class="md:hidden text-on-surface-variant hover:text-primary transition-colors" onclick="toggleSidebar()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<nav class="flex-1 px-2 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200 rounded-DEFAULT" href="dashboard.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200 rounded-DEFAULT" href="inventory.html">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md">Current Stock</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200 rounded-DEFAULT" href="deliveries.html">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="font-label-md text-label-md">Deliveries</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200 rounded-DEFAULT" href="transfers.html">
+<span class="material-symbols-outlined">move_down</span>
+<span class="font-label-md text-label-md">Transfers</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200 rounded-DEFAULT" href="consumption.html">
+<span class="material-symbols-outlined">vaccines</span>
+<span class="font-label-md text-label-md">Consumption</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200 rounded-DEFAULT" href="product.html">
+<span class="material-symbols-outlined">medication</span>
+<span class="font-label-md text-label-md">Products</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200 rounded-DEFAULT" href="branches.html">
+<span class="material-symbols-outlined">domain</span>
+<span class="font-label-md text-label-md">Branches</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200 rounded-DEFAULT" href="barcode.html">
+<span class="material-symbols-outlined">barcode_scanner</span>
+<span class="font-label-md text-label-md">Barcode</span>
+</a><a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200 rounded-DEFAULT" href="/pages/scanner.html">
+<span class="material-symbols-outlined text-[20px]">qr_code_scanner</span>
+<span class="font-label-md text-label-md">Scanner</span>
+</a><a class="flex items-center gap-3 px-4 py-3 cursor-pointer group bg-secondary-container text-primary border-l-4 border-primary rounded-r-DEFAULT" href="reports.html">
+<span class="material-symbols-outlined icon-fill-1">analytics</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a><a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200 rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Users</span>
+</a>
+
+
+</nav>
+<div class="px-2 mt-auto">
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200 rounded-DEFAULT" href="#" onclick="event.preventDefault(); if (typeof signOutFromApp === 'function') { signOutFromApp(); } else { localStorage.removeItem('token'); localStorage.removeItem('user'); window.location.href = '/login.html'; }">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col md:ml-sidebar-width min-w-0 bg-background h-screen overflow-hidden">
+<!-- TopNavBar (Mobile Only) -->
+<header class="md:hidden flex justify-between items-center h-16 px-container-margin w-full bg-surface border-b border-outline-variant sticky top-0 z-40">
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors" onclick="toggleSidebar()">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<span class="font-headline-md text-headline-md font-bold text-primary">Reports</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined cursor-pointer hover:bg-surface-container transition-colors rounded-full p-2 text-on-surface-variant">notifications</span>
+</div>
+</header>
+<!-- Page Content -->
+<div class="flex-1 overflow-y-auto p-container-margin space-y-8">
+<!-- Page Header & Global Filters -->
+<div class="flex flex-col xl:flex-row justify-between items-start xl:items-end gap-6 border-b border-outline-variant pb-6">
+<div>
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface mb-2">Reports Directory</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Generate, view, and export comprehensive inventory and consumption reports.</p>
+</div>
+<div class="flex flex-wrap gap-4 w-full xl:w-auto">
+<!-- Filters -->
+ 
+<div class="flex-1 min-w-[200px]">
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1">Date Range</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">calendar_today</span>
+<input class="w-full pl-10 pr-3 py-2 bg-surface-container-lowest border border-outline-variant rounded-DEFAULT focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-sm text-body-sm text-on-surface transition-colors cursor-pointer" placeholder="Last 30 Days" readonly="" type="text" value="Oct 1, 2023 - Oct 31, 2023">
+</div>
+</div>
+<div class="flex-1 min-w-[150px]">
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1">Branch</label>
+<select id="reportBranchSelect" class="w-full px-3 py-2 bg-surface-container-lowest border border-outline-variant rounded-DEFAULT focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-sm text-body-sm text-on-surface transition-colors appearance-none cursor-pointer">
+<option value="">All Branches</option>
+</select>
+</div>
+
+<!-- Export Buttons -->
+<div class="flex items-end gap-2">
+    <button
+        id="exportPdfBtn"
+        type="button"
+        class="h-[38px] px-4 bg-error text-on-error font-label-md text-label-md rounded-DEFAULT hover:opacity-90 transition-colors flex items-center gap-2"
+    >
+        <span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+        Export PDF
+    </button>
+
+    <button
+        id="exportExcelBtn"
+        type="button"
+        class="h-[38px] px-4 bg-primary text-on-primary font-label-md text-label-md rounded-DEFAULT hover:bg-primary-container transition-colors flex items-center gap-2"
+    >
+        <span class="material-symbols-outlined text-[18px]">table_chart</span>
+        Export Excel
+    </button>
+</div>
+<div class="flex-1 min-w-[150px]">
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1">Category</label>
+<select class="w-full px-3 py-2 bg-surface-container-lowest border border-outline-variant rounded-DEFAULT focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-sm text-body-sm text-on-surface transition-colors appearance-none cursor-pointer">
+<option>All Categories</option>
+<option>Vaccines</option>
+<option>Consumables</option>
+</select>
+</div>
+<div class="flex items-end">
+<button class="h-[38px] px-4 bg-primary text-on-primary font-label-md text-label-md rounded-DEFAULT hover:bg-primary-container hover:text-on-primary-container transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">filter_list</span> Apply Filters
+                        </button>
+</div>
+</div>
+</div>
+<!-- Reports Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
+<!-- Report Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-6 flex flex-col hover:bg-surface-container-low transition-colors group">
+<div class="flex items-start justify-between mb-4">
+<div class="p-3 bg-primary-container text-on-primary-container rounded-DEFAULT">
+<span class="material-symbols-outlined icon-fill-1">inventory</span>
+</div>
+<span class="font-data-mono text-data-mono text-secondary bg-surface-container px-2 py-1 rounded-DEFAULT border border-outline-variant">ID: RPT-001</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">Inventory Status</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6 flex-1">Complete overview of current stock levels across all selected branches and categories.</p>
+<div class="flex gap-3 mt-auto pt-4 border-t border-outline-variant">
+<button class="flex-1 py-2 bg-primary text-on-primary font-label-md text-label-md rounded-DEFAULT hover:bg-surface-tint transition-colors">View Report</button>
+<button class="px-3 py-2 border border-outline-variant text-on-surface font-label-md text-label-md rounded-DEFAULT hover:bg-surface-container transition-colors" title="Export Options">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+</div>
+</div>
+<!-- Report Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-6 flex flex-col hover:bg-surface-container-low transition-colors group">
+<div class="flex items-start justify-between mb-4">
+<div class="p-3 bg-secondary-container text-on-secondary-container rounded-DEFAULT">
+<span class="material-symbols-outlined icon-fill-1">sync_alt</span>
+</div>
+<span class="font-data-mono text-data-mono text-secondary bg-surface-container px-2 py-1 rounded-DEFAULT border border-outline-variant">ID: RPT-002</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">In/Out Summary</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6 flex-1">Tracks all items received and dispatched within the specified date range.</p>
+<div class="flex gap-3 mt-auto pt-4 border-t border-outline-variant">
+<button class="flex-1 py-2 bg-primary text-on-primary font-label-md text-label-md rounded-DEFAULT hover:bg-surface-tint transition-colors">View Report</button>
+<button class="px-3 py-2 border border-outline-variant text-on-surface font-label-md text-label-md rounded-DEFAULT hover:bg-surface-container transition-colors" title="Export Options">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+</div>
+</div>
+<!-- Report Card 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-6 flex flex-col hover:bg-surface-container-low transition-colors group">
+<div class="flex items-start justify-between mb-4">
+<div class="p-3 bg-tertiary-container text-on-tertiary-container rounded-DEFAULT">
+<span class="material-symbols-outlined icon-fill-1">trending_down</span>
+</div>
+<span class="font-data-mono text-data-mono text-secondary bg-surface-container px-2 py-1 rounded-DEFAULT border border-outline-variant">ID: RPT-003</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">Consumption Trends</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6 flex-1">Analysis of product usage rates to forecast future inventory needs and ordering cycles.</p>
+<div class="flex gap-3 mt-auto pt-4 border-t border-outline-variant">
+<button class="flex-1 py-2 bg-primary text-on-primary font-label-md text-label-md rounded-DEFAULT hover:bg-surface-tint transition-colors">View Report</button>
+<button class="px-3 py-2 border border-outline-variant text-on-surface font-label-md text-label-md rounded-DEFAULT hover:bg-surface-container transition-colors" title="Export Options">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+</div>
+</div>
+<!-- Report Card 4 -->
+<div class="bg-surface-container-lowest border border-error-container rounded-lg p-6 flex flex-col hover:bg-surface-container-low transition-colors group relative overflow-hidden">
+<div class="absolute top-0 right-0 w-16 h-16 bg-error-container rounded-bl-full -z-10 opacity-50"></div>
+<div class="flex items-start justify-between mb-4">
+<div class="p-3 bg-error-container text-on-error-container rounded-DEFAULT">
+<span class="material-symbols-outlined icon-fill-1">warning</span>
+</div>
+<span class="font-data-mono text-data-mono text-error bg-surface-container px-2 py-1 rounded-DEFAULT border border-error-container">ID: RPT-004</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">Low Stock Alerts</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6 flex-1">Critical list of items currently below minimum par levels requiring immediate reorder.</p>
+<div class="flex gap-3 mt-auto pt-4 border-t border-outline-variant">
+<button class="flex-1 py-2 bg-primary text-on-primary font-label-md text-label-md rounded-DEFAULT hover:bg-surface-tint transition-colors">View Report</button>
+<button class="px-3 py-2 border border-outline-variant text-on-surface font-label-md text-label-md rounded-DEFAULT hover:bg-surface-container transition-colors" title="Export Options">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+</div>
+</div>
+<!-- Report Card 5 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-6 flex flex-col hover:bg-surface-container-low transition-colors group">
+<div class="flex items-start justify-between mb-4">
+<div class="p-3 bg-surface-variant text-on-surface-variant rounded-DEFAULT">
+<span class="material-symbols-outlined icon-fill-1">event_busy</span>
+</div>
+<span class="font-data-mono text-data-mono text-secondary bg-surface-container px-2 py-1 rounded-DEFAULT border border-outline-variant">ID: RPT-005</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">Expiry Tracking</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6 flex-1">Identifies products approaching expiration dates within the next 30, 60, or 90 days.</p>
+<div class="flex gap-3 mt-auto pt-4 border-t border-outline-variant">
+<button class="flex-1 py-2 bg-primary text-on-primary font-label-md text-label-md rounded-DEFAULT hover:bg-surface-tint transition-colors">View Report</button>
+<button class="px-3 py-2 border border-outline-variant text-on-surface font-label-md text-label-md rounded-DEFAULT hover:bg-surface-container transition-colors" title="Export Options">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+  function toggleSidebar() {
+    const sidebar = document.getElementById('mobile-sidebar');
+
+    if (sidebar) {
+      sidebar.classList.toggle('-translate-x-full');
+    }
+  }
+
+  // Load branches from API
+  async function loadReportBranches() {
+    try {
+      const response = await fetch('/api/branches');
+
+      if (!response.ok) {
+        throw new Error('Failed to load branches');
+      }
+
+      const branches = await response.json();
+
+      const select = document.getElementById('reportBranchSelect');
+
+      if (!select) {
+        return;
+      }
+
+      branches.forEach(branch => {
+        const option = document.createElement('option');
+
+        option.value = branch.id || branch.uuid || '';
+        option.textContent =
+          branch.branch_name ||
+          branch.name ||
+          'Unknown';
+
+        select.appendChild(option);
+      });
+    } catch (error) {
+      console.error('Error loading branches:', error);
+    }
+  }
+
+function toggleSidebar() {
+  const sidebar = document.getElementById('mobile-sidebar');
+
+  if (sidebar) {
+    sidebar.classList.toggle('-translate-x-full');
+  }
+}
+
+async function loadReportBranches() {
+  try {
+    const response = await fetch('/api/branches');
+
+    if (!response.ok) {
+      throw new Error('Failed to load branches');
+    }
+
+    const branches = await response.json();
+    const select = document.getElementById('reportBranchSelect');
+
+    if (!select) {
+      return;
+    }
+
+    branches.forEach((branch) => {
+      const option = document.createElement('option');
+      option.value = branch.id || branch.uuid || '';
+      option.textContent =
+        branch.branch_name ||
+        branch.name ||
+        'Unknown';
+
+      select.appendChild(option);
+    });
+  } catch (error) {
+    console.error('Error loading branches:', error);
+  }
+}
+
+async function exportReport(format) {
+  try {
+    const branchSelect =
+      document.getElementById('reportBranchSelect');
+
+    const branch = branchSelect
+      ? branchSelect.value
+      : '';
+
+    const params = new URLSearchParams();
+
+    if (branch) {
+      params.append('branch', branch);
+    }
+
+    const url =
+      '/api/reports/export/' +
+      format +
+      (params.toString()
+        ? '?' + params.toString()
+        : '');
+
+    const response = await fetch(url);
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        result.message || 'Export failed'
+      );
+    }
+
+    if (!result.downloadUrl) {
+      throw new Error(
+        'Report was created, but no download URL was returned.'
+      );
+    }
+
+    const fileResponse =
+      await fetch(result.downloadUrl);
+
+    if (!fileResponse.ok) {
+      throw new Error(
+        'Could not download the generated report.'
+      );
+    }
+
+    const blob = await fileResponse.blob();
+    const blobUrl = URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+
+    link.href = blobUrl;
+    link.download =
+      format === 'pdf'
+        ? 'inventory-report.pdf'
+        : 'inventory-report.xlsx';
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    URL.revokeObjectURL(blobUrl);
+
+    alert(
+      format.toUpperCase() +
+      ' report downloaded successfully.'
+    );
+  } catch (error) {
+    console.error(
+      'Report export failed:',
+      error
+    );
+
+    alert(
+      'Report export failed:\n' +
+      error.message
+    );
+  }
+}
+
+document.addEventListener(
+  'DOMContentLoaded',
+  function () {
+    loadReportBranches();
+
+    const pdfButton =
+      document.getElementById('exportPdfBtn');
+
+    const excelButton =
+      document.getElementById('exportExcelBtn');
+
+    if (pdfButton) {
+      pdfButton.addEventListener(
+        'click',
+        function () {
+          exportReport('pdf');
+        }
+      );
+    }
+
+    if (excelButton) {
+      excelButton.addEventListener(
+        'click',
+        function () {
+          exportReport('excel');
+        }
+      );
+    }
+  }
+);
+</script>
+</body>
+</html>

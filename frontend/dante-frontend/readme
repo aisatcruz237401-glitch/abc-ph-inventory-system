@@ -1,0 +1,35 @@
+User: I want you to reorganize my current inventory system frontend **part by part**.
+
+IMPORTANT:
+
+- Do NOT modify, delete, rename, or rewrite my existing Supabase integration.
+- Do NOT modify database tables, queries, RPCs, authentication, `.env`, or Supabase configuration.
+- Do NOT change existing inventory functionality.
+- Do NOT redesign the UI yet.
+- Do NOT add new features yet.
+- Preserve all existing functionality exactly as it currently works.
+- Before changing anything, inspect the entire project and identify all existing HTML, CSS, and JavaScript files.
+- My project already has separate JavaScript files and Supabase integration. Reuse them instead of creating duplicate logic.
+
+### GOAL
+I only want the current large `index.html` separated into clean, maintainable frontend files **part by part**.
+
+IMPORTANT SAFETY RULE
+This task is ONLY a code organization/refactoring task.
+
+DO NOT:
+- change the Supabase database
+- change database schemas
+- change RLS policies
+- change authentication
+- change `.env` values
+- change existing SQL
+- change RPCs
+- change inventory calculations
+- change product records
+- change branch records
+- change user records
+- remove working functionality
+- replace real data with mock data
+
+The final result should have the same functionality as before, but with a cleaner and more organized frontend structure.

@@ -1,0 +1,137 @@
+:root {
+  --dashboard-primary: #003c90;
+  --dashboard-primary-container: #0f52ba;
+  --dashboard-secondary: #505f76;
+  --dashboard-surface: #f9f9ff;
+  --dashboard-surface-low: #f0f3ff;
+  --dashboard-surface-high: #dee8ff;
+  --dashboard-outline: #c3c6d5;
+  --dashboard-text: #111c2d;
+  --dashboard-muted: #434653;
+  --dashboard-radius: 0.5rem;
+  --dashboard-sidebar-width: 260px;
+}
+
+.dashboard-theme {
+  background: var(--dashboard-surface);
+  color: var(--dashboard-text);
+  font-family: Inter, sans-serif;
+  overflow-y: hidden;
+}
+
+.dashboard-theme .app-sidebar {
+  width: var(--dashboard-sidebar-width);
+  background: var(--dashboard-surface-low);
+  border-color: var(--dashboard-outline);
+}
+
+.dashboard-theme .app-header {
+  height: 4rem;
+  background: var(--dashboard-surface);
+  border-color: var(--dashboard-outline);
+}
+
+.dashboard-theme .app-content {
+  background: var(--dashboard-surface);
+  padding: 1.5rem;
+}
+
+.dashboard-theme .app-card {
+  background: #fff;
+  border: 1px solid var(--dashboard-outline);
+  border-radius: var(--dashboard-radius);
+  box-shadow: 0 1px 2px rgba(17, 28, 45, 0.04);
+}
+
+.dashboard-theme .app-button,
+.dashboard-theme .app-input,
+.dashboard-theme .app-select {
+  border-radius: var(--dashboard-radius);
+  font-family: inherit;
+  transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
+}
+
+.dashboard-theme .app-button {
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.dashboard-theme .app-button-primary {
+  background: var(--dashboard-primary);
+  color: #fff;
+}
+
+.dashboard-theme .app-button-primary:hover {
+  background: var(--dashboard-primary-container);
+}
+
+.dashboard-theme .app-button-outline {
+  background: #fff;
+  border-color: var(--dashboard-outline);
+  color: var(--dashboard-secondary);
+}
+
+.dashboard-theme .app-button-outline:hover {
+  background: var(--dashboard-surface-low);
+}
+
+.dashboard-theme .app-button:focus-visible,
+.dashboard-theme .app-input:focus,
+.dashboard-theme .app-select:focus {
+  outline: none;
+  border-color: var(--dashboard-primary);
+  box-shadow: 0 0 0 2px rgba(15, 82, 186, 0.16);
+}
+
+.dashboard-theme .app-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.dashboard-theme .app-input,
+.dashboard-theme .app-select {
+  border: 1px solid var(--dashboard-outline);
+  background: #fff;
+  color: var(--dashboard-text);
+}
+
+.dashboard-theme .app-table {
+  border-collapse: collapse;
+}
+
+.dashboard-theme .app-table thead tr {
+  background: var(--dashboard-surface-low);
+  border-bottom: 1px solid var(--dashboard-outline);
+}
+
+.dashboard-theme .app-table tbody tr {
+  border-bottom: 1px solid var(--dashboard-outline);
+  transition: background-color 160ms ease;
+}
+
+.dashboard-theme .app-table tbody tr:hover {
+  background: var(--dashboard-surface-low);
+}
+
+.dashboard-theme .app-table th,
+.dashboard-theme .app-table td {
+  font-size: 0.875rem;
+}
+
+.dashboard-theme .app-empty-state {
+  padding: 2rem 1rem;
+  color: var(--dashboard-muted);
+  text-align: center;
+}
+
+.dashboard-theme .app-pagination {
+  border-top: 1px solid var(--dashboard-outline);
+  background: #fff;
+}
+
+@media (max-width: 767px) {
+  .dashboard-theme .app-content {
+    padding: 1rem;
+  }
+}

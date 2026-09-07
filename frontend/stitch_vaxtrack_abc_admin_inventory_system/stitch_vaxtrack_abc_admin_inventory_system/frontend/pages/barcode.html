@@ -1,0 +1,423 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Barcode Interface - ABC Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#bcceff",
+                        "surface-variant": "#d8e3fb",
+                        "outline": "#737784",
+                        "surface-container-low": "#f0f3ff",
+                        "inverse-surface": "#263143",
+                        "primary-container": "#0f52ba",
+                        "on-error": "#ffffff",
+                        "surface-container": "#e7eeff",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#00419c",
+                        "secondary-fixed": "#d3e4fe",
+                        "surface-container-high": "#dee8ff",
+                        "surface": "#f9f9ff",
+                        "on-secondary": "#ffffff",
+                        "primary": "#003c90",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#1d59c1",
+                        "primary-fixed-dim": "#b0c6ff",
+                        "tertiary": "#3d4143",
+                        "background": "#f9f9ff",
+                        "inverse-on-surface": "#ecf1ff",
+                        "on-background": "#111c2d",
+                        "tertiary-fixed": "#e0e3e5",
+                        "on-secondary-fixed": "#0b1c30",
+                        "on-tertiary-container": "#ccced0",
+                        "on-surface": "#111c2d",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "on-tertiary-fixed": "#191c1e",
+                        "primary-fixed": "#d9e2ff",
+                        "surface-bright": "#f9f9ff",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "secondary": "#505f76",
+                        "tertiary-container": "#55585a",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-highest": "#d8e3fb",
+                        "on-secondary-container": "#54647a",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "on-surface-variant": "#434653",
+                        "inverse-primary": "#b0c6ff",
+                        "outline-variant": "#c3c6d5",
+                        "secondary-container": "#d0e1fb",
+                        "on-tertiary": "#ffffff",
+                        "surface-dim": "#cfdaf2",
+                        "on-primary-fixed": "#001945",
+                        "on-secondary-fixed-variant": "#38485d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sidebar-width": "260px",
+                        "sidebar-collapsed": "72px",
+                        "container-margin": "24px",
+                        "gutter": "16px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "data-mono": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "data-mono": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "display-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+    <script src="../js/pageAuthGuard.js"></script>
+</head>
+<body class="bg-surface text-on-surface font-body-md h-screen overflow-hidden flex">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-screen w-sidebar-width border-r border-outline-variant bg-surface-container-low flex flex-col py-4 overflow-y-auto hidden md:flex z-50">
+<div class="px-container-margin mb-8 flex items-center gap-3">
+<img class="w-8 h-8 object-cover rounded-DEFAULT" data-alt="A clean, minimalist logo mark for a clinical inventory system. The logo features abstract geometric shapes in shades of medical blue and bright white, communicating precision and reliability. The overall aesthetic is highly professional, sterile, and modern, fitting for a top-tier healthcare administration interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBts30ueKjBUEOruPvrhynoK8DkRUtr6sVFmnSdTaU5ov8LsJJ57VgX69WXgHJLjxtuJjDa1YYftrqyUWiFEi1Agvtw9XoPkQxRYBmvS1T_rw0TxIqFiVW8vF4VBiX8k4xYDjPEYzyVNy46TBXQMWHL9rBu0BFbG0Y8psTPIIr8jFJhiWdQGyfpRdIXatAZk2gJ7AvFKgtNVL55FoQRxDmQeamPetKrrZ8pz49JMXzQdv1c6BOPT6Vk">
+<div>
+<h1 class="font-headline-sm text-headline-sm font-black text-primary">ABC Admin</h1>
+<p class="font-label-md text-label-md text-secondary">Clinical Inventory</p>
+</div>
+</div>
+<div class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200" href="dashboard.html">
+<span class="material-symbols-outlined text-secondary" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200" href="inventory.html">
+<span class="material-symbols-outlined text-secondary" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-md text-label-md">Current Stock</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200" href="deliveries.html">
+<span class="material-symbols-outlined text-secondary" data-icon="local_shipping">local_shipping</span>
+<span class="font-label-md text-label-md">Deliveries</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200" href="transfers.html">
+<span class="material-symbols-outlined text-secondary" data-icon="move_down">move_down</span>
+<span class="font-label-md text-label-md">Transfers</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200" href="consumption.html">
+<span class="material-symbols-outlined text-secondary" data-icon="vaccines">vaccines</span>
+<span class="font-label-md text-label-md">Consumption</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200" href="product.html">
+<span class="material-symbols-outlined text-secondary" data-icon="medication">medication</span>
+<span class="font-label-md text-label-md">Products</span>
+</a>
+<a id="branches-nav-link" class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200" href="branches.html">
+    <span class="material-symbols-outlined text-secondary" data-icon="domain">domain</span>
+    <span class="font-label-md text-label-md">Branches</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group bg-secondary-container text-primary border-l-4 border-primary" href="barcode.html">
+<span class="material-symbols-outlined text-primary" data-icon="barcode_scanner" style="font-variation-settings: 'FILL' 1;">barcode_scanner</span>
+<span class="font-label-md text-label-md text-primary">Barcode</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200" href="/pages/scanner.html">
+<span class="material-symbols-outlined text-secondary" data-icon="qr_code_scanner">qr_code_scanner</span>
+<span class="font-label-md text-label-md">Scanner</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200" href="reports.html">
+<span class="material-symbols-outlined text-secondary" data-icon="analytics">analytics</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a><a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-secondary" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a><a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-secondary" data-icon="group">group</span>
+<span class="font-label-md text-label-md">Users</span>
+</a>
+
+
+</div>
+<div class="mt-auto pt-4 border-t border-outline-variant">
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group text-secondary hover:bg-surface-container-high transition-all duration-200" href="#" onclick="event.preventDefault(); if (typeof signOutFromApp === 'function') { signOutFromApp(); } else { localStorage.removeItem('token'); localStorage.removeItem('user'); window.location.href = '/login.html'; }">
+<span class="material-symbols-outlined text-secondary" data-icon="logout">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col md:ml-[260px] h-screen overflow-hidden">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center h-16 px-container-margin w-full bg-surface border-b border-outline-variant docked full-width top-0 sticky z-40">
+<div class="flex items-center gap-4">
+<button class="md:hidden p-2 text-on-surface-variant hover:bg-surface-container rounded-DEFAULT">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="font-headline-md text-headline-md font-bold text-primary hidden md:block">Barcode Operations</h2>
+</div>
+<div class="flex-1 max-w-md mx-8 hidden md:block">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-DEFAULT font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-outline transition-colors" placeholder="Search products, SKUs, or barcodes..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-primary hover:bg-surface-container rounded-DEFAULT transition-colors cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-primary hover:bg-surface-container rounded-DEFAULT transition-colors cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined" data-icon="apps">apps</span>
+</button>
+<img alt="User profile" class="w-8 h-8 rounded-full border border-outline-variant object-cover ml-2" data-alt="A highly professional and clean profile picture of a healthcare administrator. The individual is wearing a crisp medical scrub or lab coat against a bright, clinical white background. Soft, high-key lighting creates a modern, optimistic atmosphere. The aesthetic matches a premium, trusted medical technology platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDc151HgYsqKb2kWYLOsUJdxfn6gvH3bgBN0ntZAwL9TxrOlcFWAgldUu_fC7wDqVar5lgZ_ouWgcHPRKW1uU7T7UpuTd4fAXOhQWXcj3yIOSi3ycTXKYE9XxrVhnDiQmyo4MqDR4dDqiRqDrs6XoAyN4YEpPoUzQY9HXp4C5fKDwdSPRUKGFmX1GZB_gakyC4Cvlv5rZugFh_CBBP_yt6dwQkTJd5cV4hSs8Eq7sRGRh3-od3dfIrV">
+</div>
+</header>
+<!-- Scrollable Canvas -->
+<main class="flex-1 overflow-y-auto p-container-margin bg-background">
+<div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
+<!-- Scanner Simulator -->
+<section class="bg-surface border border-outline-variant rounded-lg p-6 flex flex-col">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="barcode_scanner">barcode_scanner</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Scanner Simulator</h3>
+</div>
+<div class="flex gap-4 mb-8">
+<div class="flex-1">
+<label class="block font-label-md text-label-md text-secondary mb-2">Manual Entry / Scan Input</label>
+<input class="w-full px-4 py-3 bg-surface-container-low border border-outline-variant rounded-DEFAULT font-data-mono text-data-mono text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors" id="scan-input" placeholder="e.g. 841295710294" type="text">
+</div>
+<div class="flex items-end">
+<button class="px-6 py-3 bg-primary text-on-primary rounded-DEFAULT font-label-md text-label-md hover:bg-primary-container hover:text-on-primary-container transition-colors flex items-center gap-2" onclick="simulateScan()">
+<span class="material-symbols-outlined" style="font-variation-settings: 'opsz' 20;">bolt</span>
+                                Scan
+                            </button>
+</div>
+</div>
+<!-- Simulated Result Area -->
+<div class="hidden flex-1 flex flex-col border border-outline-variant rounded-DEFAULT p-5 bg-surface-container-low" id="scan-result">
+<div class="flex justify-between items-start mb-4">
+<div>
+<span class="inline-block px-2 py-1 bg-secondary-container text-on-secondary-container font-label-md text-label-md rounded-DEFAULT mb-2">Scanned Result</span>
+<h4 class="font-headline-sm text-headline-sm text-on-surface">Lidocaine HCl 2%</h4>
+<p class="font-data-mono text-data-mono text-secondary mt-1">SKU: LIDO-200-VIAL</p>
+</div>
+<span class="material-symbols-outlined text-primary text-4xl">check_circle</span>
+</div>
+<div class="grid grid-cols-2 gap-y-4 gap-x-6 my-6">
+<div>
+<p class="font-label-md text-label-md text-secondary">Barcode</p>
+<p class="font-data-mono text-data-mono text-on-surface">841295710294</p>
+</div>
+<div>
+<p class="font-label-md text-label-md text-secondary">Branch</p>
+<p class="font-body-md text-body-md text-on-surface">Main Pharmacy A</p>
+</div>
+<div>
+<p class="font-label-md text-label-md text-secondary">Current Stock</p>
+<p class="font-data-mono text-data-mono text-on-surface">1,240 <span class="text-secondary text-sm">vials</span></p>
+</div>
+<div>
+<p class="font-label-md text-label-md text-secondary">Expiry</p>
+<p class="font-data-mono text-data-mono text-error font-semibold">2024-11-30</p>
+</div>
+</div>
+<div class="mt-auto pt-4 border-t border-outline-variant flex gap-3">
+<button class="flex-1 py-2 bg-primary text-on-primary rounded-DEFAULT font-label-md text-label-md hover:bg-primary-container transition-colors">Consume</button>
+<button class="flex-1 py-2 border border-outline bg-transparent text-primary rounded-DEFAULT font-label-md text-label-md hover:bg-surface-container transition-colors">Transfer</button>
+<button class="flex-1 py-2 border border-outline bg-transparent text-secondary rounded-DEFAULT font-label-md text-label-md hover:bg-surface-container transition-colors">Adjust</button>
+</div>
+</div>
+<!-- Empty State -->
+<div class="flex-1 flex flex-col items-center justify-center border border-dashed border-outline-variant rounded-DEFAULT p-8 text-center bg-surface-container-lowest" id="scan-empty">
+<span class="material-symbols-outlined text-outline text-5xl mb-4 opacity-50" data-icon="qr_code_scanner">qr_code_scanner</span>
+<p class="font-body-md text-body-md text-secondary">Awaiting scan input...</p>
+<p class="font-body-sm text-body-sm text-outline mt-2 max-w-xs">Enter a barcode manually or use a connected wedge scanner.</p>
+</div>
+</section>
+<!-- Real Barcode Catalog -->
+<section class="bg-surface border border-outline-variant rounded-lg p-6 flex flex-col">
+<div class="flex items-center justify-between gap-3 mb-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="qr_code_2">qr_code_2</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Real Product Barcodes</h3>
+</div>
+<div class="font-label-md text-label-md text-secondary" id="barcodeProductCount">0 products</div>
+</div>
+<div class="mb-4">
+<label class="block font-label-md text-label-md text-secondary mb-2">Filter products</label>
+<input id="barcodeSearch" class="w-full px-4 py-2.5 bg-surface-container-low border border-outline-variant rounded-DEFAULT font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary" type="text" placeholder="Search by product or barcode" />
+</div>
+<div class="overflow-x-auto border border-outline-variant rounded-DEFAULT">
+<table class="w-full min-w-[640px] border-collapse">
+<thead class="bg-surface-container-low">
+<tr>
+<th class="px-4 py-3 text-left font-label-md text-label-md text-secondary">Product</th>
+<th class="px-4 py-3 text-left font-label-md text-label-md text-secondary">Category</th>
+<th class="px-4 py-3 text-left font-label-md text-label-md text-secondary">Barcode</th>
+<th class="px-4 py-3 text-left font-label-md text-label-md text-secondary">Stock</th>
+</tr>
+</thead>
+<tbody id="barcodeProductTableBody" class="bg-surface"></tbody>
+</table>
+</div>
+</section>
+</div>
+</main>
+</div>
+<script>
+        async function loadBarcodeProducts() {
+            try {
+                const token = localStorage.getItem('token');
+                const response = await fetch('/api/products', {
+                    headers: token ? { Authorization: `Bearer ${token}` } : {}
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to load products');
+                }
+
+                const products = await response.json();
+                const tableBody = document.getElementById('barcodeProductTableBody');
+                const count = document.getElementById('barcodeProductCount');
+                const searchInput = document.getElementById('barcodeSearch');
+
+                if (!tableBody) return;
+
+                const renderProducts = (items) => {
+                    tableBody.innerHTML = '';
+                    count.textContent = `${items.length} product${items.length === 1 ? '' : 's'}`;
+
+                    if (!items.length) {
+                        tableBody.innerHTML = `
+                            <tr>
+                                <td colspan="4" class="px-4 py-6 text-center font-body-md text-body-md text-secondary">
+                                    No real products were found in the current catalog.
+                                </td>
+                            </tr>
+                        `;
+                        return;
+                    }
+
+                    items.forEach((product) => {
+                        const row = document.createElement('tr');
+                        row.className = 'border-t border-outline-variant hover:bg-surface-container-low transition-colors';
+                        row.innerHTML = `
+                            <td class="px-4 py-3 font-body-md text-body-md text-on-surface">${product.product_name || product.name || 'Unknown product'}</td>
+                            <td class="px-4 py-3 font-body-md text-body-md text-on-surface-variant">${product.category || 'Uncategorized'}</td>
+                            <td class="px-4 py-3 font-data-mono text-data-mono text-on-surface">${product.barcode || 'No barcode assigned'}</td>
+                            <td class="px-4 py-3 font-data-mono text-data-mono text-on-surface-variant">${Number(product.total_quantity || 0)}</td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                };
+
+                const allProducts = Array.isArray(products) ? products : [];
+                renderProducts(allProducts);
+
+                searchInput.addEventListener('input', (event) => {
+                    const query = event.target.value.trim().toLowerCase();
+                    const filtered = allProducts.filter((product) => {
+                        const productText = `${product.product_name || ''} ${product.category || ''} ${product.barcode || ''}`.toLowerCase();
+                        return productText.includes(query);
+                    });
+                    renderProducts(filtered);
+                });
+            } catch (error) {
+                console.error('Error loading products:', error);
+                const tableBody = document.getElementById('barcodeProductTableBody');
+                if (tableBody) {
+                    tableBody.innerHTML = `
+                        <tr>
+                            <td colspan="4" class="px-4 py-6 text-center font-body-md text-body-md text-error">
+                                Unable to load product barcode data from the existing API.
+                            </td>
+                        </tr>
+                    `;
+                }
+            }
+        }
+
+    </script>
+ 
+ <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+
+<div style="margin: 30px; padding: 20px; border: 1px solid #ddd;">
+    <h2>Transfer Barcode Test</h2>
+
+    <input
+        id="transferBarcodeInput"
+        type="text"
+        value="TRF-296E018FAB75"
+        style="padding: 10px; border: 1px solid #ccc;"
+    />
+
+    <button
+        type="button"
+        onclick="generateTransferBarcode()"
+        style="padding: 10px 15px; margin-left: 10px;"
+    >
+        Generate Barcode
+    </button>
+
+    <div style="margin-top: 20px;">
+        <svg id="transferBarcode"></svg>
+    </div>
+</div>
+
+<script>
+function generateTransferBarcode() {
+    const value = document.getElementById('transferBarcodeInput').value.trim();
+
+    if (!value) {
+        return;
+    }
+
+    JsBarcode('#transferBarcode', value, {
+        format: 'CODE128',
+        displayValue: true,
+        width: 2,
+        height: 100,
+        margin: 10
+    });
+}
+
+generateTransferBarcode();
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const currentUser = JSON.parse(localStorage.getItem('user') || 'null');
+
+    if (currentUser?.role !== 'admin') {
+        document.getElementById('branches-nav-link')?.remove();
+    }
+
+    loadBarcodeProducts();
+});
+</script>
+
+</body></html>

@@ -1,0 +1,1287 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Stock Transfers - ABC Admin</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="../../css/dashboard-theme.css" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+tailwind.config = {
+    darkMode: 'class',
+    theme: {
+        extend: {
+            colors: {
+                primary: '#003c90',
+                'primary-container': '#0f52ba',
+                'on-primary': '#ffffff',
+                secondary: '#505f76',
+                'secondary-container': '#d0e1fb',
+                surface: '#f9f9ff',
+                background: '#f9f9ff',
+                'on-surface': '#111c2d',
+                'on-background': '#111c2d',
+                'outline-variant': '#c3c6d5',
+                'surface-container-lowest': '#ffffff',
+                'surface-container-low': '#f0f3ff',
+                'surface-container': '#e7eeff',
+                'surface-container-high': '#dee8ff',
+                'surface-bright': '#f9f9ff',
+                'inverse-surface': '#263143',
+            },
+            spacing: {
+                'sidebar-width': '260px',
+                'container-margin': '24px',
+            },
+            fontFamily: {
+                'body-sm': ['Inter'],
+                'headline-sm': ['Inter'],
+                'label-md': ['Inter'],
+                'display-lg': ['Inter'],
+                'headline-md': ['Inter'],
+                'body-md': ['Inter'],
+                'body-lg': ['Inter'],
+                'data-mono': ['Inter'],
+            },
+        },
+    },
+};
+</script>
+</head>
+<body class="dashboard-theme bg-background text-on-background font-body-md text-body-md antialiased overflow-x-hidden min-h-screen flex">
+<!-- Mobile Navigation Overlay (Hidden by default) -->
+<div class="fixed inset-0 bg-inverse-surface/50 z-40 hidden md:hidden transition-opacity" id="mobile-nav-overlay"></div>
+<!-- SideNavBar -->
+<aside class="app-sidebar fixed md:static inset-y-0 left-0 z-50 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out flex flex-col h-screen w-sidebar-width bg-surface-container-low border-r border-outline-variant shrink-0 py-4 overflow-y-auto" id="sidebar">
+<!-- Header -->
+<div class="px-container-margin mb-8 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-headline-sm shrink-0">
+                A
+            </div>
+<div>
+<h1 class="font-headline-sm text-headline-sm text-primary">ABC Admin</h1>
+<p class="font-label-md text-label-md text-secondary">Clinical Inventory</p>
+</div>
+<button class="md:hidden ml-auto text-secondary hover:text-primary" id="close-sidebar">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Navigation Links -->
+<nav class="flex-1 flex flex-col gap-1 px-4">
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group rounded-lg text-secondary hover:bg-surface-container-high transition-all duration-200 font-label-md text-label-md" href="dashboard.html">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group rounded-lg text-secondary hover:bg-surface-container-high transition-all duration-200 font-label-md text-label-md" href="inventory.html">
+<span class="material-symbols-outlined text-[20px]">inventory_2</span>
+                Current Stock
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group rounded-lg text-secondary hover:bg-surface-container-high transition-all duration-200 font-label-md text-label-md" href="deliveries.html">
+<span class="material-symbols-outlined text-[20px]">local_shipping</span>
+                Deliveries
+            </a>
+<!-- Active Tab -->
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group rounded-lg bg-secondary-container text-primary border-l-4 border-primary font-label-md text-label-md transition-all duration-200" href="transfers.html">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">move_down</span>
+                Transfers
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group rounded-lg text-secondary hover:bg-surface-container-high transition-all duration-200 font-label-md text-label-md" href="consumption.html">
+<span class="material-symbols-outlined text-[20px]">vaccines</span>
+                Consumption
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group rounded-lg text-secondary hover:bg-surface-container-high transition-all duration-200 font-label-md text-label-md" href="product.html">
+<span class="material-symbols-outlined text-[20px]">medication</span>
+                Products
+            </a>
+<a id="branches-nav-link" class="flex items-center gap-3 px-4 py-3 cursor-pointer group rounded-lg text-secondary hover:bg-surface-container-high transition-all duration-200 font-label-md text-label-md" href="branches.html">
+    <span class="material-symbols-outlined text-[20px]">domain</span>
+    Branches
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group rounded-lg text-secondary hover:bg-surface-container-high transition-all duration-200 font-label-md text-label-md" href="barcode.html">
+<span class="material-symbols-outlined text-[20px]">barcode_scanner</span>
+                Barcode
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group rounded-lg text-secondary hover:bg-surface-container-high transition-all duration-200 font-label-md text-label-md" href="/pages/scanner.html">
+<span class="material-symbols-outlined text-[20px]">qr_code_scanner</span>
+                Scanner
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group rounded-lg text-secondary hover:bg-surface-container-high transition-all duration-200 font-label-md text-label-md" href="reports.html">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
+                Reports
+            </a><a class="flex items-center gap-3 px-4 py-3 cursor-pointer group rounded-lg text-secondary hover:bg-surface-container-high transition-all duration-200 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">group</span>
+                Users
+            </a>
+
+
+</nav>
+<!-- Footer -->
+<div class="px-4 mt-auto">
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer group rounded-lg text-secondary hover:bg-surface-container-high transition-all duration-200 font-label-md text-label-md" href="#" onclick="event.preventDefault(); if (typeof signOutFromApp === 'function') { signOutFromApp(); } else { localStorage.removeItem('token'); localStorage.removeItem('user'); window.location.href = '/login.html'; }">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+                Logout
+            </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
+<!-- TopNavBar -->
+<header class="app-header flex justify-between items-center h-16 px-container-margin w-full bg-surface border-b border-outline-variant shrink-0 z-30 relative">
+<div class="flex items-center gap-4">
+<button class="md:hidden text-secondary hover:text-primary focus:outline-none" id="open-sidebar">
+<span class="material-symbols-outlined text-[24px]">menu</span>
+</button>
+<!-- Search Bar (on_left) -->
+<div class="relative hidden sm:block w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-[20px]">search</span>
+<input class="w-full h-10 pl-10 pr-4 bg-surface-container rounded-full border-none text-body-sm text-on-surface focus:ring-2 focus:ring-primary placeholder:text-outline transition-shadow" placeholder="Search..." type="text">
+</div>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 rounded-full hover:bg-surface-container flex items-center justify-center text-secondary transition-colors cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="w-10 h-10 rounded-full hover:bg-surface-container flex items-center justify-center text-secondary transition-colors cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined">apps</span>
+</button>
+<div class="w-9 h-9 rounded-full bg-secondary-container flex items-center justify-center cursor-pointer border border-outline-variant overflow-hidden">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="A clean, professional headshot of an administrative user in a brightly lit modern office setting. Light mode aesthetic, clinical feel, sharp focus. Soft cool lighting emphasizing reliability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdhI8VKrLc0wkQJfUWabEbcBzbP_rjguQtYFiJS3qN0GhJWzB23RTqhF_w8lA_EgXPPE47kCzhimj2nIs0AJKi0yaUhVswibuRIf5hwCWpYFpmD-DD78D-07-JyZQEQO1jbUdK7iuCXeEmDqYY40ixfsQ8rHzh0wp9d9WS-SydmDR-xoatx6-9e62mNUnyXvrPA0qRJy4brT3IQ4g0kHDAcmg6VSaeDj0vdkEPvQbl_nfzLRGAdKnp">
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<div class="flex-1 min-h-0 overflow-y-auto p-container-margin md:p-8 bg-background">
+<!-- Page Header & Action -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Stock Transfers</h2>
+<p class="font-body-md text-body-md text-secondary mt-1">Manage inter-branch inventory movements.</p>
+</div>
+<button
+    type="button"
+    id="btn-new-transfer"
+    onclick="document.getElementById('modal-overlay').classList.remove('hidden')"
+    class="app-button app-button-primary bg-primary text-on-primary px-6 py-2.5 rounded flex items-center gap-2 font-label-md text-label-md hover:bg-surface-tint transition-colors focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+>
+    <span class="material-symbols-outlined text-[18px]">add</span>
+    New Transfer
+</button>
+</div>
+<!-- Summary Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<!-- Card 1 -->
+<div class="app-card bg-surface-container-lowest border border-outline-variant rounded-xl p-6 flex items-center justify-between">
+<div>
+<p class="font-label-md text-label-md text-secondary mb-1 uppercase tracking-wider">Pending Transfers</p>
+<p class="font-display-lg text-display-lg text-on-surface font-data-mono">14</p>
+</div>
+<div class="w-12 h-12 rounded-full bg-error-container/20 flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-[24px]">pending_actions</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="app-card bg-surface-container-lowest border border-outline-variant rounded-xl p-6 flex items-center justify-between">
+<div>
+<p class="font-label-md text-label-md text-secondary mb-1 uppercase tracking-wider">Completed Today</p>
+<p class="font-display-lg text-display-lg text-on-surface font-data-mono">32</p>
+</div>
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[24px]">task_alt</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="app-card bg-surface-container-lowest border border-outline-variant rounded-xl p-6 flex items-center justify-between">
+<div>
+<p class="font-label-md text-label-md text-secondary mb-1 uppercase tracking-wider">Active Transit</p>
+<p class="font-display-lg text-display-lg text-on-surface font-data-mono">08</p>
+</div>
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[24px]">local_shipping</span>
+</div>
+</div>
+</div>
+<!-- Transfers Table -->
+<div class="app-card bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col">
+<div class="px-6 py-4 border-b border-outline-variant flex justify-between items-center bg-surface-bright">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Recent Activity</h3>
+<button class="text-secondary hover:text-primary font-label-md text-label-md flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[18px]">filter_list</span> Filter
+                    </button>
+</div>
+<div class="overflow-x-auto">
+<table class="app-table w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant bg-surface-container-low/50">
+<th class="px-6 py-4 font-label-md text-label-md text-secondary uppercase tracking-wider">Transfer ID</th>
+<th class="px-6 py-4 font-label-md text-label-md text-secondary uppercase tracking-wider">Source</th>
+<th class="px-6 py-4 font-label-md text-label-md text-secondary uppercase tracking-wider">Destination</th>
+<th class="px-6 py-4 font-label-md text-label-md text-secondary uppercase tracking-wider">Product</th>
+<th class="px-6 py-4 font-label-md text-label-md text-secondary uppercase tracking-wider text-right">Qty</th>
+<th class="px-6 py-4 font-label-md text-label-md text-secondary uppercase tracking-wider">Date</th>
+<th class="px-6 py-4 font-label-md text-label-md text-secondary uppercase tracking-wider">Status</th>
+</tr>
+</thead>
+<tbody id="transfer-history-body" class="divide-y divide-outline-variant"></tbody>
+</table>
+</div>
+<div class="app-pagination px-6 py-4 border-t border-outline-variant bg-surface-bright flex justify-between items-center text-body-sm text-secondary">
+<span id="transfer-history-count" class="">Showing 0 entries</span>
+<div class="flex gap-2">
+    <button
+    id="transfer-history-prev"
+        class="app-button app-button-outline px-3 py-1 border border-outline-variant rounded hover:bg-surface-container transition-colors disabled:opacity-50"
+    disabled>
+    Prev
+</button>
+
+<span id="transfer-history-page-status" class="px-3 py-1 font-label-md text-label-md text-secondary">Page 1 of 1</span>
+
+<button
+    id="transfer-history-next"
+    class="app-button app-button-outline px-3 py-1 border border-outline-variant rounded hover:bg-surface-container transition-colors">
+    Next
+</button>
+</div>
+</div>
+</div>
+<div class="h-8"></div> <!-- Bottom padding spacer -->
+</div>
+</main>
+<!-- Modal Overlay -->
+<div class="fixed inset-0 bg-inverse-surface/60 z-[60] hidden flex items-center justify-center p-4 backdrop-blur-sm transition-opacity" id="modal-overlay">
+<!-- New Transfer Modal -->
+<div class="app-card bg-surface-container-lowest rounded-xl border border-outline-variant shadow-lg w-full max-w-[600px] flex flex-col max-h-[90vh]">
+<!-- Header -->
+<div class="px-6 py-5 border-b border-outline-variant flex justify-between items-center bg-surface-bright rounded-t-xl shrink-0">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Initiate Stock Transfer</h2>
+<button class="text-secondary hover:text-on-surface transition-colors p-1 rounded-full hover:bg-surface-container" id="close-modal">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Body -->
+<div class="p-6 overflow-y-auto flex-1 min-h-0">
+<form class="space-y-6" id="transfer-form">
+<!-- Location Row -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div>
+<label class="block font-label-md text-label-md text-secondary mb-1.5">Source Branch</label>
+<select id="sourceBranch" class="app-select w-full bg-surface-container-lowest border border-outline-variant rounded h-10 px-3 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary transition-colors outline-none appearance-none">
+<option value="">Select Source</option>
+</select>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-secondary mb-1.5">Destination Branch</label>
+<select id="destBranch" class="app-select w-full bg-surface-container-lowest border border-outline-variant rounded h-10 px-3 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary transition-colors outline-none appearance-none">
+<option value="">Select Destination</option>
+</select>
+</div>
+</div>
+<!-- Product Selection -->
+<div class="hidden">
+    <label class="block font-label-md text-label-md text-secondary mb-1.5">
+        Select Product
+    </label>
+
+    <select
+        id="transferProduct"
+        class="app-select w-full bg-surface-container-lowest border border-outline-variant rounded h-10 px-3 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary transition-colors outline-none"
+        disabled
+    >
+        <option value="">Select a source branch first</option>
+    </select>
+
+    <div
+        id="productAvailability"
+        class="mt-3 hidden p-3 border border-outline-variant rounded-lg bg-surface-container-low"
+    >
+        <div class="flex justify-between items-center">
+            <div>
+                <p
+                    id="selectedProductName"
+                    class="font-body-md text-body-md font-medium text-on-surface"
+                ></p>
+
+                <p
+                    id="selectedProductBarcode"
+                    class="font-label-md text-label-md text-secondary font-data-mono mt-0.5"
+                ></p>
+            </div>
+
+            <div class="text-right">
+                <p class="font-label-md text-label-md text-secondary">
+                    Available
+                </p>
+
+                <p
+                    id="selectedAvailableQty"
+                    class="font-headline-md text-headline-md font-data-mono text-on-surface"
+                >
+                    0
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Quantity Input & Visual Feedback -->
+<div class="hidden bg-surface p-4 rounded-lg border border-outline-variant/50">
+<div class="flex justify-between items-end mb-4">
+<div class="w-1/3">
+<label class="block font-label-md text-label-md text-secondary mb-1.5">Transfer Quantity</label>
+<input class="app-input w-full bg-surface-container-lowest border border-outline-variant rounded h-10 px-3 text-body-md font-data-mono text-on-surface focus:border-primary focus:ring-1 focus:ring-primary transition-colors outline-none" id="qty-input" min="0" type="number" value="0">
+</div>
+<div class="text-right">
+<p class="font-label-md text-label-md text-secondary mb-1">Available at Source</p>
+<p class="font-headline-md text-headline-md font-data-mono text-on-surface">2,500 <span class="text-body-sm text-secondary font-normal ml-1">units</span></p>
+</div>
+</div>
+<!-- Progress Bar Visual Feedback -->
+<div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden flex">
+<div class="h-full bg-primary transition-all duration-300 w-0" id="qty-bar-transfer"></div>
+<div class="h-full bg-secondary-container transition-all duration-300 w-full" id="qty-bar-remaining"></div>
+</div>
+<div class="flex justify-between mt-2 font-label-md text-label-md">
+<span class="text-secondary" id="feedback-msg">0 units requested</span>
+<span class="text-secondary">2,500 remaining</span>
+</div>
+</div>
+<!-- Multi-item selection -->
+<div>
+    <div class="flex items-center justify-between mb-2">
+        <label class="block font-label-md text-label-md text-secondary">Items</label>
+        <span id="transfer-item-count" class="font-label-md text-label-md text-secondary">1 item</span>
+    </div>
+    <div class="max-h-[300px] overflow-y-auto border border-outline-variant rounded-lg p-3 bg-surface-container-low">
+        <div id="transfer-item-rows" class="space-y-3"></div>
+    </div>
+    <button
+        type="button"
+        id="add-transfer-item"
+        class="mt-3 app-button app-button-outline inline-flex items-center gap-2 px-4 py-2 rounded border border-outline-variant text-primary hover:bg-surface-container transition-colors font-label-md text-label-md"
+    >
+        <span class="material-symbols-outlined text-[18px]">add</span>
+        Add Another Item
+    </button>
+</div>
+<!-- Remarks -->
+<div>
+<label class="block font-label-md text-label-md text-secondary mb-1.5">Remarks (Optional)</label>
+<textarea class="app-input w-full bg-surface-container-lowest border border-outline-variant rounded p-3 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary transition-colors outline-none resize-none" placeholder="Add notes regarding urgency or handling..." rows="3"></textarea>
+</div>
+</form>
+</div>
+<!-- Footer Actions -->
+<div class="px-6 py-4 border-t border-outline-variant bg-surface-bright rounded-b-xl flex justify-end gap-3 shrink-0">
+<button class="app-button app-button-outline px-5 py-2 rounded border border-outline-variant text-on-surface hover:bg-surface-container transition-colors font-label-md text-label-md" id="cancel-modal" type="button">
+                    Cancel
+                </button>
+<button class="app-button app-button-primary px-5 py-2 rounded bg-primary text-on-primary hover:bg-surface-tint transition-colors font-label-md text-label-md" type="button">
+                    Confirm Transfer
+                </button>
+</div>
+</div>
+</div>
+<script type="text/plain">
+document.addEventListener('DOMContentLoaded', () => {
+    // =============================
+    // Elements
+    // =============================
+
+    const openSidebarBtn =
+        document.getElementById('open-sidebar');
+
+    const closeSidebarBtn =
+        document.getElementById('close-sidebar');
+
+    const sidebar =
+        document.getElementById('sidebar');
+
+    const mobileOverlay =
+        document.getElementById('mobile-nav-overlay');
+
+    const modalOverlay =
+        document.getElementById('modal-overlay');
+
+    const btnNewTransfer =
+        document.getElementById('btn-new-transfer');
+
+    const closeModalBtn =
+        document.getElementById('close-modal');
+
+    const cancelModalBtn =
+        document.getElementById('cancel-modal');
+
+    const sourceSelect =
+        document.getElementById('sourceBranch');
+        
+        sourceSelect.addEventListener('change', async function () {
+    const branchId = this.value;
+    const productSelect =
+        document.getElementById('transferProduct');
+
+    if (!branchId) {
+        productSelect.disabled = true;
+        productSelect.innerHTML =
+            '<option value="">Select a source branch first</option>';
+        return;
+    }
+
+    productSelect.disabled = true;
+    productSelect.innerHTML =
+        '<option value="">Loading products...</option>';
+
+    try {
+        const response = await fetch(
+            `/api/inventory?branch_id=${encodeURIComponent(branchId)}`
+        );
+
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        const inventory = await response.json();
+
+        productSelect.innerHTML =
+            '<option value="">Select Product</option>';
+
+        inventory.forEach(item => {
+            const option = document.createElement('option');
+
+            option.value = item.barcode;
+            option.textContent =
+                `${item.product_name} (${item.quantity} ${item.unit})`;
+
+            productSelect.appendChild(option);
+        });
+
+        productSelect.disabled = false;
+
+    } catch (error) {
+        console.error('Failed to load transfer products:', error);
+
+        productSelect.innerHTML =
+            '<option value="">Failed to load products</option>';
+    }
+});
+      
+    const destSelect =
+        document.getElementById('destBranch');
+
+    const productSelect =
+        document.getElementById('transferProduct');
+
+    const qtyInput =
+        document.getElementById('qty-input');
+
+    const barTransfer =
+        document.getElementById('qty-bar-transfer');
+
+    const barRemaining =
+        document.getElementById('qty-bar-remaining');
+
+    const feedbackMsg =
+        document.getElementById('feedback-msg');
+
+    const productAvailability =
+        document.getElementById('productAvailability');
+
+    const selectedProductName =
+        document.getElementById('selectedProductName');
+
+    const selectedProductBarcode =
+        document.getElementById('selectedProductBarcode');
+
+    const selectedAvailableQty =
+        document.getElementById('selectedAvailableQty');
+
+    const confirmTransferBtn =
+        document.querySelector(
+            '#modal-overlay button.bg-primary'
+        );
+    confirmTransferBtn?.addEventListener('click', async function () {
+    const fromBranchId = sourceSelect.value;
+    const toBranchId = destSelect.value;
+    const barcode = productSelect.value;
+    const quantity = Number(qtyInput.value);
+
+    if (!fromBranchId || !toBranchId || !barcode || !quantity) {
+        console.error('Transfer form is incomplete.');
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/deliver', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                from_branch_id: fromBranchId,
+                to_branch_id: toBranchId,
+                barcode: barcode,
+                quantity: quantity,
+                user: 'admin'
+            })
+        });
+
+        const result = await response.json();
+
+        console.log('Transfer response:', result);
+
+        if (!response.ok) {
+            throw new Error(result.message || 'Transfer failed.');
+        }
+
+        const successMsg = document.createElement('div');
+
+successMsg.className =
+    'fixed top-6 right-6 z-[100] px-5 py-3 rounded-lg bg-secondary-container text-primary border border-primary/20 shadow-lg font-label-md';
+
+const trackingCode = result.tracking_code;
+
+successMsg.innerHTML = `
+    <div class="font-semibold mb-2">
+        Transfer created successfully
+    </div>
+
+    <div class="font-mono text-sm mb-3">
+        ${trackingCode || 'No tracking code'}
+    </div>
+
+    <svg id="transferGeneratedBarcode"></svg>
+
+    <button
+        type="button"
+        id="printTransferBarcode"
+        class="mt-3 px-3 py-2 rounded bg-primary text-white text-sm"
+    >
+        Print Barcode
+    </button>
+`; 
+    
+document.body.appendChild(successMsg);
+
+if (trackingCode && typeof JsBarcode === 'function') {
+    JsBarcode('#transferGeneratedBarcode', trackingCode, {
+        format: 'CODE128',
+        displayValue: true,
+        width: 3,
+        height: 140,
+        margin: 20
+    });
+}
+
+document
+    .getElementById('printTransferBarcode')
+    ?.addEventListener('click', () => {
+        const barcodeSvg =
+            document.getElementById('transferGeneratedBarcode');
+
+        if (!barcodeSvg) {
+            return;
+        }
+
+        const printWindow = window.open('', '_blank');
+
+        printWindow.document.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Transfer Barcode</title>
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        text-align: center;
+                        padding: 40px;
+                    }
+
+                    svg {
+                        max-width: 600px;
+                        width: 100%;
+                        height: auto;
+                    }
+
+                    @media print {
+                        body {
+                            padding: 20px;
+                        }
+                    }
+                </style>
+            </head>
+            <body>
+                <h2>Transfer Barcode</h2>
+                ${barcodeSvg.outerHTML}
+                <script>
+                    window.onload = function () {
+                        window.print();
+                    };
+                <\/script>
+            </body>
+            </html>
+        `);
+
+        printWindow.document.close();
+    });
+
+const currentSourceBranch = fromBranchId;
+
+closeModal();
+resetTransferForm();
+
+if (currentSourceBranch) {
+    sourceSelect.value = currentSourceBranch;
+    sourceSelect.dispatchEvent(new Event('change'));
+}
+
+    } catch (error) {
+        console.error('Transfer failed:', error);
+        alert(error.message || 'Transfer failed.');
+    }
+});
+    let inventoryItems = [];
+    let selectedInventoryItem = null;
+
+    // =============================
+    // Sidebar
+    // =============================
+
+    function toggleSidebar() {
+        if (sidebar) {
+            sidebar.classList.toggle('-translate-x-full');
+        }
+
+        if (mobileOverlay) {
+            mobileOverlay.classList.toggle('hidden');
+        }
+    }
+
+    openSidebarBtn?.addEventListener(
+        'click',
+        toggleSidebar
+    );
+
+    closeSidebarBtn?.addEventListener(
+        'click',
+        toggleSidebar
+    );
+
+    mobileOverlay?.addEventListener(
+        'click',
+        toggleSidebar
+    );
+
+    // =============================
+    // Modal
+    // =============================
+
+    function openModal() {
+        modalOverlay?.classList.remove('hidden');
+    }
+
+    function closeModal() {
+        modalOverlay?.classList.add('hidden');
+    }
+    function resetTransferForm() {
+    sourceSelect.value = '';
+    destSelect.value = '';
+
+    productSelect.disabled = true;
+    productSelect.innerHTML =
+        '<option value="">Select a source branch first</option>';
+
+    qtyInput.value = 0;
+
+    barTransfer.style.width = '0%';
+    barRemaining.style.width = '100%';
+
+    feedbackMsg.textContent = '0 units requested';
+
+    productAvailability.classList.add('hidden');
+
+    selectedProductName.textContent = '';
+    selectedProductBarcode.textContent = '';
+    selectedAvailableQty.textContent = '0';
+
+    inventoryItems = [];
+    selectedInventoryItem = null;
+}
+    if (btnNewTransfer) {
+    btnNewTransfer.addEventListener('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        resetTransferForm();
+        openModal();
+    });
+}
+
+    closeModalBtn?.addEventListener(
+        'click',
+        closeModal
+    );
+
+    cancelModalBtn?.addEventListener(
+        'click',
+        closeModal
+    );
+
+    // =============================
+    // Load branches
+    // =============================
+
+    async function loadTransferBranches() {
+    try {
+        const response = await fetch('/api/branches');
+
+        if (!response.ok) {
+            throw new Error(
+                `Failed to load branches: HTTP ${response.status}`
+            );
+        }
+
+        const branches = await response.json();
+
+        if (!Array.isArray(branches)) {
+            throw new Error('Invalid branches response');
+        }
+
+        // Clear existing options
+        sourceSelect.innerHTML =
+            '<option value="">Select Source</option>';
+
+        destSelect.innerHTML =
+            '<option value="">Select Destination</option>';
+
+        for (const branch of branches) {
+            const branchId = branch.id;
+            const branchName = branch.branch_name;
+
+            if (!branchId || !branchName) {
+                continue;
+            }
+
+            const sourceOption =
+                document.createElement('option');
+
+            sourceOption.value = branchId;
+            sourceOption.textContent = branchName;
+            sourceOption.dataset.branchName = branchName;
+
+            sourceSelect.appendChild(sourceOption);
+
+            const destinationOption =
+                document.createElement('option');
+
+            destinationOption.value = branchId;
+            destinationOption.textContent = branchName;
+            destinationOption.dataset.branchName = branchName;
+
+            destSelect.appendChild(destinationOption);
+        }
+
+        console.log(
+            'Branches loaded successfully:',
+            sourceSelect.options.length - 1
+        );
+
+    } catch (error) {
+        console.error(
+            'loadTransferBranches failed:',
+            error
+        );
+
+        sourceSelect.innerHTML =
+            '<option value="">Failed to load branches</option>';
+
+        destSelect.innerHTML =
+            '<option value="">Failed to load branches</option>';
+    }
+}
+
+    // =============================
+    // Initial page load
+    // =============================
+
+loadTransferBranches().catch(error => {
+    console.error('Initial branch loading failed:', error);
+});
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const modalOverlay = document.getElementById('modal-overlay');
+    const sourceSelect = document.getElementById('sourceBranch');
+    const destSelect = document.getElementById('destBranch');
+    const itemRows = document.getElementById('transfer-item-rows');
+    const itemCount = document.getElementById('transfer-item-count');
+    const addItemButton = document.getElementById('add-transfer-item');
+    const confirmButton = modalOverlay?.querySelector('button.bg-primary');
+    const closeModalButton = document.getElementById('close-modal');
+    const cancelButton = document.getElementById('cancel-modal');
+    const newTransferButton = document.getElementById('btn-new-transfer');
+    let inventoryItems = [];
+
+    const request = async (path, options = {}) => {
+        const headers = { ...(options.headers || {}) };
+        const token = localStorage.getItem('token');
+        if (token) {
+            headers.Authorization = `Bearer ${token}`;
+        }
+        if (!headers['Content-Type']) {
+            headers['Content-Type'] = 'application/json';
+        }
+        const response = await fetch(path, {
+            credentials: 'include',
+            ...options,
+            headers,
+            body: options.body && typeof options.body !== 'string'
+                ? JSON.stringify(options.body)
+                : options.body,
+        });
+        const body = await response.json().catch(() => null);
+        if (!response.ok) {
+            throw new Error(body?.message || `Request failed: HTTP ${response.status}`);
+        }
+        return body;
+    };
+
+    const printMultiProductTransfer = (transfer, fromBranch, toBranch) => {
+        const printWindow = window.open('', '_blank');
+        if (!printWindow) {
+            alert('Please allow pop-ups to print the transfer.');
+            return false;
+        }
+
+        const items = Array.isArray(transfer?.items) ? transfer.items : [];
+        const trackingCode = transfer?.tracking_code || 'N/A';
+        const itemRowsMarkup = items.map(item => `
+            <tr>
+                <td>${item.product_name || item.barcode || 'Product'}</td>
+                <td>${item.barcode || 'N/A'}</td>
+                <td>${item.quantity ?? 'N/A'}</td>
+            </tr>
+        `).join('');
+        const trackingBarcode = document.createElement('svg');
+        if (trackingCode !== 'N/A' && typeof JsBarcode === 'function') {
+            JsBarcode(trackingBarcode, trackingCode, {
+                format: 'CODE128',
+                displayValue: true,
+                width: 2,
+                height: 80,
+                margin: 12
+            });
+        }
+
+        const productLabels = items.flatMap(item => {
+            const quantity = Number(item.quantity);
+            if (!Number.isInteger(quantity) || quantity <= 0) {
+                return [];
+            }
+
+            return Array.from({ length: quantity }, () => {
+                const barcode = item.barcode || 'N/A';
+                const barcodeSvg = document.createElement('svg');
+                if (barcode !== 'N/A' && typeof JsBarcode === 'function') {
+                    JsBarcode(barcodeSvg, barcode, {
+                        format: 'CODE128',
+                        displayValue: true,
+                        width: 2,
+                        height: 70,
+                        margin: 8
+                    });
+                }
+
+                return `
+                    <div class="label">
+                        <strong>${item.product_name || 'Product'}</strong>
+                        <span>Product barcode: ${barcode}</span>
+                        <span>Unit quantity: 1</span>
+                        ${barcodeSvg.outerHTML}
+                    </div>
+                `;
+            });
+        }).join('');
+
+        printWindow.document.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Multi-Product Transfer</title>
+                <style>
+                    body { font-family: Arial, sans-serif; padding: 32px; color: #111; }
+                    h1, h2 { margin: 0 0 16px; }
+                    .meta { margin-bottom: 24px; line-height: 1.7; }
+                    .code { font-family: monospace; font-size: 18px; font-weight: 700; }
+                    table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+                    th, td { border: 1px solid #bbb; padding: 8px; text-align: left; }
+                    th { background: #f1f1f1; }
+                    .barcode { text-align: center; margin-top: 24px; }
+                    .barcode svg { max-width: 600px; width: 100%; height: auto; }
+                    .labels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 24px; }
+                    .label { border: 1px solid #bbb; padding: 12px; break-inside: avoid; text-align: center; }
+                    .label strong, .label span { display: block; margin-bottom: 6px; }
+                    .label svg { max-width: 100%; height: auto; }
+                    @media print { body { padding: 20px; } }
+                </style>
+            </head>
+            <body>
+                <h1>Transfer Manifest</h1>
+                <div class="meta">
+                    <div><strong>Tracking Code:</strong> <span class="code">${trackingCode}</span></div>
+                    <div><strong>From Branch:</strong> ${fromBranch || 'N/A'}</div>
+                    <div><strong>To Branch:</strong> ${toBranch || 'N/A'}</div>
+                </div>
+                <h2>Products</h2>
+                <table>
+                    <thead><tr><th>Product</th><th>Barcode</th><th>Quantity</th></tr></thead>
+                    <tbody>${itemRowsMarkup}</tbody>
+                </table>
+                <div class="barcode">
+                    <h2>Tracking Barcode</h2>
+                    ${trackingBarcode.outerHTML}
+                </div>
+                <h2>Individual Product Labels</h2>
+                <div class="labels">${productLabels}</div>
+                <script>
+                    window.onload = function () { window.print(); };
+                <\/script>
+            </body>
+            </html>
+        `);
+        printWindow.document.close();
+        return true;
+    };
+
+    const updateItemCount = () => {
+        const count = itemRows?.children.length || 0;
+        if (itemCount) {
+            itemCount.textContent = `${count} item${count === 1 ? '' : 's'}`;
+        }
+    };
+
+    const refreshProductOptions = () => {
+        const selectedValues = [...itemRows.querySelectorAll('.transfer-item-product')]
+            .map(select => select.value)
+            .filter(Boolean);
+
+        itemRows.querySelectorAll('.transfer-item-product').forEach(select => {
+            const currentValue = select.value;
+            [...select.options].forEach(option => {
+                option.hidden = Boolean(option.value && option.value !== currentValue && selectedValues.includes(option.value));
+            });
+        });
+    };
+
+    const createItemRow = () => {
+        const row = document.createElement('div');
+        row.className = 'transfer-item-row grid grid-cols-1 sm:grid-cols-[1fr_120px_auto] gap-3 items-end p-3 border border-outline-variant rounded-lg bg-surface-container-low';
+        row.innerHTML = `
+            <div>
+                <label class="block font-label-md text-label-md text-secondary mb-1.5">Product</label>
+                <select class="transfer-item-product app-select w-full bg-surface-container-lowest border border-outline-variant rounded h-10 px-3 text-body-md text-on-surface" required>
+                    <option value="">Select Product</option>
+                </select>
+                <p class="transfer-item-available mt-1 text-xs text-secondary">Select a product</p>
+            </div>
+            <div>
+                <label class="block font-label-md text-label-md text-secondary mb-1.5">Quantity</label>
+                <input class="transfer-item-quantity app-input w-full bg-surface-container-lowest border border-outline-variant rounded h-10 px-3 text-body-md text-on-surface" type="number" min="1" step="1" value="1" required>
+            </div>
+            <button type="button" class="remove-transfer-item app-button app-button-outline h-10 px-3 rounded border border-outline-variant text-secondary hover:text-error hover:border-error transition-colors font-label-md text-label-md">Remove</button>
+        `;
+
+        const select = row.querySelector('.transfer-item-product');
+        const quantityInput = row.querySelector('.transfer-item-quantity');
+        const availableLabel = row.querySelector('.transfer-item-available');
+
+        inventoryItems.forEach(item => {
+            const option = document.createElement('option');
+            option.value = item.product_uuid;
+            option.textContent = `${item.product_name || item.barcode} (${item.quantity} available)`;
+            option.dataset.available = item.quantity;
+            select.appendChild(option);
+        });
+
+        select.addEventListener('change', () => {
+            const item = inventoryItems.find(entry => entry.product_uuid === select.value);
+            const available = Number(item?.quantity || 0);
+            quantityInput.max = available || 0;
+            availableLabel.textContent = item ? `${available} available at source` : 'Select a product';
+            refreshProductOptions();
+        });
+
+        quantityInput.addEventListener('input', () => {
+            const item = inventoryItems.find(entry => entry.product_uuid === select.value);
+            const available = Number(item?.quantity || 0);
+            quantityInput.setCustomValidity(item && Number(quantityInput.value) > available ? `Only ${available} available.` : '');
+        });
+
+        row.querySelector('.remove-transfer-item').addEventListener('click', () => {
+            if (itemRows.children.length === 1) {
+                return;
+            }
+            row.remove();
+            updateItemCount();
+            refreshProductOptions();
+        });
+
+        itemRows.appendChild(row);
+        updateItemCount();
+        refreshProductOptions();
+    };
+
+    const loadInventory = async () => {
+        itemRows.innerHTML = '';
+        inventoryItems = [];
+        if (!sourceSelect.value) {
+            createItemRow();
+            return;
+        }
+        inventoryItems = await request(`/api/inventory?branch_id=${encodeURIComponent(sourceSelect.value)}`);
+        createItemRow();
+    };
+
+    const resetForm = () => {
+        sourceSelect.value = '';
+        destSelect.value = '';
+        inventoryItems = [];
+        itemRows.innerHTML = '';
+        createItemRow();
+    };
+
+    const loadBranches = async () => {
+        const branches = await request('/api/branches');
+        sourceSelect.innerHTML = '<option value="">Select Source</option>';
+        destSelect.innerHTML = '<option value="">Select Destination</option>';
+
+        branches.forEach(branch => {
+            if (!branch.id || !branch.branch_name) {
+                return;
+            }
+
+            [sourceSelect, destSelect].forEach(select => {
+                const option = document.createElement('option');
+                option.value = branch.id;
+                option.textContent = branch.branch_name;
+                select.appendChild(option);
+            });
+        });
+    };
+
+    sourceSelect.addEventListener('change', async () => {
+        try {
+            await loadInventory();
+        } catch (error) {
+            itemRows.innerHTML = `<p class="text-sm text-error">${error.message}</p>`;
+        }
+    });
+
+    addItemButton.addEventListener('click', () => {
+        if (!sourceSelect.value) {
+            alert('Select a source branch first.');
+            return;
+        }
+        createItemRow();
+    });
+
+    confirmButton.addEventListener('click', async () => {
+        const rows = [...itemRows.querySelectorAll('.transfer-item-row')];
+        const items = rows.map(row => ({
+            product_uuid: row.querySelector('.transfer-item-product').value,
+            quantity: Number(row.querySelector('.transfer-item-quantity').value),
+        }));
+        const selectedProducts = items.map(item => item.product_uuid).filter(Boolean);
+        const duplicateProduct = selectedProducts.find((product, index) => selectedProducts.indexOf(product) !== index);
+        const invalidItem = items.find(item => !item.product_uuid || !Number.isInteger(item.quantity) || item.quantity <= 0);
+        const insufficientItem = items.find(item => {
+            const available = inventoryItems.find(entry => entry.product_uuid === item.product_uuid)?.quantity;
+            return available !== undefined && item.quantity > Number(available);
+        });
+
+        if (!sourceSelect.value || !destSelect.value) {
+            alert('Select both source and destination branches.');
+            return;
+        }
+        if (sourceSelect.value === destSelect.value) {
+            alert('Source and destination branches must differ.');
+            return;
+        }
+        if (!items.length || invalidItem) {
+            alert('Add at least one product with a positive whole-number quantity.');
+            return;
+        }
+        if (duplicateProduct) {
+            alert('Each product can only be selected once.');
+            return;
+        }
+        if (insufficientItem) {
+            alert('One or more quantities exceed available stock.');
+            return;
+        }
+
+        confirmButton.disabled = true;
+        try {
+            const result = await request('/api/deliver/multi-product', {
+                method: 'POST',
+                body: {
+                    from_branch_id: sourceSelect.value,
+                    to_branch_id: destSelect.value,
+                    items,
+                },
+            });
+            const transfer = result.transfer || {};
+            const trackingCode = transfer.tracking_code;
+            const fromBranch = sourceSelect.options[sourceSelect.selectedIndex]?.textContent?.trim();
+            const toBranch = destSelect.options[destSelect.selectedIndex]?.textContent?.trim();
+            const successMessage = document.createElement('div');
+
+            successMessage.className = 'fixed inset-0 z-[100] flex items-center justify-center bg-black/40 px-4';
+            successMessage.innerHTML = `
+                <div class="w-full max-w-md rounded-xl bg-surface-container-lowest p-6 text-center shadow-xl">
+                    <h2 class="text-xl font-bold text-on-surface">TRANSFER COMPLETE</h2>
+                    <p class="mt-3 font-mono text-sm text-on-surface-variant">${trackingCode || 'No tracking code'}</p>
+                    <div class="mt-6 flex justify-center gap-3">
+                        <button type="button" class="rounded bg-primary px-4 py-2 text-sm font-semibold text-white" data-print-transfer>
+                            Print Transfer
+                        </button>
+                        <button type="button" class="rounded border border-outline-variant px-4 py-2 text-sm font-semibold text-on-surface" data-close-transfer>
+                            OK
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(successMessage);
+
+            successMessage.querySelector('[data-print-transfer]')?.addEventListener('click', () => {
+                if (printMultiProductTransfer(transfer, fromBranch, toBranch)) {
+                    successMessage.remove();
+                }
+            });
+            successMessage.querySelector('[data-close-transfer]')?.addEventListener('click', () => successMessage.remove());
+
+            closeModal();
+            resetForm();
+        } catch (error) {
+            alert(error.message || 'Transfer failed.');
+        } finally {
+            confirmButton.disabled = false;
+        }
+    });
+
+    const closeModal = () => modalOverlay?.classList.add('hidden');
+    newTransferButton?.addEventListener('click', event => {
+        event.preventDefault();
+        resetForm();
+        modalOverlay?.classList.remove('hidden');
+    });
+    closeModalButton?.addEventListener('click', closeModal);
+    cancelButton?.addEventListener('click', closeModal);
+    resetForm();
+    loadBranches().catch(error => {
+        console.error('Failed to load transfer branches:', error);
+    });
+});
+</script>
+<script>
+    // your existing inline JavaScript
+</script>
+
+<script src="/js/transfers.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+
+<script>
+(() => {
+    const pageSize = 5;
+    let currentPage = 1;
+
+    function getHistoryRows() {
+        try {
+            return Array.isArray(transferHistoryData) ? transferHistoryData : [];
+        } catch (error) {
+            return [];
+        }
+    }
+
+    function renderTransferHistoryPage() {
+        const rows = getHistoryRows();
+        const tableBody = document.getElementById('transfer-history-body');
+        const countElement = document.getElementById('transfer-history-count');
+        const pageStatus = document.getElementById('transfer-history-page-status');
+        const previousButton = document.getElementById('transfer-history-prev');
+        const nextButton = document.getElementById('transfer-history-next');
+        const totalPages = Math.max(1, Math.ceil(rows.length / pageSize));
+
+        currentPage = Math.min(currentPage, totalPages);
+        const start = (currentPage - 1) * pageSize;
+        const pageRows = rows.slice(start, start + pageSize);
+
+        if (tableBody) {
+            tableBody.innerHTML = pageRows.length ? pageRows.map(transfer => `
+                <tr class="hover:bg-surface-container-low/50 transition-colors">
+                    <td class="px-6 py-4 font-data-mono text-data-mono text-on-surface">TRX-${transfer.id}</td>
+                    <td class="px-6 py-4 text-body-md text-on-surface">${transfer.source}</td>
+                    <td class="px-6 py-4 text-body-md text-on-surface">${transfer.destination}</td>
+                    <td class="px-6 py-4 text-body-md text-on-surface font-medium">${transfer.product}</td>
+                    <td class="px-6 py-4 font-data-mono text-data-mono text-on-surface text-right">${transfer.quantity}</td>
+                    <td class="px-6 py-4 text-body-sm text-secondary">${transfer.date}</td>
+                    <td class="px-6 py-4"><span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-secondary-container/50 text-primary border border-primary/20"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span>${transfer.status === 'RECEIVED' ? 'Completed' : 'In Transit'}</span></td>
+                </tr>
+            `).join('') : '<tr><td colspan="7" class="px-6 py-8 text-center text-secondary">No transfer history found.</td></tr>';
+        }
+
+        if (countElement) countElement.textContent = rows.length ? `Showing ${start + 1} to ${Math.min(start + pageSize, rows.length)} of ${rows.length} entries` : 'Showing 0 entries';
+        if (pageStatus) pageStatus.textContent = `Page ${currentPage} of ${totalPages}`;
+        if (previousButton) previousButton.disabled = currentPage <= 1;
+        if (nextButton) nextButton.disabled = currentPage >= totalPages;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const previousButton = document.getElementById('transfer-history-prev');
+        const nextButton = document.getElementById('transfer-history-next');
+
+        previousButton?.addEventListener('click', event => {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            if (currentPage > 1) {
+                currentPage -= 1;
+                renderTransferHistoryPage();
+            }
+        }, true);
+
+        nextButton?.addEventListener('click', event => {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            if (currentPage < Math.max(1, Math.ceil(getHistoryRows().length / pageSize))) {
+                currentPage += 1;
+                renderTransferHistoryPage();
+            }
+        }, true);
+
+        if (typeof loadTransferHistory === 'function') {
+            loadTransferHistory().then(renderTransferHistoryPage);
+        } else {
+            renderTransferHistoryPage();
+        }
+    });
+})();
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const currentUser = JSON.parse(localStorage.getItem('user') || 'null');
+
+        if (currentUser?.role !== 'admin') {
+            document.getElementById('branches-nav-link')?.remove();
+        }
+    });
+</script>
+
+</body>
+</html>

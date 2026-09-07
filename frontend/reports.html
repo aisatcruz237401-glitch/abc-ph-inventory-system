@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Reports - MedSupply Clinical</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+  .material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+  }
+</style>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "on-secondary-fixed-variant": "#653e00",
+                "on-secondary-container": "#684000",
+                "primary": "#00685f",
+                "on-surface": "#191c1e",
+                "on-secondary": "#ffffff",
+                "on-surface-variant": "#3d4947",
+                "secondary-fixed": "#ffddb8",
+                "on-primary-fixed": "#00201d",
+                "surface-variant": "#e0e3e5",
+                "surface-container-high": "#e6e8ea",
+                "secondary-container": "#fea619",
+                "on-tertiary-container": "#fffbff",
+                "primary-fixed": "#89f5e7",
+                "outline": "#6d7a77",
+                "on-tertiary": "#ffffff",
+                "error": "#ba1a1a",
+                "on-primary-fixed-variant": "#005049",
+                "surface-container-low": "#f2f4f6",
+                "surface-tint": "#006a61",
+                "inverse-primary": "#6bd8cb",
+                "tertiary": "#bb0112",
+                "on-background": "#191c1e",
+                "surface-container": "#eceef0",
+                "surface-dim": "#d8dadc",
+                "secondary": "#855300",
+                "on-error": "#ffffff",
+                "on-error-container": "#93000a",
+                "on-primary-container": "#f4fffc",
+                "background": "#f7f9fb",
+                "on-secondary-fixed": "#2a1700",
+                "primary-fixed-dim": "#6bd8cb",
+                "surface": "#f7f9fb",
+                "outline-variant": "#bcc9c6",
+                "secondary-fixed-dim": "#ffb95f",
+                "tertiary-fixed": "#ffdad6",
+                "on-tertiary-fixed-variant": "#93000b",
+                "inverse-surface": "#2d3133",
+                "on-primary": "#ffffff",
+                "inverse-on-surface": "#eff1f3",
+                "surface-container-lowest": "#ffffff",
+                "surface-container-highest": "#e0e3e5",
+                "tertiary-container": "#e02928",
+                "surface-bright": "#f7f9fb",
+                "on-tertiary-fixed": "#410002",
+                "tertiary-fixed-dim": "#ffb4ab",
+                "primary-container": "#008378",
+                "error-container": "#ffdad6"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+        },
+        "spacing": {
+                "sm": "8px",
+                "md": "16px",
+                "base": "4px",
+                "xl": "32px",
+                "gutter": "16px",
+                "xs": "4px",
+                "container-max": "1440px",
+                "lg": "24px"
+        },
+        "fontFamily": {
+                "body-md": [
+                        "Inter"
+                ],
+                "body-lg": [
+                        "Inter"
+                ],
+                "headline-sm": [
+                        "Inter"
+                ],
+                "label-caps": [
+                        "Inter"
+                ],
+                "display-lg": [
+                        "Inter"
+                ],
+                "headline-lg-mobile": [
+                        "Inter"
+                ],
+                "data-mono": [
+                        "JetBrains Mono"
+                ],
+                "headline-md": [
+                        "Inter"
+                ]
+        },
+        "fontSize": {
+                "body-md": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "body-lg": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-sm": [
+                        "20px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "label-caps": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "display-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "700"
+                        }
+                ],
+                "data-mono": [
+                        "13px",
+                        {
+                                "lineHeight": "16px",
+                                "fontWeight": "500"
+                        }
+                ],
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "letterSpacing": "-0.01em",
+                                "fontWeight": "600"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+</head>
+<body class="bg-background text-on-surface font-body-md h-screen flex overflow-hidden">
+<!-- Side NavBar -->
+<aside class="bg-surface-container-lowest text-primary w-64 h-screen fixed left-0 top-0 border-r border-outline-variant flat no shadows flex flex-col h-full py-md px-sm transition-all duration-200 ease-in-out hidden md:flex z-40">
+<div class="px-md mb-xl flex flex-col items-center">
+<img alt="Clinic Logo" class="h-12 w-12 rounded-full mb-sm object-cover" data-alt="Minimalist abstract medical logo representing a central pharmacy or clinical supply hub. Clean lines, teal color, corporate identity, high quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_yynM53I6HGjHrzsMTqGHKAIU4kMGd6TLam40X6GXbMZX8QYuJU0EqfxKfd7Ut2GVcegKa-wdeK-rHwFrETpKcYMQrawMp9nzlQgEy0T3rdID-8gW_e9TLUn87LKn_l_SojcmS06G6CNfQmO9DArzo2YjGy8ICkWN-chXhPnetlMCFOxhJfQuy4QFf7We84dSB3C42fdC9-XtwU6MyUxC4QEorYe_vXdwYVE2Me9uSLQGE2qadV-oHQ"/>
+<h2 class="font-headline-sm text-headline-sm text-primary text-center">Central Pharmacy</h2>
+<p class="font-label-caps text-label-caps text-on-surface-variant text-center">Regional Hub A-1</p>
+</div>
+<button class="bg-primary text-on-primary font-label-caps text-label-caps py-sm px-md rounded-lg mx-md mb-xl hover:bg-surface-tint transition-colors flex items-center justify-center gap-xs">
+<span class="material-symbols-outlined" data-icon="add" data-weight="fill">add</span>
+      New Order
+    </button>
+<nav class="flex-1 space-y-xs overflow-y-auto w-full px-xs">
+<!-- Tabs -->
+<a class="flex items-center px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-caps text-label-caps gap-sm" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+        Dashboard
+      </a>
+<a class="flex items-center px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-caps text-label-caps gap-sm" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+        Inventory
+      </a>
+<a class="flex items-center px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-caps text-label-caps gap-sm" href="#">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+        Transactions
+      </a>
+<!-- Active Tab -->
+<a id="reports-nav-link" class="flex items-center gap-3 px-4 py-3 cursor-pointer group bg-secondary-container text-primary border-l-4 border-primary rounded-r-DEFAULT" href="reports.html"></a>
+    <span class="material-symbols-outlined" data-icon="analytics" style="font-variation-settings: 'FILL' 1;">analytics</span>
+    <span class="font-label-caps text-label-caps">Reports</span>
+</a>
+<a class="flex items-center px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-caps text-label-caps gap-sm" href="#">
+<span class="material-symbols-outlined" data-icon="local_shipping">local_shipping</span>
+        Deliveries
+      </a>
+</nav>
+<div class="mt-auto px-xs w-full space-y-xs">
+<a class="flex items-center px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-caps text-label-caps gap-sm" href="#">
+<span class="material-symbols-outlined" data-icon="support_agent">support_agent</span>
+        Support
+      </a>
+<a class="flex items-center px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-caps text-label-caps gap-sm" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+        Logout
+      </a>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col md:ml-64 w-full h-screen overflow-hidden bg-background">
+<!-- Top NavBar -->
+<header class="bg-surface text-primary font-body-md text-body-md w-full h-16 border-b border-outline-variant flat no shadows flex justify-between items-center px-lg sticky top-0 z-50">
+<div class="flex items-center gap-md w-1/3">
+<!-- Mobile Menu Toggle (hidden on desktop) -->
+<button class="md:hidden text-primary p-xs hover:bg-surface-container-low transition-colors rounded-full cursor-pointer active:opacity-80 flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<div class="text-headline-md font-headline-md text-primary truncate hidden md:block">MedSupply Clinical</div>
+</div>
+<div class="flex items-center w-1/3 max-w-md relative group">
+<span class="material-symbols-outlined absolute left-sm text-outline group-focus-within:text-primary transition-colors" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-xs pl-xl pr-md text-body-md font-body-md text-on-surface focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all placeholder:text-outline-variant" placeholder="Search..." type="text"/>
+</div>
+<div class="flex items-center gap-sm justify-end w-1/3">
+<button class="p-xs text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-full cursor-pointer active:opacity-80 flex items-center justify-center relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-tertiary-container rounded-full border border-surface"></span>
+</button>
+<button class="p-xs text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-full cursor-pointer active:opacity-80 flex items-center justify-center hidden sm:flex">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<button class="p-xs text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-full cursor-pointer active:opacity-80 flex items-center justify-center hidden sm:flex">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="ml-sm cursor-pointer active:opacity-80 border-l border-outline-variant pl-sm flex items-center">
+<img alt="Medical Administrator Profile" class="w-8 h-8 rounded-full object-cover border border-outline-variant" data-alt="Portrait of a medical administrator, professional lighting, wearing a lab coat, subtle hospital environment background, high detail, photorealistic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUlbRvWSgrl2LeEJImBwZ1k08pfTIX8to-RQat2ctgIcsoabJWTmdO5uHeoBPl-z141apqKXo1WO55ck4-Qqsq9Jv6LeaLsrY-xiUO1cVh1a4f7UUaUfPNsekkO75BKgkoUJceq_ekbPPf5cLwk_XtsHDByOmjnXnAGJP8bEiCNE7-bIaae2_Dig1NAmAAWVoi0mr5-_CkGvBaQuxS_RNWXa3mcho7jIfvIzSrds6BQ2r7tgsEw4sSlw"/>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 overflow-y-auto p-md md:p-lg space-y-md md:space-y-lg relative">
+<!-- Dashboard Header & Actions -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-md">
+<div>
+<h1 class="font-display-lg text-display-lg text-on-surface mb-xs">Reports</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Generate, view, and export inventory data.</p>
+</div>
+<div class="flex flex-wrap gap-sm">
+<button class="bg-surface-container-lowest border border-outline-variant text-on-surface font-label-caps text-label-caps py-sm px-md rounded-lg hover:bg-surface-container-low transition-colors flex items-center gap-xs shadow-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="picture_as_pdf">picture_as_pdf</span>
+                    Export PDF
+                </button>
+<button class="bg-surface-container-lowest border border-outline-variant text-on-surface font-label-caps text-label-caps py-sm px-md rounded-lg hover:bg-surface-container-low transition-colors flex items-center gap-xs shadow-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="table_chart">table_chart</span>
+                    Export Excel
+                </button>
+</div>
+</div>
+<!-- Report Type Selection Tabs -->
+<div class="flex gap-md border-b border-outline-variant overflow-x-auto pb-[1px]">
+<button class="font-label-caps text-label-caps text-on-surface-variant hover:text-on-surface py-sm px-xs border-b-2 border-transparent hover:border-outline transition-colors whitespace-nowrap">Current Inventory</button>
+<button class="font-label-caps text-label-caps text-primary border-b-2 border-primary font-bold py-sm px-xs whitespace-nowrap">Transaction History</button>
+<button class="font-label-caps text-label-caps text-on-surface-variant hover:text-on-surface py-sm px-xs border-b-2 border-transparent hover:border-outline transition-colors whitespace-nowrap">Consumption Report</button>
+<button class="font-label-caps text-label-caps text-on-surface-variant hover:text-on-surface py-sm px-xs border-b-2 border-transparent hover:border-outline transition-colors whitespace-nowrap">Delivery Logs</button>
+</div>
+<!-- Advanced Filter Header -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant p-md shadow-sm space-y-md">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-md items-end">
+<!-- Date Range -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Date Range</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border border-outline-variant rounded-lg py-sm px-md text-body-md font-body-md text-on-surface focus:ring-2 focus:ring-primary focus:border-primary appearance-none pr-xl">
+<option>Last 7 Days</option>
+<option selected="">Last 30 Days</option>
+<option>This Quarter</option>
+<option>Custom Range...</option>
+</select>
+<span class="material-symbols-outlined absolute right-sm top-1/2 -translate-y-1/2 text-outline pointer-events-none" data-icon="arrow_drop_down">arrow_drop_down</span>
+</div>
+</div>
+<!-- Branch -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Branch</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border border-outline-variant rounded-lg py-sm px-md text-body-md font-body-md text-on-surface focus:ring-2 focus:ring-primary focus:border-primary appearance-none pr-xl">
+<option>All Branches</option>
+<option>Main Hub</option>
+<option selected="">Regional Hub A-1</option>
+</select>
+<span class="material-symbols-outlined absolute right-sm top-1/2 -translate-y-1/2 text-outline pointer-events-none" data-icon="arrow_drop_down">arrow_drop_down</span>
+</div>
+</div>
+<!-- Category -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Category</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border border-outline-variant rounded-lg py-sm px-md text-body-md font-body-md text-on-surface focus:ring-2 focus:ring-primary focus:border-primary appearance-none pr-xl">
+<option selected="">Vaccines</option>
+<option>Syringes</option>
+<option>Cold Chain Storage</option>
+</select>
+<span class="material-symbols-outlined absolute right-sm top-1/2 -translate-y-1/2 text-outline pointer-events-none" data-icon="arrow_drop_down">arrow_drop_down</span>
+</div>
+</div>
+<!-- Status -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Action Type</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border border-outline-variant rounded-lg py-sm px-md text-body-md font-body-md text-on-surface focus:ring-2 focus:ring-primary focus:border-primary appearance-none pr-xl">
+<option>All Actions</option>
+<option>Receive (In)</option>
+<option>Dispense (Out)</option>
+</select>
+<span class="material-symbols-outlined absolute right-sm top-1/2 -translate-y-1/2 text-outline pointer-events-none" data-icon="arrow_drop_down">arrow_drop_down</span>
+</div>
+</div>
+</div>
+<!-- Search Row -->
+<div class="flex gap-sm w-full lg:w-1/2">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-sm pl-xl pr-md text-body-md font-body-md text-on-surface focus:ring-2 focus:ring-primary focus:border-primary" placeholder="Search by SKU, Item Name, or Ref No..." type="text"/>
+</div>
+<button class="bg-primary text-on-primary font-label-caps text-label-caps py-sm px-md rounded-lg hover:bg-surface-tint transition-colors">Apply Filters</button>
+</div>
+</div>
+<!-- Data Table Container -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg shadow-sm overflow-hidden flex flex-col relative min-h-[400px]">
+<!-- Optional: Loading State Overlay (commented out by default, toggle class 'hidden' to test) -->
+<div class="absolute inset-0 bg-surface-container-lowest/80 backdrop-blur-sm flex flex-col items-center justify-center z-10 hidden" id="loading-overlay">
+<span class="material-symbols-outlined animate-spin text-primary text-[48px] mb-sm" data-icon="autorenew">autorenew</span>
+<p class="font-label-caps text-label-caps text-on-surface-variant">Generating Report...</p>
+</div>
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left border-collapse min-w-[1000px]">
+<thead>
+<tr class="border-b border-outline-variant bg-surface-container-low">
+<th class="py-sm px-md font-label-caps text-label-caps text-on-surface-variant w-[140px]">Timestamp</th>
+<th class="py-sm px-md font-label-caps text-label-caps text-on-surface-variant">Action</th>
+<th class="py-sm px-md font-label-caps text-label-caps text-on-surface-variant">Item Name</th>
+<th class="py-sm px-md font-label-caps text-label-caps text-on-surface-variant">SKU / NDC</th>
+<th class="py-sm px-md font-label-caps text-label-caps text-on-surface-variant text-right">Qty</th>
+<th class="py-sm px-md font-label-caps text-label-caps text-on-surface-variant">Branch</th>
+<th class="py-sm px-md font-label-caps text-label-caps text-on-surface-variant">Ref No.</th>
+<th class="py-sm px-md font-label-caps text-label-caps text-on-surface-variant">User</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant bg-surface-container-lowest">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-md px-md font-data-mono text-data-mono text-on-surface-variant whitespace-nowrap">2023-10-27 14:32</td>
+<td class="py-md px-md">
+<span class="inline-flex items-center gap-xs px-xs py-[2px] rounded border border-primary/20 bg-primary/10 text-primary font-label-caps text-[10px]">
+<span class="material-symbols-outlined text-[12px]" data-icon="download">download</span> Receive
+                                 </span>
+</td>
+<td class="py-md px-md font-body-md text-body-md text-on-surface font-semibold">Influenza Vaccine, Quadrivalent</td>
+<td class="py-md px-md font-data-mono text-data-mono text-on-surface-variant">VXX-INF-2023-Q</td>
+<td class="py-md px-md font-data-mono text-data-mono text-on-surface text-right font-bold">+500</td>
+<td class="py-md px-md font-body-md text-body-md text-on-surface-variant">Regional Hub A-1</td>
+<td class="py-md px-md font-data-mono text-data-mono text-on-surface-variant text-xs">PO-99281-A</td>
+<td class="py-md px-md font-body-md text-body-md text-on-surface-variant text-sm">J. Smith</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors group bg-[#fafafa]">
+<td class="py-md px-md font-data-mono text-data-mono text-on-surface-variant whitespace-nowrap">2023-10-27 10:15</td>
+<td class="py-md px-md">
+<span class="inline-flex items-center gap-xs px-xs py-[2px] rounded border border-secondary/20 bg-secondary/10 text-secondary font-label-caps text-[10px]">
+<span class="material-symbols-outlined text-[12px]" data-icon="upload">upload</span> Dispense
+                                 </span>
+</td>
+<td class="py-md px-md font-body-md text-body-md text-on-surface font-semibold">Hepatitis B Vaccine (Recombinant)</td>
+<td class="py-md px-md font-data-mono text-data-mono text-on-surface-variant">VXX-HEPB-10MCG</td>
+<td class="py-md px-md font-data-mono text-data-mono text-on-surface text-right font-bold">-50</td>
+<td class="py-md px-md font-body-md text-body-md text-on-surface-variant">Clinic Branch 4</td>
+<td class="py-md px-md font-data-mono text-data-mono text-on-surface-variant text-xs">TRF-441-B</td>
+<td class="py-md px-md font-body-md text-body-md text-on-surface-variant text-sm">A. Chen</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-md px-md font-data-mono text-data-mono text-on-surface-variant whitespace-nowrap">2023-10-26 16:45</td>
+<td class="py-md px-md">
+<span class="inline-flex items-center gap-xs px-xs py-[2px] rounded border border-error/20 bg-error/10 text-error font-label-caps text-[10px]">
+<span class="material-symbols-outlined text-[12px]" data-icon="delete">delete</span> Discard
+                                 </span>
+</td>
+<td class="py-md px-md font-body-md text-body-md text-on-surface font-semibold">MMR Vaccine Live</td>
+<td class="py-md px-md font-data-mono text-data-mono text-on-surface-variant">VXX-MMR-LIVE-05</td>
+<td class="py-md px-md font-data-mono text-data-mono text-on-surface text-right font-bold text-error">-12</td>
+<td class="py-md px-md font-body-md text-body-md text-on-surface-variant">Regional Hub A-1</td>
+<td class="py-md px-md font-data-mono text-data-mono text-on-surface-variant text-xs">EXC-002-Z</td>
+<td class="py-md px-md font-body-md text-body-md text-on-surface-variant text-sm">System Admin</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low transition-colors group bg-[#fafafa]">
+<td class="py-md px-md font-data-mono text-data-mono text-on-surface-variant whitespace-nowrap">2023-10-26 09:00</td>
+<td class="py-md px-md">
+<span class="inline-flex items-center gap-xs px-xs py-[2px] rounded border border-primary/20 bg-primary/10 text-primary font-label-caps text-[10px]">
+<span class="material-symbols-outlined text-[12px]" data-icon="download">download</span> Receive
+                                 </span>
+</td>
+<td class="py-md px-md font-body-md text-body-md text-on-surface font-semibold">COVID-19 mRNA Vaccine, Bivalent</td>
+<td class="py-md px-md font-data-mono text-data-mono text-on-surface-variant">VXX-C19-BIV-30</td>
+<td class="py-md px-md font-data-mono text-data-mono text-on-surface text-right font-bold">+1000</td>
+<td class="py-md px-md font-body-md text-body-md text-on-surface-variant">Main Hub</td>
+<td class="py-md px-md font-data-mono text-data-mono text-on-surface-variant text-xs">PO-99150-C</td>
+<td class="py-md px-md font-body-md text-body-md text-on-surface-variant text-sm">M. Lopez</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Optional: Empty State (commented out, toggle to test) -->
+<!--
+             <div class="flex-1 flex flex-col items-center justify-center p-xl min-h-[300px]">
+                 <span class="material-symbols-outlined text-[48px] text-outline-variant mb-md" data-icon="search_off">search_off</span>
+                 <h3 class="font-headline-sm text-headline-sm text-on-surface mb-xs">No records found</h3>
+                 <p class="font-body-md text-body-md text-on-surface-variant text-center max-w-sm">We couldn't find any transaction records matching your current filter criteria. Try adjusting your filters or search terms.</p>
+             </div>
+             -->
+<!-- Pagination Footer -->
+<div class="mt-auto border-t border-outline-variant p-sm flex items-center justify-between bg-surface-container-low">
+<span class="font-body-md text-body-md text-on-surface-variant pl-sm">Showing 1-4 of 248 records</span>
+<div class="flex gap-xs">
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant text-on-surface-variant hover:bg-surface-container-highest disabled:opacity-50 disabled:cursor-not-allowed">
+<span class="material-symbols-outlined text-[18px]" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded bg-primary text-on-primary font-body-md text-sm font-semibold">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant text-on-surface hover:bg-surface-container-highest font-body-md text-sm">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant text-on-surface hover:bg-surface-container-highest font-body-md text-sm">3</button>
+<span class="w-8 h-8 flex items-center justify-center text-on-surface-variant font-body-md text-sm">...</span>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant text-on-surface-variant hover:bg-surface-container-highest">
+<span class="material-symbols-outlined text-[18px]" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+<script>
+      // Simple interaction demonstration for filters
+      const filterBtn = document.querySelector('button.bg-primary');
+      const overlay = document.getElementById('loading-overlay');
+      
+      if(filterBtn && overlay) {
+          filterBtn.addEventListener('click', () => {
+              overlay.classList.remove('hidden');
+              setTimeout(() => {
+                  overlay.classList.add('hidden');
+              }, 800);
+          });
+      }
+  </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const currentUser = JSON.parse(localStorage.getItem('user') || 'null');
+
+    if (currentUser?.role !== 'admin') {
+        document.getElementById('reports-nav-link')?.remove();
+    }
+});
+</script>
+
+</body></html>
